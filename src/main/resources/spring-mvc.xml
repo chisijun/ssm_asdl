@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- spring 包的扫描
+ 1)dao
+ 2)service (@Service)
+ 3)controller(@Controller)
+ 4).....
+ -->
+    <context:component-scan base-package="org.study.asdl" />
+
+    <!-- 自动代理aop -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+    <!-- spring mvc 注解及类型转换 -->
+    <!--<mvc:annotation-driven conversion-service="conversionService" />-->
+    <!-- 注册RequestMappingHandlerMapping 和RequestMappingHandlerAdapter 两个bean。-->
+
+
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    </bean>
+
+	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->    
+    <bean id="mappingJacksonHttpMessageConverter"    
+        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    
+        <property name="supportedMediaTypes">    
+            <list>    
+                <value>text/html;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>    
+            </list>    
+        </property>    
+    </bean>
+
+    <!-- spring mvc 视图解析器 -->
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+        <property name="prefix" value="/admin/pages/" />
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    <!-- 文件上传需要配置此解析器
+       找类的快捷键为:ctrl+shift+t
+       查看本类方法：ctrl+o,假如想继续看父类方法继续ctrl+o
+    -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="utf-8" />
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="10485760000" />
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960" />
+    </bean>
+
+	<!-- 配置校验器 -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <!-- 校验器，使用hibernate校验器 -->
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 指定校验使用的资源文件，在文件中配置校验错误信息，如果不指定则默认使用classpath下面的ValidationMessages.properties文件 -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <!-- 校验错误信息配置文件 -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <!-- 资源文件名 -->
+        <!--
+        <property name="basenames">
+            <list>
+                <value>classpath:validation</value>
+            </list>
+        </property>
+        -->
+        <!-- 资源文件编码格式 -->
+        <property name="fileEncodings" value="utf-8"/>
+        <!-- 对资源文件内容缓存时间，单位秒 -->
+        <property name="cacheSeconds" value="120"/>
+    </bean>
+
+	<!-- 添加注解驱动 -->
+    <mvc:annotation-driven validator="validator" conversion-service="conversionService">
+        <mvc:argument-resolvers>
+            <bean class="org.study.asdl.resolvers.CurrentUserMethodArgumentResolver"/>
+        </mvc:argument-resolvers>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.study.asdl.utils.JsonObjectMapper"></bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+	<!-- 配置拦截器, -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 具体匹配原则可以百度
+                /**的意思是所有文件夹及里面的子文件夹
+                /*是所有文件夹，不含子文件夹
+                /是web项目的根目录
+            -->
+            <mvc:mapping path="/**"/>
+            <bean class="org.study.asdl.interceptor.AuthorizationInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <mvc:default-servlet-handler/>
+</beans>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd 
+       					   http://www.springframework.org/schema/tx 
+       					   http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations" >
+            <list><value>classpath:mapper/*.xml</value></list>
+        </property>
+        <!-- 输出mybatis的执行日志 -->
+        <property name="plugins">
+            <array>
+                <bean class="org.study.asdl.interceptor.SqlStatementInterceptor">
+                    <property name="properties">
+                        <value>
+                            property-key=property-value
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+         <!--Spring 属性配置方法-->
+        <!--<property name="plugins">
+		    <array>
+		      <bean class="com.github.pagehelper.PageHelper">
+		        <property name="properties">
+		          <value>
+		            dialect=mysql
+		          </value>
+		        </property>
+		      </bean>
+		    </array>
+		</property>-->
+    </bean>
+
+    <!-- Mapper接口所在包，Spring会自动查找其下的Mapper -->
+    <bean
+            class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage"
+                  value="org.study.asdl.dao"/>
+    </bean>
+    <!-- 定义事务管理对象 -->
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--设置注解驱动的事务管理  -->
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+</beans>
