@@ -1,17 +1,16 @@
 package org.study.asdl.netty;
 
-import java.util.Date;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.study.asdl.netty.entity.RelayCmdWidEntity;
+import org.study.asdl.utils.ApplicationContextUtil;
 
 import javax.annotation.Resource;
 
@@ -19,8 +18,10 @@ import javax.annotation.Resource;
 @ChannelHandler.Sharable
 public class MyServerHanlder extends ChannelInboundHandlerAdapter {
 
-	@Resource
-	private RelayMessageHandler relayMessageHandler;
+//	@Resource
+//	private RelayMessageHandler relayMessageHandler;
+	static RelayMessageHandler relayMessageHandler = (RelayMessageHandler)
+		ApplicationContextUtil.getBean("relayMessageHandler");
 
 	@Override
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {

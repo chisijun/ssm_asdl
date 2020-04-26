@@ -28,6 +28,11 @@
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
     </bean>
 
+    <!-- applicationContext 注解工具类 -->
+    <bean id="applicationContextUtil" class ="org.study.asdl.utils.ApplicationContextUtil"></bean >
+
+    <bean id="relayMessageHandler" class="org.study.asdl.netty.RelayMessageHandler" />
+
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->    
     <bean id="mappingJacksonHttpMessageConverter"    
         class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    
