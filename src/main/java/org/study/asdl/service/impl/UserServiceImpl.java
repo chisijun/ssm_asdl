@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.study.asdl.base.BaseService;
 import org.study.asdl.dao.UserMapper;
 import org.study.asdl.model.domain.User;
+import org.study.asdl.model.dto.CheckLoginNameDto;
 import org.study.asdl.model.dto.ModifyPwdDto;
 import org.study.asdl.model.dto.UserQueryDto;
 import org.study.asdl.model.enums.UserTypeEnum;
@@ -21,6 +22,7 @@ import org.study.asdl.model.vo.UserVo;
 import org.study.asdl.service.UserService;
 import org.study.asdl.utils.MD5;
 import org.study.asdl.utils.PublicUtil;
+import tk.mybatis.mapper.entity.Example;
 
 
 import javax.annotation.Resource;
@@ -157,6 +159,32 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		user.setLoginPwd(password);
 		
 		return userMapper.updateByPrimaryKeySelective(user);
+	}
+
+	/**
+	 * 校验登录名是否位置
+	 *
+	 * @param checkLoginNameDto the check login name dto
+	 *
+	 * @return the boolean
+	 * true登录名唯一 false-登录名不唯一
+	 */
+	@Override
+	public boolean checkLoginName(CheckLoginNameDto checkLoginNameDto) {
+
+		Long id = checkLoginNameDto.getUserId();
+		String loginName = checkLoginNameDto.getLoginName();
+
+		Example example = new Example(User.class);
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("loginName", loginName);
+		if (id != null) {
+			criteria.andNotEqualTo("id", id);
+		}
+
+		int result = selectCountByExample(example);
+
+		return result < 1;
 	}
 
 }

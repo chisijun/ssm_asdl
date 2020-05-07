@@ -101,4 +101,19 @@ public class UserVo extends BaseVo {
      */
     private Date pwdErrorTime;
 
+    /**
+     * 角色ID
+     */
+    private Long roleId;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
+    /**
+     * 角色编码
+     */
+    private String roleCode;
+
 }

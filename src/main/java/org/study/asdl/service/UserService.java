@@ -3,6 +3,7 @@ package org.study.asdl.service;
 import com.github.pagehelper.PageInfo;
 import org.study.asdl.base.IService;
 import org.study.asdl.model.domain.User;
+import org.study.asdl.model.dto.CheckLoginNameDto;
 import org.study.asdl.model.dto.ModifyPwdDto;
 import org.study.asdl.model.dto.UserQueryDto;
 
@@ -76,5 +77,15 @@ public interface UserService extends IService<User> {
 	 * @date 2019年6月10日
 	 */
 	Integer modifyPwd(ModifyPwdDto modifyPwdDto, User login);
+
+	/**
+	 * 校验登录名是否位置
+	 *
+	 * @param checkLoginNameDto	the check login name dto
+	 *
+	 * @return	the boolean
+	 * true登录名唯一 false-登录名不唯一
+	 */
+	boolean checkLoginName(CheckLoginNameDto checkLoginNameDto);
 
 }
