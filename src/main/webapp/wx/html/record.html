@@ -1,0 +1,100 @@
+<!--
+  Created by PC on 2018/1/5.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=break-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <title>供热管理系统</title>
+
+    <link rel="stylesheet" href="../css/Myless.css">
+</head>
+
+<body>
+    <div class="record">
+        <!--头部-->
+        <div class="header">
+            <a id="head-back" href="javascript:void (0);" class="back"><img src="../images/back_icon.png" alt="图片">&nbsp;返回</a>
+            支付记录
+        </div>
+        <div class="control">
+            <div class="top">
+                <p>
+                    <span>支付方式</span>
+                    <span>支付金额</span>
+                    <span>支付时间</span>
+                </p>
+            </div>
+            <div class="content">
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a href="javascript:window.location.href='management.html';" id="management">
+                <img src="../images/zuoye_icon02.png" alt="图片">
+                <span>作业管理</span>
+            </a>
+            <a href="javascript:window.location.href='self.html';" id="self">
+                <img src="../images/zhiwo_icon02.png" alt="图片">
+                <span>智我</span>
+            </a>
+            <a href="javascript:window.location.href='account.html';" id="account">
+                <img src="../images/jizhangben_icon03.png" alt="图片">
+                <span class="span-color">记账本</span>
+            </a>
+            <a href="javascript:window.location.href='serve.html';" id="serve">
+                <img src="../images/fuwu_icon02.png" alt="图片">
+                <span>服务印记</span>
+            </a>
+        </div>
+    </div>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/pub.js"></script>
+    <script src="../js/WFang.js"></script>
+    <script>
+        $(document).ready(function() {
+            layui.use('layer', function() {
+                //头部返回上一页按键
+                $('body').on('click', '#head-back', function() {
+                    window.location.href = 'pay.html';
+                });
+                getData();
+                //记账本
+                function getData() {
+                    WFang("Record/recordShowById", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            var html = '';
+                            if (arr.data != '') {
+                                for (var i = 0; i < arr.data.length; i++) {
+                                    html += '<p>' +
+                                        '<span>' + arr.data[i].payType + '</span>' +
+                                        '<span><b>¥</b>' + arr.data[i].amount + '</span>' +
+                                        '<span>' + arr.data[i].payDate + '</span>' +
+                                        '</p>';
+                                }
+                                $('.content').html(html);
+                            } else {
+                                html = '<p>' +
+                                    '<span><b>无</b></span>' +
+                                    '<span><b>无</b></span>' +
+                                    '<span><b>无</b></span>' +
+                                    '</p>';
+                                $('.content').html(html);
+                            }
+                        }
+                    }, {}, 'get', '', '', 'html/record.html')
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

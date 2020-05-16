@@ -1,0 +1,184 @@
+<!--
+  Created by PC on 2018/1/5.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=break-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <title>供热管理系统</title>
+
+    <link rel="stylesheet" href="../css/Myless.css">
+</head>
+
+<body>
+    <div class="pay">
+        <!--头部-->
+        <div class="header">
+            <a id="head-back" href="javascript:void (0);" class="back"><img src="../images/back_icon.png" alt="图片">&nbsp;返回</a>
+            我要支付
+            <!--
+            <a id="pay-record" href="javascript:void (0);" class="home">支付记录</a>
+            -->
+        </div>
+        <div class="pay-box">
+            <!--<div class="money div-box">-->
+            <!--<span>总金额</span><input type="number" placeholder="0.00"><span>元</span>-->
+            <!--</div>-->
+            <div class="div-box">
+                <p>转账金额</p>
+                <p class="yuan">
+                    <span class="left">¥</span>
+                    <input class="money right" type="number" readonly="readonly" placeholder="金额只能输入整数">
+                    <span class="span-right">元</span>
+                </p>
+            </div>
+            <div class="div-box">
+                <textarea class="test"></textarea>
+            </div>
+            <div class="pay zfb div-box" data-ind="0">
+                <img src="../images/zhi_icon.png" alt="图片">
+                <span>支付宝支付</span>
+                <img src="../images/gouxuan_icon01.jpg" class="icon">
+            </div>
+            <!--
+            <div class="pay yl div-box" data-ind="1">
+                <img src="../images/yinlian_icon.png" alt="图片">
+                <span>银联支付</span>
+                <img src="../images/gouxuan_icon1.png" class="icon">
+            </div>
+            -->
+            <div class="div-box text-center">
+                <a class="sure" href="javascript:void (0);">确认转账</a>
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a href="javascript:window.location.href='management.html';" id="management">
+                <img src="../images/zuoye_icon02.png" alt="图片">
+                <span>房子管理</span>
+            </a>
+            <a href="javascript:window.location.href='payment_list.html';" id="self">
+                <img src="../images/jizhangben_icon03.png" alt="图片">
+                <span class="span-color">缴费单</span>
+            </a>
+            <a href="javascript:window.location.href='apply_list.html';" id="account">
+                <img src="../images/fuwu_icon02.png" alt="图片">
+                <span>停栓复热</span>
+            </a>
+            <a href="javascript:window.location.href='my.html';" id="serve">
+                <img src="../images/zhiwo_icon02.png" alt="图片">
+                <span>我的</span>
+            </a>
+        </div>
+    </div>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/pub.js"></script>
+    <script type="text/javascript" src="../js/ap.js"></script>
+    <script src="../js/WFang.js"></script>
+    <script>
+        $(document).ready(function() {
+            layui.use('layer', function() {
+
+                var search=location.search;
+                var params={};
+                if (params!='') {
+                    var ps = search.slice(1).split('&');
+                    for (var i=0;i<ps.length;i++) {
+                        var arr=ps[i].split('=');
+                        params[arr[0]]=arr[1];
+                    }
+                }
+                var paymentNo = params.paymentNo;
+
+                var fee = window.sessionStorage.getItem("fee");
+                var couponId = window.sessionStorage.getItem("couponId");
+
+                $('.money').val(fee);
+
+                var payType = '', //付款方式，1 银联；2 支付宝
+                    totalAmount = '',
+                    content = '';
+                //头部返回上一页按键
+                $('body').on('click', '#head-back', function() {
+                    window.location.href = 'payment_detail.html?paymentNo=' + paymentNo;
+                });
+                //还款记录
+                $('body').on('click', '#pay-record', function() {
+                    window.location.href = 'record.html';
+                });
+                //支付备注
+                $('.test').html('添加备注（50字以内）');
+                $('.test').focus(function() {
+                    $(this).html('');
+                });
+                $('.money').blur(function() {
+                    if ($('.money').val() == '') {
+                        layer.msg('金额不能为空!')
+                    } else if (parseInt($('.money').val()) != $('.money').val()) {
+                        $('.money').val('');
+                        layer.msg('金额只能输入整数!')
+                    }
+                })
+                $('.test').blur(function() {
+                    $(this).html('添加备注（50字以内）');
+                });
+                //确认订单
+                $('body').on('click', '.sure', function() {
+                    if ($('.test').val() == "添加备注（50字以内）") {
+                        $('.test').val('');
+                    }
+                    var token = ApiConf.token;
+                    var totalAmount = $('.money').val();
+                    var body = encodeURI($('.test').val());
+                    if (totalAmount == '') {
+                        layer.msg('金额不能为空');
+                    } else {
+                        if ($('.zfb').attr('data-ind') == "0") {
+                            payType = '2';
+                            var url = ApiConf.server +
+                                "payment/aliPay?token=" + ApiConf.token +
+                                "&payType=" + payType +
+                                "&totalAmount=" + totalAmount +
+                                "&body=" + body +
+                                "&paymentNo=" + paymentNo +
+                                "&couponId=" + couponId;
+                            _AP.pay(ApiConf.server +
+                                "payment/aliPay?token=" + ApiConf.token +
+                                "&payType=" + payType +
+                                "&totalAmount=" + totalAmount +
+                                "&body=" + body +
+                                "&paymentNo=" + paymentNo + 
+                                "&couponId=" + couponId);
+                        } else if ($('.yl').attr('data-ind') == "0") {
+                            payType = '1';
+                            window.location.href = ApiConf.server +
+                                "payment/aliPay?token=" + ApiConf.token +
+                                "&payType=" + payType +
+                                "&totalAmount=" + totalAmount +
+                                "&body=" + body +
+                                "&paymentNo=" + paymentNo + 
+                                "&couponId=" + couponId;
+                        }
+                    }
+                });
+                //切换支付方式
+                $('body').on('click', '.pay', function() {
+                    if ($(this).attr('data-ind') == "1") {
+                        $(this).attr('data-ind', '0');
+                        $($(this).children()[2]).attr('src', '../images/gouxuan_icon01.jpg');
+                        $($(this).siblings('.pay')[0]).attr('data-ind', '1');
+                        $($($(this).siblings('.pay')[0]).children()[2]).attr('src', '../images/gouxuan_icon1.png');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

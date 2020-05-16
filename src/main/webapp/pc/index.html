@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<link rel="shortcut icon" href="favicon.png">
+
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" href="css/myCss.css">
+<link rel="stylesheet" href="css/pcCss.css">
+
+<title>供热管理系统</title>
+</head>
+<body>
+<header class="navbar-wrapper">
+	<div class="navbar navbar-fixed-top">
+		
+		<div class="container-fluid cl"> 
+			<!-- <img src="images/logo.png" alt="pic"> -->
+			<img src="images/asdl_login.png" alt="pic" class="biaoti">
+			<span id="spanData">2017年9月26日 星期二 11:25:47</span>
+			
+			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+				<ul class="cl ulBox">
+					<li><img src="images/user.png" alt="pic">
+						<i class="user"></i>
+					</li>
+					<li class="exit" style="cursor:pointer;">退出</li>
+				</ul>
+			</nav>
+		</div>
+		<div class="top_fenlan">
+			<div class="top_fenlan1"><i></i>菜单功能</div>
+			<div class="top-menu">
+				<ul class="top-menu-ul">
+					<li data-title="用户列表">
+						<a class="top-menu-a" data-href="user_list.html" data-title="用户列表" href="javascript:void(0)">用户列表</a>
+						<img class="del-top" src="images/delete_icon.png" alt="">
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
+
+<aside class="Hui-aside">
+	<div class="menu_dropdown bk_2">
+		<dl id="menu-picture">
+			<dt><img src="images/user_icon.png" alt="pic"> &nbsp;&nbsp;用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a class="left-menu" data-href="user_list.html" data-title="用户档案" href="javascript:void(0)">用户档案</a></li>
+					<li><a class="left-menu" data-href="user_history.html" data-title="历史入住记录" href="javascript:void(0)">历史入住记录</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-comments">
+			<dt><img src="images/icon4.png" alt="pic"> &nbsp;缴费管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a class="left-menu" data-href="payment_list.html" data-title="缴费单列表" href="javascript:void(0)">缴费单列表</a></li>
+					<li><a class="left-menu" data-href="coupon_list.html" data-title="优惠劵列表" href="javascript:void(0)">优惠劵列表</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-comments">
+			<dt><img src="images/icon4.png" alt="pic"> &nbsp;票据管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a class="left-menu" data-href="ticket_list.html" data-title="票据列表" href="javascript:void(0)">票据列表</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-product">
+			<dt><img src="images/icon3.png" alt="pic"> &nbsp;&nbsp;停热复栓管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a class="left-menu" data-href="apply_list.html" data-title="停热复栓列表" href="javascript:void(0)">停热复栓列表</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-comments">
+			<dt><img src="images/xinxikanban_icon.png" alt="pic"> &nbsp;数据统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a class="left-menu" data-href="payment_total.html" data-title="缴费统计" href="javascript:void(0)">缴费统计</a></li>
+					<li><a class="left-menu" data-href="apply_total.html" data-title="停热复栓统计" href="javascript:void(0)">停热复栓统计</a></li>
+					<li><a class="left-menu" data-href="room_total.html" data-title="供暖统计" href="javascript:void(0)">供暖统计</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-base">
+			<dt><img src="images/icon1.png" alt="pic"> &nbsp;基础数据<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a class="left-menu" data-href="room_management.html" data-title="房间管理" href="javascript:void(0)">房间管理</a></li>
+					<li><a class="left-menu" data-href="building_management.html" data-title="楼栋管理" href="javascript:void(0)">楼栋管理</a></li>
+					<li><a class="left-menu" data-href="area_management.html" data-title="小区管理" href="javascript:void(0)">小区管理</a></li>
+					<li><a class="left-menu" data-href="site_management.html" data-title="热站管理" href="javascript:void(0)">热站管理</a></li>
+					<li><a class="left-menu" data-href="room_type_list.html" data-title="房子单价" href="javascript:void(0)">房子单价</a></li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+</aside>
+
+<footer class="footer-container">
+	<div class="navbar navbar-fixed-bottom" style="background-color: #227EE1;">
+		<!--<div class="buttom_fenlan"></div>-->
+		<div class="footer-text">1.0-2019.05.025 | 鄂ICP备xxxxxxx号 | &copy;2010-2025 XXX System Technology Co.Ltd版权所有</div>
+	</div>
+</footer>
+
+<!-- <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)" style="left:-14px;"></a></div> -->
+
+<section class="Hui-article-box">
+	
+	<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
+		
+		<div class="Hui-tabNav-wp">
+			<ul id="min_title_list" class="acrossTab cl">
+				
+			</ul>
+		</div>
+		
+		<div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a><a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a></div>
+	</div>
+	
+	<div id="iframe_box" class="Hui-article">
+		<div class="show_iframe">
+			<div style="display:none" class="loading"></div>
+			<iframe id="Myframe" name="Myframe" scrolling="yes" frameborder="0" src="user_list.html"></iframe>
+		</div>
+	</div>
+</section>
+
+
+
+<div class="contextMenu" id="Huiadminmenu">
+	<ul>
+		<li id="closethis">关闭当前 </li>
+		<li id="closeall">关闭全部 </li>
+	</ul>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<!--<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-->
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="lib/layui/layui.js"></script>
+<script type="text/javascript" src="js/WFang.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script>
+	  //握手
+	  // var socket = null;
+	  // 判断浏览器是否支持Websocket
+	  // if('WebSocket' in window){
+	  // 	socket = new WebSocket("ws://www.51cs8.com/Dryer/websocket");
+	  // 	console.log('WebSocket连接成功！')
+	  // }else{
+	  // 	alert('当前浏览器不支持使用websocket，建议使用chrome或者火狐浏览器！')
+	  // }
+      
+	  // 接收服务器的消息
+      // socket.onmessage=function(ev){
+      //     console.log(ev.data);
+      //     if(ev.data=='refresh'){
+          	// var href = $('iframe').attr('src');
+          	// var dizhi = $('iframe').children('body')
+          	// console.log(dizhi);
+          // }
+      // };
+
+      //关闭WebSocket连接
+   //    function closeWebSocket() {
+   //       socket.close();
+   //    }
+   //    window.onbeforeunload = function(event) { 
+   //    	closeWebSocket();
+	  // }
+
+
+	/*头部时间*/
+$(document).ready(function(){
+	layui.use('layer', function(){
+		$('body').on('click','.exit',function(){
+			//暂无接口  前端自己注销
+		// logout();
+		layer.msg("退出登录");
+		$.cookie("rmbUser", "false", { expire: -1 });
+	    $.cookie("username", "", { expires: -1 });
+	    $.cookie("password", "", { expires: -1 });
+	    window.sessionStorage.setItem('tk_uname','');
+		setTimeout("window.location.href='login.html'",1800);
+	
+	});
+});
+    showTime();
+    $('.user').html(window.sessionStorage.getItem('tk_uname'));
+	/**************************浏览器快捷键修改(ctrl+R 刷新)****************/
+	document.addEventListener('keydown', function(e){
+		if(e.keyCode == 82 && e.ctrlKey){
+			alert(1);//你想执行的功能写在这里。
+			e.preventDefault();
+			return false;
+		}
+	}, false);
+	/*************************左侧栏点击生成头部栏*************************/
+	$('body').on('click','.left-menu',function(){
+		var list=$('.top-menu-ul').children();
+		var tet=$(this).html();
+		var href=$(this).attr('data-href');
+		var html='';
+		//循环结束判断 0 未结束 1 结束
+		var isFor='0';
+		//是否存在对应的标签 0 不存在 1 存在
+		var isHas='0';
+		for(var i=0;i<=list.length;i++){
+			//判断遍历是否结束
+			if(i!=list.length){
+				//遍历未结束
+				if($($(list[i])).attr('data-title')==tet){
+					//已存在
+					isHas='1';
+					return;
+				}else if($($(list[i])).attr('data-title')!=tet){
+					//不存在
+					isHas='0';
+				}
+			}else if(i==list.length){
+				//遍历结束
+				isFor='1';
+			}
+		}
+		if(isFor=='1'&&isHas=='0'){
+			html='<li data-title="'+tet+'">'+
+					'<a class="top-menu-a" data-href="'+href+'" data-title="'+tet+'" href="javascript:void(0)">'+tet+'</a>'+
+					'<img class="del-top" src="images/delete_icon.png" alt="">'+
+					'</li>';
+			$('.top-menu-ul').append(html);
+		}
+	});
+	//删除当前头部栏
+	$('body').on('click','.del-top',function(){
+		var lilist = $('.top-menu-ul').children();
+		if(lilist.length==1){
+			return;
+		}else{
+			$($(this).parent()).remove();
+			var list = $('.top-menu-ul').children('li:last-child').children('a');
+			var href = list.attr('data-href');
+			var herf1 = href.substring(0,href.length-5);
+			var iframe = $('iframe');
+			iframe.attr('src',href);
+		}
+	});
+	/*************************判断是否有历史登录页面*****************************/
+	// var isHref='1';
+	// if(isHref=='1'){
+	// 	var Href='moneyCare.html';
+	// 	var Title='我的账本';
+	// 	isHrefFnc(Href,Title)
+	// }
+	// function isHrefFnc(Href,Title){
+	// 	var bStop = false,
+	// 			bStopIndex = 0,
+	// 			href = Href,
+	// 			title = Title,
+	// 			topWindow = $(window.parent.document),
+	// 			show_navLi = topWindow.find("#min_title_list li"),
+	// 			iframe_box = topWindow.find("#iframe_box");
+	// 	//console.log(topWindow);
+	// 	if(!href||href==""){
+	// 		alert("data-href不存在，v2.5版本之前用_href属性，升级后请改为data-href属性");
+	// 		return false;
+	// 	}if(!title){
+	// 		alert("v2.5版本之后使用data-title属性");
+	// 		return false;
+	// 	}
+	// 	if(title==""){
+	// 		alert("data-title属性不能为空");
+	// 		return false;
+	// 	}
+	// 	show_navLi.each(function() {
+	// 		if($(this).find('span').attr("data-href")==href){
+	// 			bStop=true;
+	// 			bStopIndex=show_navLi.index($(this));
+	// 			return false;
+	// 		}
+	// 	});
+	// 	if(!bStop){
+	// 		creatIframe(href,title);
+	// 		min_titleList();
+	// 	}
+	// 	else{
+	// 		show_navLi.removeClass("active").eq(bStopIndex).addClass("active");
+	// 		iframe_box.find(".show_iframe").hide().eq(bStopIndex).show().find("iframe").attr("src",href);
+	// 	}
+	// }
+});
+// document.onkeydown = function (e) {
+//             var ev = window.event || e;
+//             var code = ev.keyCode || ev.which;
+//             if (code == 116) {
+//                 ev.keyCode ? ev.keyCode = 0 : ev.which = 0;
+//                 cancelBubble = true;
+//                 return false;
+//             }
+//         } //禁止f5刷新
+function checkTime(i){
+	if(i<10){
+		i="0"+i;
+	}
+		return i;
+}
+function showTime(){
+	var date=$("#spanData");
+	var mydate=new Date;
+	var y=mydate.getFullYear();
+	var m=mydate.getMonth()+1;
+	var d=mydate.getDate();
+	var w=mydate.getDay();
+	var h=mydate.getHours();
+	var f=mydate.getMinutes();
+	var s=mydate.getSeconds();
+	f=checkTime(f);
+	s=checkTime(s);
+	var week="";
+	var week=['星期日','星期一','星期二','星期三 ','星期四','星期五','星期六'];
+	date.html(y+"年"+m+"月"+d+"日"+" "+week[w]+" "+h+":"+f+":"+s);
+	setTimeout(showTime,1000);
+}
+
+
+</script>
+</body>
+</html>

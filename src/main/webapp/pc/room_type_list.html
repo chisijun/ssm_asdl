@@ -1,0 +1,308 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+    <style>
+
+    </style>
+</head>
+
+<body style="background:#65A6EA;width:1254px;" class="ifram">
+    <div class="wrapper-container room_type_list">
+        <!--搜索框-->
+        <div class="search-box">
+            
+            <input class="isPhone" type="text" placeholder="请输入房间类型名称" />
+            <button class="searchBtn">搜索</button>
+            <!-- <button class="addBtn">新建</button> -->
+        </div>
+        <!--table数据-->
+        <div class="table-box">
+            <div class="table-head">
+            </div>
+            <div class="table-body">
+            </div>
+        </div>
+        <!--分页-->
+        <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+    </div>
+
+    <!--新增-->
+    <div class="add_mask" id="add_mask">
+        <div class="mask_contain" style="height: 250px;">
+            <div class="mask_top">新增热站<span class="close1">&times;</span></div>
+            <div class="form" style="padding-bottom:0;">
+                <div><span>热站名称：</span><input id="siteName" type="text" placeholder="请输入热站名称"></div><br>
+                <div><span>热站说明：</span><input id="remark" type="text" placeholder="请输入热站说明"></div><br>
+            </div>
+            <div class="mask_btn"><button class="comfire" id="add_site">确认</button><button class="cansle">取消</button></div>
+        </div>
+    </div>
+
+    <!-- 编辑 -->
+    <div class="modify_mask">
+        <input type="hidden" id="m_id" value="">
+        <div class="mask_contain" style="height:250px;">
+            <div class="mask_top">修改供热单价<span class="close5">&times;</span></div>
+            <div class="modify_box">
+                <div><span>供热名称：</span><input id="m_roomTypeName" type="text" readonly="readonly"></div><br>
+                <div><span>供热单价：</span><input id="m_price" type="text" placeholder="请输入供热单价"></div>
+                <div class="delete_btn"><button class="modify_comfire" id="update_site" style="margin-top:18px;">确认</button><button class="modify_cansle">取消</button></div>
+            </div>
+         </div>
+    </div>
+
+    <!--确认删除-->
+    <div class="delete_mask">
+        <input type="hidden" id="d_siteId" value="">
+        <div class="mask_contain">
+            <div class="mask_top">删除热站<span class="close3">&times;</span></div>
+            <div class="delete_title">是否删除选中热站？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="del_user">确认</button><button class="delete_cansle">取消</button></div>
+        </div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+            //设备明细跳转
+            $('body').on('click', '.a-deviceInfo', function() {
+                var userId = $(this).attr('data-userId');
+                window.location.href = 'deviceDetails.html?userId=' + userId;
+            });
+            //服务印记跳转
+            $('body').on('click', '.a-mark', function() {
+                var userId = $(this).attr('data-userId');
+                window.location.href = 'serviceMark.html?userId=' + userId;
+            });
+            //页面渲染 
+            var name = '';
+            getData(1, name);
+
+            function getData(pageNo, name) {
+                var pageNo = pageNo;
+                var pageSize = 8;
+
+                var data = {
+                    "pageNum": pageNo,
+                    "pageSize": pageSize,
+                    "siteName": name
+                };
+                WFang("room/queryRoomTypeListWithPage", function(arr) {
+                    // console.log(arr);
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        //分页
+                        laypage.render({
+                            elem: 'page', //容器
+                            pages: arr.data.pages, // 总页数
+                            count: arr.data.total, //总条数
+                            theme: '#0D3D89', //主题
+                            last: '末页', //最后一页
+                            limit: '8', //每页条数限制
+                            curr: arr.data.pageNum, //当前页
+                            prev: '<em><</em>', //上一页
+                            next: '<em>></em>', //下一页
+                            layout: ['count', 'prev', 'page', 'next', 'skip'],
+                            jump: function(obj, first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                if (!first) {
+                                    addStas = 0;
+                                    getData(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                }
+                            }
+                        });
+                        var html = '',
+                            html1 = '',
+                            wStatus = '',
+                            nStatus = '',
+                            lock = '',
+                            color = ''
+                            roomType = '';
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            layer.msg('暂无数据!');
+                        } else {
+                            html1 = 
+                                '<span>房子类型名称</span>' +
+                                '<span>房子类型单价(￥/㎡)</span>' +
+                                '<span>操作</span>';
+                            $('.table-head').html(html1);
+                            
+                            for (var i = 0; i < arr.data.list.length; i++) {
+
+                                html += 
+                                    '<div class="div-box">' +
+                                    '<span>' + arr.data.list[i].roomTypeName + '</span>' +
+                                    '<span>' + arr.data.list[i].price + '</span>' +
+                                    '<span>' +
+                                    '<a class="a-edit" data-roomTypeName = "' 
+                                        + arr.data.list[i].roomTypeName + '" data-price = "' 
+                                        + arr.data.list[i].price + '" data-id="' 
+                                        + arr.data.list[i].id + '" href="javascript:void (0);">编辑</a>' +
+                                    // '<a class="a-delete" data-siteId="' + arr.data.list[i].id + '" href="javascript:void (0);">删除</a>' +
+                                    '</span>' +
+                                    '</div>';
+                            }
+                            
+                           $('.table-body').html(html);
+                        }
+                    }
+
+                }, data, 'postForm')
+            }
+            
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".cansle",function(){
+                $(".add_mask").hide();
+            });
+            
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".close1",function(){
+                $(".add_mask").hide();
+            });
+            
+            
+            /***********************根据名称查询*****************************/
+            $('body').on('click', '.searchBtn', function() {
+                var name = $('.isPhone').val();
+                getData(1, name);
+            });
+
+
+            /***********************关闭-编辑弹框*****************************/
+            $('body').on("click",".close5",function(){
+                $(".modify_mask").hide();
+            });
+
+            /***********************编辑弹框*****************************/
+            $('body').on('click', '.a-edit', function() {
+                var id = $(this).attr('data-id');
+                var roomTypeName = $(this).attr('data-roomTypeName');
+                var price = $(this).attr('data-price');
+                $("#m_id").val(id);
+                $("#m_roomTypeName").val(roomTypeName);
+                $("#m_price").val(price);
+
+                $(".modify_mask").show();
+            });
+
+            /***********************编辑-确定****************************/
+            $('body').on("click",".modify_comfire", function(){
+                var id = $("#m_id").val();
+                var price = $("#m_price").val();
+                var data = {
+                    "id": id,
+                    "price": price
+                };
+                WFang("room/modifyRoomType", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".modify_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+            
+
+            /***********************关闭弹框弹框*****************************/
+            $('body').on("click",".modify_cansle",function(){
+                $(".modify_mask").hide();
+            });
+
+
+            /***********************添加房间弹框*****************************/
+            $('body').on('click', '.addBtn', function() {
+                $("#add_mask").show();
+                $("#siteName").val("");
+                $("#remark").val("");
+            });
+
+            /***********************添加实现*****************************/
+            $("body").on("click","#add_site",function() {
+                var siteName = $("#siteName").val();
+                var remark = $("#remark").val();
+                var data = {
+                    "siteName": siteName,
+                    "remark": remark
+                };
+                WFang("site/save", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".add_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+            /***********************删除弹框*****************************/
+            $('body').on('click', '.a-delete', function() {
+                var siteId = $(this).attr('data-siteId');
+                $("#d_siteId").val(siteId);
+                $(".delete_mask").show();
+            });
+
+            /***********************关闭删除弹框*****************************/
+            $('body').on('click', '.delete_cansle', function() {
+                $(".delete_mask").hide();
+            });
+
+            /***********************关闭删除弹框*****************************/
+            $('body').on("click",".close3",function(){
+                $(".delete_mask").hide();
+            });
+
+            /***********************删除实现*****************************/
+            $('#del_user').click(function() {
+                var siteId = $("#d_siteId").val();
+                var pageNo = $('.layui-input').val();
+                WFang("site/deleteById/" + siteId, function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".delete_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, '', 'postForm')
+            });
+        });
+    </script>
+</body>
+
+</html>

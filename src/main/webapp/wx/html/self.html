@@ -1,0 +1,246 @@
+<!--
+  Created by PC on 2017/12/27.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=motor-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <title>供热管理系统</title>
+
+    <link rel="stylesheet" href="../css/Myless.css">
+</head>
+
+<body>
+    <div class="self">
+        <!--头部-->
+        <div class="header">
+            智&nbsp;&nbsp;我
+        </div>
+        <div class="search-box">
+            <!--智我-->
+            <div class="line-box" style="font-size:0.38rem">
+                <div class="line-div line-bottom">
+                    <img src="../images/shengfen_icon.png" alt="图片">
+                    <span>身份证件</span>
+                    <span class="span-right">
+          <a id="look" class="a" href="javascript:void (0);">查看</a>
+        </span>
+                </div>
+                <div class="line-div line-bottom">
+                    <img src="../images/GPS_icon.png" alt="图片">
+                    <span>GPS定位</span>
+                    <span class="span-right address" style="top:-0.01rem;right: 0.2rem">--</span>
+                </div>
+                <div class="line-div line-bottom">
+                    <img src="../images/zuoyeliang_icon.png" alt="图片">
+                    <span>累计作业量</span>
+                    <span class="span-right"><b class="time workLoad"></b>&nbsp;吨</span>
+                </div>
+                <div class="line-div line-bottom">
+                    <img src="../images/zuoyeshichang_icon.png" alt="图片">
+                    <span>累计作业时间</span>
+                    <span class="span-right"><b class="time workTime"></b>&nbsp;小时</span>
+                </div>
+                <div class="line-div line-bottom">
+                    <img src="../images/guzhangzhenduan_icon.png" alt="图片">
+                    <span>故障诊断</span>
+                    <span class="span-right wStatus"></span>
+                </div>
+                <div class="line-div">
+                    <img src="../images/hetong_icon.png" alt="图片">
+                    <span>与（<b class="name"></b>）签订的合同</span>
+                    <span class="span-right">
+          <a id="down" class="a" href="javascript:void (0);">查看</a>
+        </span>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a href="javascript:window.location.href='management.html';" id="management">
+                <img src="../images/zuoye_icon02.png" alt="图片">
+                <span>作业管理</span>
+            </a>
+            <a href="javascript:window.location.href='self.html';" id="self">
+                <img src="../images/zhiwo_icon03.png" alt="图片">
+                <span class="span-color">智我</span>
+            </a>
+            <a href="javascript:window.location.href='account.html';" id="account">
+                <img src="../images/jizhangben_icon02.png" alt="图片">
+                <span>记账本</span>
+            </a>
+            <a href="javascript:window.location.href='serve.html';" id="serve">
+                <img src="../images/fuwu_icon02.png" alt="图片">
+                <span>服务印记</span>
+            </a>
+        </div>
+        <!--查看身份证图片-->
+        <div class="card-img">
+            <img id="cardImg" src="" alt="图片">
+            <img id="closeImg" src="../images/xx_icon.png" alt="图片">
+        </div>
+        <!--查看合同图片-->
+        <div class="hetong-img">
+            <img id="hetongImg" src="" alt="图片">
+            <img id="htCloseImg" src="../images/xx_icon.png" alt="图片">
+        </div>
+    </div>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/pub.js"></script>
+    <script type="text/javascript" src="../js/ap.js"></script>
+    <script type="text/javascript" src="../js/ap.js"></script>
+    <script type="text/javascript" src="../js/jquery.base64.js"></script>
+    <script src="../js/WFang.js"></script>
+    <script>
+        $(document).ready(function() {
+            layui.use('layer', function() {
+                //点击查card
+                $('body').on('click', '#look', function() {
+                	var url = $('#hetongImg').attr('src');
+                	//alert(url);
+                    $('.card-img').attr('style', 'display:block;')
+                });
+                //点击退出查看card
+                $('body').on('click', '#closeImg', function() {
+                    $('.card-img').attr('style', 'display:none;')
+                });
+                
+                //点击查合同
+                $('body').on('click', '#down', function() {
+                	var url = $('#cardImg').attr('src');
+                	//alert(url);
+                    $('.hetong-img').attr('style', 'display:block;')
+                });
+                //点击退出查看合同
+                $('body').on('click', '#htCloseImg', function() {
+                    $('.hetong-img').attr('style', 'display:none;')
+                });
+                
+                getData();
+                //数据初始化
+                function getData() {
+                    WFang("user/deviceShowById", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            var name = arr.data.company;
+                            $('.name').text(name);
+                            if (arr.data != '') {
+                                //card图片路径
+                                $('#cardImg').attr('src', arr.data.card);
+                                //合同图片路径
+                                $('#hetongImg').attr('src', arr.data.contract);
+                                
+                                //GPS定位
+                                if (arr.data.address != '') {
+                                    $('.address').html(arr.data.address);
+                                }
+                                //累计作业量
+                                $('.workLoad').html(arr.data.workLoad);
+                                //累计作业时间
+                                $('.workTime').html(arr.data.workTime);
+                                //合同下载路径
+                                $('#down').attr('data-src', arr.data.contract);
+                            }
+                        }
+                    }, {}, 'postForm', '', '', 'html/self.html')
+                }
+                //通过form下载
+                /*
+                $('#down').click(function() {
+                    var url = $(this).attr('data-src');
+                    var u = navigator.userAgent;
+                    var ios = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                    if (ios) {
+                        window.location.href = "down.htm?goto=" + ApiConf.server + "Resource/downUrl?url=" + url;
+                    } else {
+                        window.location.href = ApiConf.server + "Resource/downUrl?url=" + url;
+                    }
+                });
+				*/
+                //查询作业管理显示选中的设备当前状况
+                var sn = window.localStorage.getItem('sn');
+                //alert(sn);
+                getDataBysn(sn)
+
+                function getDataBysn(sn) {
+                    WFang("Device/deviceRealTimeBySn", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                        // 显示所有的故障
+                        if (arr.data.wStatus == '0') { //0 检测中  1 故障
+                        	$('.wStatus').html('检测中');
+                            $('.wStatus').css('color', 'black');
+                            // 判断是否联网
+                            if (arr.data.nStatus == '0') {
+                        		$('.wStatus').html('未联网');
+                        		$('.wStatus').css('color', 'red');
+                        	}
+                        } else {
+                        	var wStatus = "故障";
+                        	if (arr.data.nStatus == '0') {
+                        		wStatus = wStatus + "/未联网";
+                        	}
+                        	$('.wStatus').html(wStatus);
+                            $('.wStatus').css('color', 'red');
+                        }
+                        // 联网情况下才显示故障状态
+                        /*
+                            if (arr.data.nStatus == '0') {
+                                $('.wStatus').html('未联网');
+                                $('.wStatus').css('color', 'black');
+                            } else {
+                                //故障诊断
+                                if (arr.data.wStatus == '0') { //0 检测中  1 故障
+                                    $('.wStatus').html('检测中');
+                                    $('.wStatus').css('color', 'black');
+                                } else if (arr.data.wStatus == '1') {
+                                    $('.wStatus').html('故障');
+                                    $('.wStatus').css('color', 'red');
+                                }
+                            }
+                            */
+                        }
+                    }, {
+                        'sn': sn
+                    }, 'postForm', '', '', '')
+                }
+
+
+                // 测试
+                // getDataByss(sn)
+                // function getDataByss(sn=''){
+                //     WFang("Device/weChatDeviceRealTime", function(arr) {
+                //         if (arr.status == false) {
+                //             layer.msg(arr.message);
+                //         } else {
+                //             console.log(arr)
+                //             if(arr.data.nStatus == '0'){
+                //                 $('.wStatus').html('未联网');
+                //                 $('.wStatus').css('color','black');
+                //             }else{
+                //                 //故障诊断
+                //                 if (arr.data.wStatus == '0') { //0 检测中  1 故障
+                //                     $('.wStatus').html('检测中');
+                //                     $('.wStatus').css('color','black');
+                //                 } else if (arr.data.wStatus == '1') {
+                //                     $('.wStatus').html('故障');
+                //                     $('.wStatus').css('color','red'); 
+                //                 }
+                //             }
+                //         }
+                //     }, {'sn':sn}, 'postForm', '', '', '')
+                // }
+            });
+        });
+    </script>
+</body>
+
+</html>

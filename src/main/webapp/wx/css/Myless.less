@@ -1,0 +1,1329 @@
+/**
+ * Created by PC on 2017/12/26.
+ */
+
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a{
+  cursor: pointer;
+}
+ul{
+  list-style-type: none;
+}
+html{
+  max-width: 750px;
+  height: 100%;
+  margin: 0 auto;
+}
+body{
+  position: relative;
+  height: 100%;
+  background-color: #F7F7F7;
+}
+*{
+  margin: 0;
+  padding: 0;
+}
+.col-3{
+  width: 25%;
+}
+.col-6{
+  width: 50%;
+}
+@bule: #65a6ea;
+@dbule: #227fe1;
+
+/*最终版页面基调颜色*/
+@lbule: #80bedc;//淡蓝
+@ldblue: #62b0d5;//蓝
+@lred: #ef434f;//红
+@lgreed: #90c50f;//绿
+
+/*****电机状态背景颜色******/
+//开机65a6ea
+@on:#65a6ea;
+//停机227fe1
+@stop:#227fe1;
+//故障ef4343
+@break:#ef4343;
+//运行08cf6f
+@run:#08cf6f;
+
+.header{
+  height: 0.89rem;
+  width: 100%;
+  font-size: 0.36rem;
+  color: white;
+  background-color: @lbule;
+  line-height: 0.89rem;
+  text-align: center;
+  .back{
+    position: absolute;
+    left: 0.2rem;
+    color: white;
+    font-size: 0.28rem;
+    img{
+      width: 0.2rem;
+      height: 0.34rem;
+      vertical-align: middle;
+    }
+  }
+  .home{
+    position: absolute;
+    right: 0.2rem;
+    color: white;
+    font-size: 0.28rem;
+    img{
+      width: 0.48rem;
+      height: 0.45rem;
+      vertical-align: middle;
+    }
+  }
+}
+
+.footer{
+  width: 100%;
+  padding: 0 0.2rem;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #D2D2D2;
+  background-color: #F7F7F7;
+  a{
+    display: inline-block;
+    width: 20%;
+    height: 1rem;
+    font-size: 0.18rem;
+    text-align: center;
+    color: #727272;
+    span{
+      display: block;
+    }
+  }
+  .span-color{
+    color: @ldblue;
+  }
+  #management{
+    img{
+      width: 0.46rem;
+      height: 0.46rem;
+    }
+  }
+  #self{
+    img{
+      width: 0.34rem;
+      height: 0.46rem;
+    }
+  }
+  #account{
+    img{
+      width: 0.54rem;
+      height: 0.46rem;
+    }
+  }
+  #serve{
+    img{
+      width: 0.46rem;
+      height: 0.46rem;
+    }
+  }
+}
+//带有上下阴影外边框的盒子div
+.line-box{
+  cursor: pointer;
+  box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+  background-color: white;
+  min-height: 1rem;
+  width: 100%;
+  font-size: 0.32rem;
+  .line-div{
+    //width: 100%;
+    height: 0.88rem ;
+    padding: 0.14rem;
+    padding-bottom: 0;
+    position: relative;
+    span{
+      display: inline-block;
+    }
+    .span-right{
+      position: absolute;
+      right: 0.5rem;
+      top: 0.2rem;
+    }
+    img{
+      vertical-align: middle;
+      width: 0.7rem;
+      height: 0.7rem;
+    }
+  }
+  .line-bottom{
+    border-bottom: 1px solid #DEDEDE;
+  }
+}
+
+/**************login.html**************/
+.login{
+  position: absolute;
+  background: url("../images/loding_backg.png") no-repeat center;
+  background-size: cover;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index: 1;
+  .logo{
+    padding: 1.2rem;
+    text-align: center;
+    img{
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+  .login-box{
+    width: 5.5rem;
+    margin: 0 auto;
+    margin-top: 6.5rem;
+    input{
+      position: absolute;
+      width: 4.5rem;
+      height: 0.8rem;
+      border-radius: 0.4rem;
+      padding-left: 0.92rem;
+      border: 1px solid #fff;
+    }
+    .pos-img{
+      position: relative;
+      height: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+    .user-img{
+      position: absolute;
+      top:0.24rem;
+      left:0.4rem;
+      width: 0.32rem;
+      height: 0.34rem;
+    }
+    .del-img{
+      position: absolute;
+      top:0.24rem;
+      right:0.4rem;
+      width: 0.32rem;
+      height: 0.34rem;
+      cursor: pointer;
+    }
+    .forget-a{
+      position: absolute;
+      top:0.24rem;
+      right:0.4rem;
+      font-size: 0.24rem;
+      cursor: pointer;
+      color: #a2a2a2;
+    }
+    .pwd-img{
+      position: absolute;
+      top:0.24rem;
+      left:0.4rem;
+      width: 0.32rem;
+      height: 0.34rem;
+      cursor: pointer;
+    }
+    .putCode{
+      position: absolute;
+      left: 0;
+      width: 3.5rem;
+      height: 0.8rem;
+      #in-vcode{
+        width: 2.5rem;
+      }
+    }
+    .getCode{
+      position: absolute;
+      right: 0;
+      width: 1.5rem;
+      height: 0.8rem;
+      margin-left: 0.5rem;
+      #get-vcode{
+        width: 1.5rem;
+        padding:0;
+        background: url("../images/fasong_bg.png") no-repeat center;
+        border: none;
+        color: white;
+        font-size: 0.2rem;
+      }
+    }
+    #login{
+      display: inline-block;
+      width: 5.5rem;
+      height:0.8rem;
+      text-align: center;
+      color: white;
+      font-size: 0.32rem;
+      background-color: @bule;
+      line-height: 0.8rem;
+      border-radius: 0.4rem;
+    }
+    .back-login{
+      text-align: right;
+      padding-right: 0.2rem;
+      position: relative;
+      a{
+        position: absolute;
+        top:0.5rem;
+        right: 0.2rem;
+        font-size: 0.24rem;
+        color: #000;
+        text-decoration: underline;
+      }
+    }
+    .go-loginFast{
+      position: relative;
+      label{
+        position: absolute;
+        font-size: 0.24rem;
+        left: 0.2rem;
+        top: 0.5rem;
+        img{
+          cursor: pointer;
+          width: 0.24rem;
+          height: 0.24rem;
+        }
+      }
+      a{
+        position: absolute;
+        right: 0.2rem;
+        top: 0.5rem;
+        font-size: 0.24rem;
+        color: #000;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+/**************index.html**************/
+.index{
+  .header{
+    background-color: @dbule;
+  }
+  .single{
+    width: 100%;
+    height: 4rem;
+    background-color: @bule;
+    .img{
+      text-align: center;
+      img{
+        margin-top: 0.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+    .name{
+      text-align: center;
+      color: white;
+      height: 0.34rem;
+      width: 100%;
+      font-size: 0.32rem;
+    }
+  }
+  .modal{
+    width: 100%;
+    position: relative;
+    .modal-box{
+      //background: url("../images/shouye_bg.png") no-repeat center;
+      top:-1.2rem;
+      left: 0.1rem;
+      position: relative;
+      width: 7.32rem;
+      height: 4.2rem;
+      img{
+        width: 100%;
+      }
+      .row-box{
+        position: relative;
+        top:-4.6rem;
+        .row{
+          cursor: pointer;
+          width: 5.72rem;
+          height: 0.6rem;
+          margin: 0 auto;
+          border-bottom: 1px solid #DCDCDC;
+          margin-bottom: 0.2rem;
+          .row-left{
+            position: absolute;
+            top: 0.01rem;
+            left: 1rem;
+            width: 0.3rem;
+            height: 0.45rem;
+          }
+          .row-right{
+            position: absolute;
+            top: 0.1rem;
+            right: 0.9rem;
+            width: 0.14rem;
+            height: 0.26rem;
+          }
+          .span{
+            position: absolute;
+            top: 0.01rem;
+            left: 1.6rem;
+            font-size: 0.3rem;
+            color: #666666;
+          }
+        }
+        .device{}
+        .break{
+          .row-left{
+            top: 0.91rem;
+            width: 0.36rem;
+            height: 0.24rem;
+          }
+          .row-right{
+            top: 0.9rem;
+          }
+          .span{
+            top: 0.81rem;
+          }
+        }
+        .pay{
+          .row-left{
+            top: 1.68rem;
+            width: 0.34rem;
+            height: 0.34rem;
+          }
+          .row-right{
+            top: 1.7rem;
+          }
+          .span{
+            top: 1.61rem;
+          }
+        }
+        .charg{
+          .row-left{
+            top: 2.48rem;
+            width: 0.28rem;
+            height: 0.32rem;
+          }
+          .row-right{
+            top: 2.5rem;
+          }
+          .span{
+            top: 2.41rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**************device.html**************/
+.device,.break{
+  .header{
+    background-color: @dbule;
+  }
+  .search{
+    width: 100%;
+    height: 0.5rem;
+    margin: 0.3rem 0;
+    .search-box{
+      position: relative;
+      width: 4.7rem;
+      height: 0.5rem;
+      margin: 0 auto;
+      input{
+        padding-left: 0.1rem;
+        position: absolute;
+        top: 0;
+        width: 4rem;
+        height: 0.48rem;
+        border: 1px solid @dbule;
+        border-right: none;
+        border-radius: 0.08rem 0 0 0.08rem;
+      }
+      img{
+        position: absolute;
+        top:0;
+        left: 4rem;
+        height: 0.52rem;
+        width: 0.7rem;
+      }
+    }
+  }
+  .device-list,.break-list{
+    width: 100%;
+    font-size: 0.2rem;
+    ul{
+      li{
+        width: 100%;
+        background-color: @bule;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        span{
+          display: inline-block;
+          font-size: 0.24rem;
+          color: white;
+          text-align: center;
+        }
+        .span-left{
+          width: 25%;
+        }
+        .span-center{
+          width: 40%;
+        }
+        .span-right{
+          width: 30%;
+        }
+      }
+      .tab{
+        .tab-li{
+          background-color: @bule;
+        }
+      }
+    }
+    .data{
+      .data-li{
+        cursor: pointer;
+        background-color: white;
+        span{
+          color: #303030;
+        }
+        .span-left{
+          border-right: 1px solid #DCDCDC;
+        }
+        .span-center{
+          border-right: 1px solid #DCDCDC;
+        }
+      }
+    }
+    .data li:nth-child(even) {
+      background-color: #EAEAEA;
+    }
+  }
+}
+
+/**************break.html**************/
+.break{
+
+  .search{
+    width: 100%;
+    height: 0.5rem;
+    margin: 0.3rem 0;
+    .search-box{
+      position: relative;
+      width: 7rem;
+      height: 0.5rem;
+      margin: 0 auto;
+      .start,.end{
+        float: left;
+        width: 3.5rem;
+        height: 0.5rem;
+      }
+      .span{
+        font-size: 0.22rem;
+        position: absolute;
+        top: 0;
+        width: 1.2rem;
+        line-height: 0.5rem;
+        height: 0.5rem;
+        display: inline-block;
+      }
+      input{
+        padding-left: 0.1rem;
+        position: absolute;
+        top: 0;
+        left: 1.2rem;
+        width: 2rem;
+        height: 0.48rem;
+        border: 1px solid @dbule;
+        border-radius: 0.08rem;
+      }
+      .end{
+        input{
+          left: 4.7rem;
+        }
+      }
+    }
+  }
+  @media screen and (max-width:370px){
+    .search{
+      width: 100%;
+      height: 1.3rem;
+      margin: 0.3rem 0;
+      .search-box{
+        position: relative;
+        width: 4.5rem;
+        height: 1.3rem;
+        margin: 0 auto;
+        .start,.end{
+          width: 100%;
+          height: 0.5rem;
+        }
+        .span{
+          font-size: 0.22rem;
+          position: absolute;
+          top: 0;
+          width: 1.8rem;
+          line-height: 0.5rem;
+          height: 0.5rem;
+          display: inline-block;
+        }
+        input{
+          padding-left: 0.1rem;
+          position: absolute;
+          top: 0;
+          left: 1.8rem;
+          width: 2.5rem;
+          height: 0.48rem;
+          border: 1px solid @dbule;
+          border-radius: 0.08rem;
+        }
+        .end{
+          .span{
+            top:0.8rem;
+          }
+          input{
+            left: 1.8rem;
+            top: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**************detail.html**************/
+.detail{
+  .header{
+    background-color: @dbule;
+  }
+  .detail-list{
+    .detail-box{
+      padding: 0 0.16rem;
+      border-top: 1px solid #C2C2C2;
+      border-bottom: 1px solid #C2C2C2;
+      margin-bottom: 0.13rem;
+      box-shadow: 0 0.01rem 0.099rem 0.01rem rgba(55, 55, 55, 0.5);
+      .row{
+        cursor: pointer;
+        font-size: 0.32rem;
+        position: relative;
+        width: 100%;
+        height: 0.7rem;
+        padding-bottom: 0.16rem;
+        margin-top: 0.16rem;
+        border-bottom: 1px solid #D2D2D2;
+        .img{
+          img{
+            position: absolute;
+            top:0;
+            left:0;
+            width: 0.7rem;
+            height: 0.7rem;
+          }
+        }
+        .span-left{
+          position: absolute;
+          top: 0;
+          left: 1rem;
+          line-height: 0.7rem;
+        }
+        .span-right{
+          position: absolute;
+          top: 0;
+          right: 0;
+          line-height: 0.7rem;
+        }
+        .sn{
+          color: @dbule;
+        }
+
+        .device-status{
+          top:0.1rem;
+          img{
+            width: 0.3rem;
+            height: 0.48rem;
+          }
+        }
+      }
+    }
+    .detail-box div:last-child{
+      border-bottom: none;
+    }
+    .box-top{
+      height: 2.1rem;
+    }
+    .box-center{
+      height: 6.3rem;
+    }
+    .box-bottom{
+      height: 1.1rem;
+    }
+  }
+}
+
+/**************motor.html**************/
+.motor{
+  .header{
+    background-color: @ldblue;
+  }
+  .motor-list{
+    .motor-box{
+      height: 8.9rem;
+      padding: 0 0.16rem;
+      border-top: 1px solid #C2C2C2;
+      border-bottom: 1px solid #C2C2C2;
+      margin-top: 0.1rem;
+      box-shadow: 0 0.01rem 0.099rem 0.01rem rgba(55, 55, 55, 0.5);
+      .row{
+        font-size: 0.32rem;
+        position: relative;
+        width: 100%;
+        height: 0.56rem;
+        padding-bottom: 0.24rem;
+        margin-top: 0.3rem;
+        border-bottom: 1px solid #D2D2D2;
+        .span-left{
+          position: absolute;
+          top: 0;
+          left: 0.1rem;
+          height: 0.56rem;
+          line-height: 0.56rem;
+        }
+        .span-right{
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: 0.56rem;
+          line-height: 0.56rem;
+          border-radius: 0.08rem;
+          color: white;
+          padding: 0 0.12rem;
+          font-size: 0.32rem;
+        }
+        .on{
+          background-color: @on;
+        }
+        .stop{
+          background-color: @stop;
+        }
+        .break{
+          background-color: @break;
+        }
+        .run{
+          background-color: @run;
+        }
+      }
+    }
+    .motor-box div:last-child{
+      border-bottom: none;
+    }
+  }
+}
+
+/**************pay.html**************/
+.pay{
+  .header{
+    background-color: @ldblue;
+  }
+  .pay-box{
+    margin-top: 0.2rem;
+    padding: 0.5rem 0 ;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+    .div-box{
+      padding: 0 0.5rem;
+      p{
+        font-size: 0.32rem;
+      }
+      .yuan{
+        border-bottom: 1px solid #B5B5B5;
+        margin-top: 0.1rem;
+        .left{
+          font-size: 0.56rem;
+          width: 0.6rem;
+        }
+        .right{
+          background-color: transparent;
+          text-align: left;
+          width: 4rem;
+          font-size: 0.4rem;
+        }
+        .span-right{
+          width: 1rem;
+          text-align: right;
+        }
+      }
+      span{
+        font-size: 0.32rem;
+        width: 2rem;
+        display: inline-block;
+      }
+      input{
+        text-align: right;
+        border: none;
+        padding-right: 0.2rem;
+      }
+    }
+    .test{
+      width: 6.3rem;
+      padding: 0.1rem;
+      height: 1rem;
+      margin-top: 0.2rem;
+      border: 1px solid #d2d2d2;
+      border-radius: 5px;
+      color: #666666;
+    }
+    .pay{
+      cursor: pointer;
+      padding: 0 0.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #d2d2d2;
+      img{
+        vertical-align: bottom;
+        width: 0.8rem;
+      }
+      span{
+        width: 3rem;
+        display: inline-block;
+      }
+      .icon{
+        display: inline-block;
+        width: 0.4rem;
+        height: 0.4rem;
+        margin-left: 1.8rem;
+        vertical-align: middle;
+      }
+    }
+    .def{
+      padding-left: 0;
+      img{
+        width: 100%;
+      }
+    }
+    .text-center{
+      text-align: center;
+    }
+    .sure{
+      text-align: center;
+      line-height: 1.2rem;
+      font-size: 0.48rem;
+      color: white;
+      cursor: pointer;
+      margin-top: 1rem;
+      display: inline-block;
+      width: 5rem;
+      background-color: @lbule;
+      height: 1.2rem;
+      border-radius: 0.8rem;
+    }
+  }
+}
+
+/**************management.html**************/
+.management{
+  .search-box{
+    width: 100%;
+    .device-sn{
+      position: relative;
+      width: 1.5rem;
+      height: 0.5rem;
+      display: inline-block;
+      line-height: 0.92rem;
+      margin-left: 1.2rem;
+      span{
+        display: inline-block;
+        width: 1.78rem;
+        height: 0.5rem;
+        line-height: 0.5rem;
+        position: absolute;
+        top:0;
+        left: 0;
+        padding: 0 5px;
+        font-size: 0.28rem;
+      }
+    }
+    .device-name{
+      position: relative;
+      width: 3.2rem;
+      height: 0.5rem;
+      border: 1px solid @lbule;
+      border-radius: 5px;
+      display: inline-block;
+      line-height: 0.92rem;
+      margin-left: 0;
+      a{
+        display: inline-block;
+        position: absolute;
+        top:0;
+        right: 0;
+        width: 0.48rem;
+        height: 0.5rem;
+        background-color: @lbule;
+        img{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      span{
+        display: inline-block;
+        width: 1.78rem;
+        height: 0.5rem;
+        line-height: 0.5rem;
+        position: absolute;
+        top:0;
+        left: 0;
+        padding: 0 5px;
+        font-size: 0.28rem;
+      }
+      ul{
+        display: none;
+        z-index: 999;
+        background-color: white;
+        position: absolute;
+        width: 3.18rem;
+        max-height: 2rem;
+        overflow: auto;
+        top:0.5rem;
+        left: 0;
+        border: 1px solid @lbule;
+        li{
+          cursor: pointer;
+          height: 0.5rem;
+          line-height: 0.5rem;
+          padding: 0 5px;
+          font-size: 0.28rem;
+        }
+      }
+    }
+    .search-box{
+      position: relative;
+      width: 3.6rem;
+      height: 0.5rem;
+      border: 1px solid @lbule;
+      border-radius: 5px;
+      display: inline-block;
+      line-height: 0.92rem;
+      margin-left: 0.2rem;
+      input{
+        display: inline-block;
+        width: 2.7rem;
+        height: 0.5rem;
+        line-height: 0.5rem;
+        position: absolute;
+        border: none;
+        border-radius: 5px;
+        top:0;
+        left: 0;
+        padding: 0 5px;
+        font-size: 0.28rem;
+      }
+      a{
+        display: inline-block;
+        position: absolute;
+        top:0;
+        right: 0;
+        width: 0.9rem;
+        height: 0.5rem;
+        background-color: @lbule;
+        img{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .control{
+    margin-top: 0.2rem;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+    margin-bottom: 0.2rem;
+    .top{
+      font-size: 0.24rem;
+      font-weight: bold;
+      color: white;
+      background-color: @lbule;
+    }
+    p{
+      height: 0.6rem;
+      width: 100%;
+      span{
+        display: inline-block;
+        width: 30%;
+        line-height: 0.6rem;
+        text-align: center;
+      }
+    }
+    .content{
+      font-size: 0.2rem;
+      p{
+        height: 0.8rem;
+        span{
+          line-height: 0.8rem;
+        }
+        span:nth-child(2){
+          border-left: 1px solid #DCDCDC;
+        }
+        span:nth-child(3){
+          border-left: 1px solid #DCDCDC;
+        }
+      }
+      p:nth-child(2n-1){
+        background-color: white;
+      }
+      p:nth-child(2n){
+        background-color: #EAEAEA;
+      }
+    }
+  }
+  #motor{
+    .span-right{
+      img{
+        width: 0.3rem;
+        height: 0.48rem;
+      }
+    }
+  }
+}
+
+/**************self.html**************/
+.self{
+  .card-img{
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top:0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 999;
+    img{
+      margin: 0 auto;
+      display: inherit;
+      margin-top: 2rem;
+      width: 7rem;
+    }
+    #closeImg{
+      cursor: pointer;
+      width: 0.8rem;
+      height: 0.8rem;
+      margin-top: 0.5rem;
+    }
+  }
+  .address{
+    width: 4rem;
+  }
+  .search-box{
+    padding-bottom: 2rem;
+    margin-top: 0.12rem;
+    width: 100%;
+  }
+  .a{
+    text-align: center;
+    line-height: 0.6rem;
+    display: inline-block;
+    color: white;
+    width: 1rem;
+    height: 0.6rem;
+    background-color: @ldblue;
+    border: 1px solid @ldblue;
+    border-radius: 5px;
+  }
+}
+
+/**************account.html**************/
+.account{
+  .search-box{
+    margin-top: 0.2rem;
+    width: 100%;
+    padding-bottom: 2rem;
+    .information{
+      font-size: 0.32rem;
+      box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+      .information-box{
+        position: relative;
+        height: 0.7rem;
+        span{
+          display: inline-block;
+          line-height: 0.7rem;
+        }
+        .span-left{
+          color: #666666;
+          position: absolute;
+          top:0;
+          left: 0.2rem;
+        }
+        .span-right{
+          position: absolute;
+          top: 0;
+          right: 0.2rem;
+        }
+      }
+      .line-bottom{
+        border: 1px solid #D2D2D2;
+      }
+    }
+    .detail{
+      margin-top: 0.2rem;
+      p{
+        font-size: 0.32rem;
+        padding-left: 0.1rem;
+      }
+      .control{
+        margin-top: 0.2rem;
+        box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+        margin-bottom: 0.2rem;
+        .top{
+          font-size: 0.24rem;
+          font-weight: bold;
+          color: white;
+          background-color: @lbule;
+        }
+        p{
+          padding-left: 0;
+          height: 0.6rem;
+          width: 100%;
+          font-size: 0.24rem;
+          span{
+            display: inline-block;
+            line-height: 0.6rem;
+            text-align: center;
+          }
+          span:nth-child(1){
+            white-space :normal;
+            width: 22%;
+          }
+          span:nth-child(2){
+            width: 20%;
+          }
+          span:nth-child(3){
+            width: 18%;
+          }
+          span:nth-child(4){
+            width: 15%;
+          }
+          span:nth-child(5){
+            white-space:normal;
+            width: 18%;
+          }
+        }
+        .content{
+          font-size: 0.24rem;
+          p{
+            height: 0.8rem;
+            span{
+              line-height: 0.8rem;
+              border-left: 1px solid #DCDCDC;
+              b{
+                display: inline-block;
+                font-weight: normal;
+                line-height: 0.24rem;
+              }
+            }
+            span:nth-child(1){
+              border-left: none;
+            }
+          }
+          p:nth-child(2n-1){
+            background-color: white;
+          }
+          p:nth-child(2n){
+            background-color: #EAEAEA;
+          }
+          .total span:nth-child(1){
+            width: 42%;
+            padding-left: 1px;
+          }
+          .total span:nth-child(2){
+            width: 18%;
+          }
+          .total span:nth-child(3){
+            width: 14%;
+            padding-left: 4px;
+            border-right: 1px solid #DCDCDC;
+          }
+        }
+      }
+    }
+    #myPay{
+      width: 5.7rem;
+      height: 0.8rem;
+      background-color: @lbule;
+      border-radius: 8px;
+      color: white;
+      font-size: 0.46rem;
+      text-align: center;
+      display: block;
+      line-height: 0.8rem;
+      margin: 0 auto;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+/**************serve.html**************/
+.serve{
+  .card-img{
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top:0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 999;
+    img{
+      margin: 0 auto;
+      display: inherit;
+      margin-top: 2rem;
+      width: 7rem;
+    }
+    .closeImg{
+      cursor: pointer;
+      width: 0.8rem;
+      height: 0.8rem;
+      margin-top: 0.5rem;
+    }
+  }
+  .search-box{
+    margin-top: 0.3rem;
+    padding-bottom: 2rem;
+    width: 100%;
+    .serve-box{
+      position: relative;
+      width: 7.5rem;
+      height: 3.2rem;
+      background: url("../images/fuwuyinji_bg.png") no-repeat;
+      background-size: cover;
+      span{
+        display: inline-block;
+        position: absolute;
+      }
+      .one{
+        top: 0.3rem;
+        left: 1.2rem;
+        height: 0.5rem;
+        width: 6rem;
+        position: absolute;
+      }
+      .two{
+        top: 0.8rem;
+        left: 1.2rem;
+        height: 0.3rem;
+        width: 6rem;
+        position: absolute;
+      }
+      .three{
+        top: 1.2rem;
+        left: 3.6rem;
+        height: 0.3rem;
+        width: 6rem;
+        position: absolute;
+      }
+      .four{
+        top: 1.6rem;
+        left: 1.2rem;
+        height: 1.2rem;
+        width: 6rem;
+        position: absolute;
+      }
+      .serve-name{
+        font-size: 0.34rem;
+        color: @lbule;
+      }
+      .serve-time{
+        font-size: 0.24rem;
+        color: @lbule;
+        margin-left: 1.5rem;
+        margin-top: 0.1rem;
+      }
+      .serve-status{
+        font-size: 0.24rem;
+        color: #666666;
+      }
+      .serve-user{
+        font-size: 0.24rem;
+        color: #666666;
+      }
+      .img-left{
+        //width: 1.5rem;
+        height: 1.2rem;
+      }
+      .img-right{
+        //width: 1.5rem;
+        height: 1.2rem;
+      }
+    }
+  }
+}
+
+/**************record.html**************/
+.record{
+  .control{
+    margin-top: 0.2rem;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+    margin-bottom: 0.2rem;
+    .top{
+      font-size: 0.24rem;
+      font-weight: bold;
+      color: white;
+      background-color: @lbule;
+    }
+    p{
+      height: 0.6rem;
+      width: 100%;
+      span{
+        display: inline-block;
+        width: 32%;
+        line-height: 0.6rem;
+        text-align: center;
+      }
+    }
+    p span:nth-child(1){
+      width: 25%;
+    }
+    p span:nth-child(2){
+      width: 30%;
+    }
+    p span:nth-child(3){
+      width: 40%;
+    }
+    .content{
+      font-size: 0.2rem;
+      p{
+        height: 0.8rem;
+        span{
+          line-height: 0.8rem;
+        }
+        span:nth-child(2){
+          border-left: 1px solid #DCDCDC;
+        }
+        span:nth-child(3){
+          border-left: 1px solid #DCDCDC;
+        }
+      }
+      p span:nth-child(1){
+        width: 25%;
+      }
+      p span:nth-child(2){
+        width: 30%;
+      }
+      p span:nth-child(3){
+        width: 40%;
+      }
+      p:nth-child(2n-1){
+        background-color: white;
+      }
+      p:nth-child(2n){
+        background-color: #EAEAEA;
+      }
+    }
+  }
+}
+
+
+

@@ -1,0 +1,1141 @@
+/**
+ * Created by fun on 2018/1/23.
+ */
+
+/**
+ *公共颜色
+ *
+*/
+@blue1:#65a6ea;//基调色  浅蓝
+@blue2:#227fe1;//基调色  深蓝
+@red1:#ef4343;//状态色 红色
+@greed1:#90c50f;//状态色 绿色
+@line1:#c1c3c0;//线 灰色
+@font0:#ffffff;//文字 白色色
+@font1:#666666;//文字 深灰色
+@font2:#a0a0a0;//文字 浅灰色
+@bgcolor1:#eaeaea;//背景 浅灰色
+
+/**
+ *table 表格 公共样式
+ * width:1131px;
+ * font-size:14px;
+ * box-sizing:border-box;
+*/
+.table-box{
+  margin:  0 auto;
+  width: 1131px;
+  box-sizing: border-box;
+  div{
+    box-sizing: border-box;
+    text-align: center;
+    span{
+      display: inline-block;
+      line-height: 32px;
+      font-size: 14px;
+      color: @font0;
+    }
+  }
+  .table-head{
+    background-color: @blue1;
+    border: 1px solid @blue1;
+    height: 32px;
+    .div-box{
+      border-left: 1px solid @line1;
+      div{
+        display: inline-block;
+      }
+    }
+  }
+  .table-body{
+    border: 1px solid @line1;
+    min-height: 32px;
+    border-top:0;
+    .div-box{
+      height: 32px;
+      span{
+        color: @font1;
+      }
+      .red{
+        color: @red1;
+      }
+      .a-save{
+        color: @red1;
+        text-decoration: underline;
+      }
+      .a-edit{
+        color: @blue1;
+        text-decoration: underline;
+      }
+      .a-deviceInfo{
+        color: @blue1;
+        text-decoration: underline;
+        margin-left: 10px;
+      }
+      .a-mark{
+        color: @blue1;
+        text-decoration: underline;
+        margin-left: 10px;
+      }
+      .a-add{
+        color: @red1;
+        text-decoration: underline;
+      }
+    }
+  }
+  .table-body div:nth-child(2n){
+    background-color: @bgcolor1;
+  }
+  .table-foot{
+    border: 1px solid @line1;
+    border-top: none;
+    min-height: 32px;
+    .div-box{
+      height: 32px;
+      span{
+        color: @font1;
+      }
+      div{
+        display: inline-block;
+      }
+    }
+  }
+}
+/**
+ *div 阴影边框 公共样式
+ * box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.35);
+ * box-sizing:border-box;
+*/
+.shadow-box{
+  display: inline-block;
+  border: 1px solid @line1;
+  box-sizing: border-box;
+  border-radius: 15px;
+  box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.35);
+}
+/********************deviceManagement.html*************************/
+.deviceManegement{
+  .table-box{
+    .div-box span:nth-child(1),.table-head span:nth-child(1){
+      width: 100px;
+    }
+    .div-box span:nth-child(2),.table-head span:nth-child(2){
+      border-left: 1px solid @line1;
+      width: 144px;
+    }
+    .div-box span:nth-child(3),.table-head span:nth-child(3){
+      border-left: 1px solid @line1;
+      width: 172px;
+    }
+    .div-box span:nth-child(4),.table-head span:nth-child(4){
+      border-left: 1px solid @line1;
+      width: 92px;
+    }
+    .div-box span:nth-child(5),.table-head span:nth-child(5){
+      border-left: 1px solid @line1;
+      width: 76px;
+    }
+    .div-box span:nth-child(6),.table-head span:nth-child(6){
+      border-left: 1px solid @line1;
+      width: 90px;
+    }
+    .div-box span:nth-child(7),.table-head span:nth-child(7){
+      border-left: 1px solid @line1;
+      width: 220px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(8),.table-head span:nth-child(8){
+      border-left: 1px solid @line1;
+      width: 200px;
+    }
+    .a-save{
+      color: @red1;
+    }
+  }
+  .table-body div:nth-child(2n){
+    input{
+      background-color: @bgcolor1;
+    }
+  }
+}
+
+/********************deviceDetail.html*************************/
+.deviceDetail{
+  .card-img{
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top:0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 999;
+    img{
+      margin: 0 auto;
+      display: inherit;
+      margin-top: 100px;
+      width: 200px;
+    }
+    .closeImg{
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      margin-top: 30px;
+    }
+  }
+  .table-box{
+    span{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      text-align: center;
+    }
+    .div-box span:nth-child(1),.table-head span:nth-child(1){
+      width: 100px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(2),.table-head span:nth-child(2){
+      border-left: 1px solid @line1;
+      width: 100px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(3),.table-head span:nth-child(3){
+      border-left: 1px solid @line1;
+      width: 144px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(4),.table-head span:nth-child(4){
+      border-left: 1px solid @line1;
+      width: 120px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(5),.table-head span:nth-child(5){
+      border-left: 1px solid @line1;
+      width: 92px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(6),.table-head span:nth-child(6){
+      border-left: 1px solid @line1;
+      width: 118px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(7),.table-head span:nth-child(7){
+      border-left: 1px solid @line1;
+      width: 220px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(8),.table-head span:nth-child(8){
+      border-left: 1px solid @line1;
+      width: 200px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+  }
+  .table-body div:nth-child(2n){
+    input{
+      background-color: @bgcolor1;
+    }
+  }
+}
+
+/********************deviceDetail.html*************************/
+.lookDetail{
+  .left-box{
+    float: left;
+    width: 330px;
+    height: 520px;
+    margin-top: 30px;
+    margin-left: 82px;
+    .list-box{
+      display: inline-block;
+      width: 300px;
+      height: 80px;
+      margin-top: 15px;
+      margin-left: 15px;
+      .b-img{
+        float: left;
+        display: inline-block;
+        width: 80px;
+        text-align: center;
+        line-height: 80px;
+      }
+      .span{
+        font-size: 18px;
+        line-height: 80px;
+      }
+      .data{
+        font-size: 24px;
+        line-height: 80px;
+      }
+      .special{
+        display: inline-block;
+        height: 80px;
+        .span{
+          margin-top: 15px;
+          line-height: normal;
+        }
+        .data{
+          margin-left: 15px;
+          line-height: normal;
+          color: @red1;
+        }
+      }
+    }
+  }
+  .right-box{
+    float: left;
+    width: 620px;
+    height: 520px;
+    margin-top: 30px;
+    margin-left: 82px;
+    padding: 0 15px;
+    .title{
+      font-size: 28px;
+      margin: 20px 0;
+    }
+    .left-list-box{
+      position: relative;
+      width:240px;
+      height:88px;
+      float: left;
+      margin-bottom: 25px;
+      .span{
+        text-align: center;
+        display: inline-block;
+        height: 88px;
+        line-height: 88px;
+        font-size: 28px;
+        color: @blue1;
+        width: 150px;
+      }
+      .status{
+        position: absolute;
+        top: 15px;
+        text-align: center;
+        display: inline-block;
+        background: url('../images/zhuangtai02.png') no-repeat;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        color: @font0;
+        font-size: 16px;
+        border-radius: 50%;
+      }
+    }
+    .right-list-box{
+      position: relative;
+      width:330px;
+      height:88px;
+      float: left;
+      margin-left: 15px;
+      margin-bottom: 25px;
+      .span{
+        text-align: center;
+        display: inline-block;
+        height: 88px;
+        line-height: 88px;
+        font-size: 28px;
+        color: @blue1;
+        width: 240px;
+      }
+      .status{
+        position: absolute;
+        top: 15px;
+        text-align: center;
+        display: inline-block;
+        background: url('../images/zhuangtai03.png') no-repeat;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        color: @font0;
+        font-size: 16px;
+        border-radius: 50%;
+      }
+    }
+
+  }
+}
+
+/********************serviceMark.html*************************/
+.serviceMark{
+  padding: 30px 0;
+  .card-img{
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top:0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 999;
+    img{
+      margin: 0 auto;
+      display: inherit;
+      margin-top: 100px;
+      width: 200px;
+    }
+    .closeImg{
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      margin-top: 30px;
+    }
+  }
+  .table-box{
+    .span-fileUp{
+      position: relative;
+      .fileUp{
+        display: inline-block;
+        width: 80%;
+        text-align: center;
+        height: 30px;
+      }
+      #fileUpload{
+        opacity: 0;
+        display: inline-block;
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        top:0;
+        left: 0;
+      }
+    }
+    .div-box span:nth-child(1),.table-head span:nth-child(1){
+      width: 100px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(2),.table-head span:nth-child(2){
+      border-left: 1px solid @line1;
+      width: 264px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(3),.table-head span:nth-child(3){
+      border-left: 1px solid @line1;
+      width: 292px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(4),.table-head span:nth-child(4){
+      border-left: 1px solid @line1;
+      width: 118px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(5),.table-head span:nth-child(5){
+      border-left: 1px solid @line1;
+      width: 120px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(6),.table-head span:nth-child(6){
+      border-left: 1px solid @line1;
+      width: 200px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+  }
+  .table-body div:nth-child(2n){
+    input{
+      background-color: @bgcolor1;
+    }
+  }
+  #modalAdd,#modalEdit{
+    .myDialog {
+      width: 460px;
+    }
+    .modal-header{
+      h2{
+        font-size: 24px;
+      }
+    }
+    .modal-body{
+      padding: 0 80px;
+      .row{
+        height: 32px;
+        margin: 0 auto;
+        .left{
+          width: 100px;
+          display: inline-block;
+          text-align: right;
+        }
+        input{
+          width: 160px;
+          height: 24px;
+          border: 1px solid @line1;
+          border-radius: 3px;
+          padding-left: 10px;
+        }
+        .serviceType,.edit-serviceType{
+          width: 170px;
+          height: 24px;
+          border: 1px solid @line1;
+          border-radius: 3px;
+          padding-left: 10px;
+        }
+        .span-content{
+          position: absolute;
+          left: 0;
+          top:0;
+        }
+        .content,.edit-content{
+          position: absolute;
+          top:0;
+          left: 105px;
+          width: 170px;
+          height: 50px;
+          font-size: 14px;
+          border: 1px solid @line1;
+          border-radius: 3px;
+        }
+        .btn-file,.edit-btn-file{
+          width: 170px;
+          height: 24px;
+          border: 1px solid @blue1;
+          background-color: @blue1;
+          border-radius: 3px;
+          color: @font0;
+        }
+        .url,.edit-url{
+          position: absolute;
+          left: 185px;
+          opacity: 0;
+        }
+      }
+      .row-content{
+        height: 60px;
+        position: relative;
+      }
+      p{
+        padding: 0 20px;
+        font-size: 14px;
+        color: @font1;
+      }
+    }
+    .modal-footer{
+      text-align: center;
+      background-color: white;
+      border: none;
+      .a-save,.a-editSure{
+        background-color: @blue2;
+        border: 1px solid @blue2;
+        border-radius: 3px;
+      }
+      .a-close,.a-editclose{
+        background-color: @bgcolor1;
+        border: 1px solid @bgcolor1;
+        border-radius: 3px;
+        margin-left: 35px;
+      }
+    }
+  }
+}
+
+/********************moneyCare.html*************************/
+.moneyCare{
+  .table-box{
+    .div-box span:nth-child(1),.table-head span:nth-child(1){
+      width: 100px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(2),.table-head span:nth-child(2){
+      border-left: 1px solid @line1;
+      width: 264px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(3),.table-head span:nth-child(3){
+      border-left: 1px solid @line1;
+      width: 292px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(4),.table-head span:nth-child(4){
+      border-left: 1px solid @line1;
+      width: 118px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(5),.table-head span:nth-child(5){
+      border-left: 1px solid @line1;
+      width: 320px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .a-save{
+      color: @red1;
+    }
+  }
+  .table-body div:nth-child(2n){
+    input{
+      background-color: @bgcolor1;
+    }
+    select{
+      background-color: @bgcolor1;
+    }
+  }
+  .edit-repayStatus{
+    border: none;
+  }
+}
+
+/********************myBill.html*************************/
+.myBill{
+  .table-box{
+    width: 770px;
+    span{
+      margin: 0;
+      padding: 0;
+    }
+    .div-box span:nth-child(1),.table-head span:nth-child(1){
+      width: 50px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(2),.table-head span:nth-child(2){
+      border-left: 1px solid @line1;
+      width: 150px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(3),.table-head span:nth-child(3){
+      border-left: 1px solid @line1;
+      width: 130px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(4),.table-head span:nth-child(4){
+      border-left: 1px solid @line1;
+      width: 80px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(5),.table-head span:nth-child(5){
+      border-left: 1px solid @line1;
+      width: 80px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .div-box span:nth-child(6),.table-head span:nth-child(6){
+      border-left: 1px solid @line1;
+      width: 272px;
+      input{
+        display: inline-block;
+        width: 100%;
+        border: none;
+        height: 30px;
+        text-align: center;
+      }
+    }
+    .table-foot{
+      span{
+        margin: 0;
+        padding: 0;
+      }
+      .div-box span:nth-child(1),.table-head span:nth-child(1){
+        width: 317px;
+      }
+      .div-box span:nth-child(2),.table-head span:nth-child(2){
+        border-left: 1px solid @line1;
+        width: 76px;
+      }
+      .div-box span:nth-child(3),.table-head span:nth-child(3){
+        border-left: 1px solid @line1;
+        width: 76px;
+      }
+      .div-box span:nth-child(4),.table-head span:nth-child(4){
+        border-left: 1px solid @line1;
+        width: 260px;
+      }
+    }
+  }
+  .person{
+    font-size: 16px;
+    color: @font1;
+    width: 310px;
+    margin: 0 auto;
+    padding: 25px 0;
+    p{
+      margin-bottom: 20px;
+      .span{
+        display: inline-block;
+        width: 100px;
+      }
+    }
+    .repayWay{
+      width: 120px;
+      height: 30px;
+    }
+    .payNum{
+      display: inline-block;
+      width: 100px;
+      height: 30px;
+      border: 1px solid @line1;
+      border-radius: 5px;
+      text-align: center;
+      line-height: 30px;
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+    .rate{
+      display: inline-block;
+      width: 105px;
+      height: 30px;
+      border: 1px solid @line1;
+      border-radius: 5px;
+      line-height: 30px;
+      padding-left: 15px;
+      font-size: 18px;
+    }
+    .btn-pay{
+      display: inline-block;
+      width: 40px;
+      height: 30px;
+      border: 1px solid @line1;
+      border-radius: 5px;
+      text-align: center;
+      line-height: 30px;
+      font-size: 18px;
+    }
+    .btn-pay:hover{
+      text-decoration: none;
+      border: 1px solid @blue1;
+    }
+  }
+  .table-body div:nth-child(2n){
+    input{
+      background-color: @bgcolor1;
+    }
+  }
+  .edit-div{
+    text-align: center;
+    margin-top: 20px;
+    .edit-btn,.sure-btn{
+      width: 70px;
+      height: 30px;
+      font-size: 18px;
+      background-color: @blue2;
+      border: 1px solid @blue2;
+      border-radius: 3px;
+      color: @font0;
+      cursor: pointer;
+    }
+    .sure-btn{
+      background-color: @greed1;
+      border: 1px solid @greed1;
+    }
+    .edit-btn.sure-btn:hover{
+      background-color: @blue1;
+      border: 1px solid @blue1;
+    }
+  }
+}
+
+/********************remind.html*************************/
+.remind{
+  padding-top: 40px;
+  .table-box{
+    span{
+      margin: 0;
+      padding: 0;
+    }
+    .div-box span:nth-child(1),.table-head span:nth-child(1){
+      width: 150px;
+    }
+    .div-box span:nth-child(2),.table-head span:nth-child(2){
+      border-left: 1px solid @line1;
+      width: 460px;
+      .content{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 360px;
+        display: inline-block;
+        text-align: center;
+      }
+      .a-look{
+        display: inline-block;
+        width: 100px;
+      }
+    }
+    .div-box span:nth-child(3),.table-head span:nth-child(3){
+      border-left: 1px solid @line1;
+      width: 250px;
+    }
+    .div-box span:nth-child(4),.table-head span:nth-child(4){
+      border-left: 1px solid @line1;
+      width: 150px;
+    }
+    .div-box span:nth-child(5),.table-head span:nth-child(5){
+      border-left: 1px solid @line1;
+      width: 100px;
+    }
+  }
+  #modalPay{
+    .modal-header{
+      h2{
+        font-size: 24px;
+      }
+    }
+    .modal-body{
+      p{
+        padding: 0 20px;
+        font-size: 18px;
+        color: @font1;
+      }
+      .p2{
+        text-indent:2em;
+        line-height: 30px;
+      }
+      .minePay{
+        padding: 0 8px;
+        color: @red1;
+      }
+    }
+  }
+  #modalAdd,#modalEdit{
+    .myDialog {
+      width: 600px;
+    }
+    .modal-header{
+      h2{
+        font-size: 24px;
+      }
+    }
+    .modal-body{
+      padding: 0 40px;
+      .row{
+        height: 32px;
+        input{
+          width: 100px;
+          height: 24px;
+          border: 1px solid @line1;
+          border-radius: 3px;
+          padding-left: 10px;
+        }
+        .right{
+          padding-left: 10px;
+        }
+        .date{
+          width: 140px;
+        }
+      }
+      p{
+        padding: 0 20px;
+        font-size: 14px;
+        color: @font1;
+      }
+      .bottom{
+        p{
+          padding: 0;
+        }
+        .title{
+          margin: 10px 0;
+          font-size: 18px;
+          color: @blue2;
+        }
+        .p2{
+          text-indent:2em;
+          line-height: 30px;
+        }
+        .minePay{
+          padding: 0 8px;
+          color: @red1;
+        }
+        .preview-span{
+          color: @blue1;
+        }
+      }
+    }
+    .modal-footer{
+      text-align: center;
+      background-color: white;
+      border: none;
+      .a-sure,.a-editSure{
+        background-color: @blue2;
+        border: 1px solid @blue2;
+        border-radius: 3px;
+      }
+      .a-close,.a-editclose{
+        background-color: @bgcolor1;
+        border: 1px solid @bgcolor1;
+        border-radius: 3px;
+        margin-left: 35px;
+      }
+      .a-preview{
+        background-color: @greed1;
+        border: 1px solid @greed1;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+/********************remind.html*************************/
+.record{
+  padding-top: 40px;
+  .table-box{
+    span{
+      margin: 0;
+      padding: 0;
+    }
+    .div-box span:nth-child(1),.table-head span:nth-child(1){
+      width: 100px;
+    }
+    .div-box span:nth-child(2),.table-head span:nth-child(2){
+      border-left: 1px solid @line1;
+      width: 100px;
+    }
+    .div-box span:nth-child(3),.table-head span:nth-child(3){
+      border-left: 1px solid @line1;
+      width: 180px;
+    }
+    .div-box span:nth-child(4),.table-head span:nth-child(4){
+      border-left: 1px solid @line1;
+      width: 100px;
+    }
+    .div-box span:nth-child(5),.table-head span:nth-child(5){
+      border-left: 1px solid @line1;
+      width: 120px;
+    }
+    .div-box span:nth-child(6),.table-head span:nth-child(6){
+      border-left: 1px solid @line1;
+      width: 140px;
+    }
+    .div-box span:nth-child(7),.table-head span:nth-child(7){
+      border-left: 1px solid @line1;
+      width: 180px;
+    }
+    .div-box span:nth-child(8),.table-head span:nth-child(8){
+      border-left: 1px solid @line1;
+      width: 174px;
+    }
+  }
+  #modalAdd{
+    .myDialog {
+      width: 460px;
+    }
+    .modal-header{
+      h2{
+        font-size: 24px;
+      }
+    }
+    .modal-body{
+      padding: 0 80px;
+      .row{
+        height: 32px;
+        margin: 0 auto;
+        .left{
+          width: 100px;
+          display: inline-block;
+          text-align: right;
+        }
+        input{
+          width: 180px;
+          height: 24px;
+          border: 1px solid @line1;
+          border-radius: 3px;
+          padding-left: 10px;
+        }
+        .right{
+          padding-left: 10px;
+        }
+        .date{
+          width: 140px;
+        }
+      }
+      p{
+        padding: 0 20px;
+        font-size: 14px;
+        color: @font1;
+      }
+    }
+    .modal-footer{
+      text-align: center;
+      background-color: white;
+      border: none;
+      .a-save{
+        background-color: @blue2;
+        border: 1px solid @blue2;
+        border-radius: 3px;
+      }
+      .a-close{
+        background-color: @bgcolor1;
+        border: 1px solid @bgcolor1;
+        border-radius: 3px;
+        margin-left: 35px;
+      }
+    }
+  }
+}
+
+/**********************首页头部导航**************************/
+.top_fenlan{
+  div{
+    float: left;
+  }
+  .top-menu{
+    width: 1214px;
+    float: left;
+    margin-left: 20px;
+    ul{
+      li{
+        float: left;
+        margin-left: 10px;
+        background-color: @font0;
+        border: 1px solid @font0;
+        border-radius: 8px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        height: 28px;
+        color: black;
+        padding: 0 10px;
+        cursor: pointer;
+        a{
+          cursor: pointer;
+        }
+        .img{
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+  }
+}
+

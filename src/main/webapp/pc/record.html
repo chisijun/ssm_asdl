@@ -1,0 +1,351 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+    <style>
+        a:hover {
+            color: black
+        }
+    </style>
+</head>
+
+<body style="background:#65A6EA;width:1254px;">
+    <div class="wrapper-container record">
+        <!--table数据-->
+        <div class="table-box">
+            <div class="table-head">
+                <!--<span>转账账户</span>-->
+                <!--<span>支付类型</span>-->
+                <!--<span>转账账号</span>-->
+                <!--<span>转账金额</span>-->
+                <!--<span>转账日期</span>-->
+                <!--<span>收款账户</span>-->
+                <!--<span>收款账号</span>-->
+                <!--<span>备注</span>-->
+            </div>
+            <div class="table-body">
+            </div>
+        </div>
+        <!--分页-->
+        <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+
+        <div id="modalAdd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog myDialog">
+                <div class="modal-content radius">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-c c-primary">添&nbsp;加</h2>
+                        <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void (0);">×</a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="top">
+                            <div class="row">
+                                <span class="left">转账账户：</span>
+                                <span class="right name"></span>
+                            </div>
+                            <div class="row">
+                                <span class="left">支付类型：</span>
+                                <input type="text" class="payType">
+                            </div>
+                            <div class="row">
+                                <span class="left">转账账号：</span>
+                                <input type="text" class="payAccount">
+                            </div>
+                            <div class="row">
+                                <span class="left">转账日期：</span>
+                                <input type="datetime-local" class="payDate">
+                            </div>
+                            <div class="row">
+                                <span class="left">转账金额：</span>
+                                <input type="number" class="amount">
+                            </div>
+                            <div class="row">
+                                <span class="left">收账账户：</span>
+                                <input type="text" class="acceptName">
+                            </div>
+                            <div class="row">
+                                <span class="left">收账账号：</span>
+                                <input type="text" class="acceptAccount">
+                            </div>
+                            <div class="row">
+                                <span class="left">备注：</span>
+                                <input type="text" class="remark" placeholder="还款阶段">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary a-sure">保&nbsp;存</button>
+                        <button class="btn btn-default a-close">退&nbsp;出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+
+
+
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+
+            var search = location.search;
+            var params = {};
+            if (params != '') {
+                var ps = search.slice(1).split('&');
+                for (var i = 0; i < ps.length; i++) {
+                    var arr = ps[i].split('=');
+                    params[arr[0]] = arr[1];
+                }
+            }
+            var userId = params.userId;
+            var name = decodeURI(params.name); //中文解码
+            //页面渲染
+            getData(1);
+
+            function getData(pageNo) {
+                var pageNo = pageNo;
+                var pageSize = 8;
+
+                var data = {
+                    "pageNum": pageNo,
+                    "pageSize": pageSize,
+                    "userId": userId
+                };
+                WFang("Record/showRecord", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        console.log(arr);
+                        //分页
+                        laypage.render({
+                            elem: 'page', //容器
+                            count: arr.data.total, //总条数
+                            theme: '#0D3D89', //主题
+                            last: '末页', //最后一页
+                            limit: '8', //每页条数限制
+                            curr: arr.data.pageNum, //当前页
+                            prev: '<em><</em>', //上一页
+                            next: '<em>></em>', //下一页
+                            layout: ['count', 'prev', 'page', 'next', 'skip'],
+                            jump: function(obj, first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                if (!first) {
+                                    getData(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                }
+                            }
+                        });
+                        var html = '',
+                            html1 = '',
+                            payType = '', //支付类型
+                            payAccount = '', //转账账号
+                            amount = '', //转账金额
+                            payDate = '', //转账日期
+                            acceptName = '', //收款账户
+                            acceptAccount = '', //收款账号
+                            remark = '', //备注
+
+                            html1 = '<span>支付账户</span>' +
+                            '<span>支付方式</span>' +
+                            '<span>支付账号</span>' +
+                            '<span>支付金额</span>' +
+                            '<span>支付日期</span>' +
+                            '<span>收款账户</span>' +
+                            '<span>收款账号</span>' +
+                            '<span>备注</span>';
+                        $('.table-head').html(html1);
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            html += '<div class="div-box">' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span><a class="a-add" href="javascript:void(0);">添加</a></span>' +
+                                '</div>';
+                            $('.table-body').html(html);
+                        } else {
+                            for (var i = 0; i < arr.data.list.length; i++) {
+                                // 支付类型
+                                if (arr.data.list[i].payType == '') {
+                                    payType = '--';
+                                } else {
+                                    payType = arr.data.list[i].payType;
+                                }
+                                var payTypes;
+                                if (payType.length > 6) {
+                                    payTypes = payType.slice(0, 6) + '...';
+                                } else {
+                                    payTypes = payType;
+                                }
+
+                                // 转账账号
+                                if (arr.data.list[i].payAccount == '') {
+                                    payAccount = '--';
+                                } else {
+                                    payAccount = arr.data.list[i].payAccount;
+                                }
+                                var payAccounts;
+                                if (payAccount.length > 7) {
+                                    payAccounts = payAccount.slice(0, 7) + '...';
+                                } else {
+                                    payAccounts = payAccount
+                                }
+
+                                // 转账金额
+                                if (arr.data.list[i].amount == '') {
+                                    amount = '--';
+                                } else {
+                                    amount = arr.data.list[i].amount;
+                                }
+
+                                // 转账日期
+                                if (arr.data.list[i].payDate == '') {
+                                    payDate = '--';
+                                } else {
+                                    payDate = arr.data.list[i].payDate;
+                                }
+                                // 收款账户
+                                if (arr.data.list[i].acceptName == '') {
+                                    acceptName = '--';
+                                } else {
+                                    acceptName = arr.data.list[i].acceptName;
+                                }
+                                var acceptNames
+                                if (acceptName.length > 8) {
+                                    acceptNames = acceptName.slice(0, 8) + '...'
+                                } else {
+                                    acceptNames = acceptName;
+                                }
+                                //收款账号
+                                if (arr.data.list[i].acceptAccount == '') {
+                                    acceptAccount = '--';
+                                } else {
+                                    acceptAccount = arr.data.list[i].acceptAccount;
+                                }
+                                var acceptAccounts
+                                if (acceptAccount.length > 7) {
+                                    acceptAccounts = acceptAccount.slice(0, 8) + '...'
+                                } else {
+                                    acceptAccounts = acceptAccount;
+                                }
+                                //备注
+                                if (arr.data.list[i].remark == '') {
+                                    remark = '--';
+                                } else {
+                                    remark = arr.data.list[i].remark;
+                                    remark = decodeURI(remark);
+                                }
+                                console.log(remark);
+                                var remarks;
+                                if (remark.length > 8) {
+                                    remarks = remark.slice(0, 8) + '...';
+                                } else {
+                                    remarks = remark;
+                                }
+                                html += '<div class="div-box">' +
+                                    '<span>' + name + '</span>' +
+                                    '<span><a href="javascript:void(0)" title="' + payType + '">' + payTypes + '</a></span>' +
+                                    '<span><a href="javascript:void(0)" title="' + payAccount + '">' + payAccounts + '</a></span>' +
+                                    '<span>' + amount + '</span>' +
+                                    '<span>' + payDate + '</span>' +
+                                    '<span><a href="javascript:void(0)" title="' + acceptName + '">' + acceptNames + '</a></span>' +
+                                    '<span><a href="javascript:void(0)" title="' + acceptAccount + '">' + acceptAccounts + '</a></span>' +
+                                    '<span><a href="javascript:void(0)" title="' + remark + '">' + remarks + '</a></span>' +
+                                    '</div>';
+                            }
+                            html += '<div class="div-box">' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span><a class="a-add" href="javascript:void(0);">添加</a></span>' +
+                                '</div>';
+                            $('.table-body').html(html);
+                        }
+                    }
+                }, data, 'postForm')
+            }
+            /***************************点击添加********************************/
+            //点击添加
+            $('body').on('click', '.a-add', function() {
+                $('#modalAdd').modal('show');
+                $('.name').html(name);
+            });
+            //点击取消
+            $('body').on('click', '.a-close', function() {
+                $('#modalAdd').modal('hide');
+            });
+            //点击保存
+            $('body').on('click', '.a-sure', function() {
+                var payType = $('.payType').val(); //支付类型
+                var payAccount = $('.payAccount').val(); //转账账号
+                var amount = parseInt($('.amount').val()); //转账金额
+                var payDate = $('.payDate').val().replace('T',' '); //转账日期
+                alert(payDate);
+                var acceptName = $('.acceptName').val(); //收款账户
+                var acceptAccount = $('.acceptAccount').val(); //收款账号
+                var remark = $('.remark').val(); //备注
+                if (payType == '' || payAccount == '' || amount == '' || payDate == '' || acceptName == '' || acceptAccount == '' || remark == '') {
+                    layer.msg('请完善信息！');
+                } else {
+                    var data = {
+                        "userId": userId,
+                        "payType": payType,
+                        "payAccount": payAccount,
+                        "amount": amount,
+                        "payDate": payDate,
+                        "acceptName": acceptName,
+                        "acceptAccount": acceptAccount,
+                        "remark": remark
+                    };
+                    sure(data);
+                }
+            });
+
+            function sure(data) {
+                var pageNo = $('.layui-input').val();
+                WFang("Record/addRecord", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $('#modalAdd').modal('hide');
+                            getData(pageNo);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            }
+        });
+    </script>
+</body>
+
+</html>

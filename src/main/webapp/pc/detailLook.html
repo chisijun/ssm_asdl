@@ -1,0 +1,392 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+</head>
+
+<body style="background:#65A6EA;width:1254px;">
+    <div class="wrapper-container lookDetail">
+        <!--左侧数据-->
+        <div class="shadow-box left-box">
+            <div class="shadow-box list-box">
+                <b class="b-img"><img src="images/icon_wendu.png" alt="图片"></b>
+                <span class="span">室外温度：</span>
+                <span class="data tempOutDoor"></span>
+            </div>
+            <div class="shadow-box list-box">
+                <b class="b-img"><img src="images/icon_shuifen.png" alt="图片"></b>
+                <span class="span">进粮水份值：</span>
+                <span class="data waterFeed"></span>
+            </div>
+            <div class="shadow-box list-box">
+                <b class="b-img"><img src="images/icon_guzhang.png" alt="图片"></b>
+                <span class="special">
+        <p class="span">故障诊断：</p>
+        <p class="data wStatus" style="font-size: 16px;margin-top: 5px;"></p>
+      </span>
+            </div>
+            <div class="shadow-box list-box">
+                <b class="b-img"><img src="images/icon_manling.png" alt="图片"></b>
+                <span class="span">满粮监控：</span>
+                <span class="data full"></span>
+            </div>
+            <div class="shadow-box list-box">
+                <b class="b-img"><img src="images/icon_zuoyeliang.png" alt="图片"></b>
+                <span class="span">作业量：</span>
+                <span class="data workLoad"></span>
+            </div>
+        </div>
+        <!--右侧数据-->
+        <div class="shadow-box right-box">
+            <p class="title">电机状态监控</p>
+            <div class="shadow-box left-list-box">
+                <span class="span">提升机</span>
+                <b class="status statusHoist"></b>
+            </div>
+            <div class="shadow-box right-list-box">
+                <span class="span">前左置排风机</span>
+                <b class="status statusFrontLeftExhaust"></b>
+            </div>
+            <div class="shadow-box left-list-box">
+                <span class="span">上搅龙</span>
+                <b class="status statusUpMixer"></b>
+            </div>
+            <div class="shadow-box right-list-box">
+                <span class="span">前右置排风机</span>
+                <b class="status statusFrontRightExhaust"></b>
+            </div>
+            <div class="shadow-box left-list-box">
+                <span class="span">下搅龙</span>
+                <b class="status statusDownMixer"></b>
+            </div>
+            <div class="shadow-box right-list-box">
+                <span class="span">后左置排风机</span>
+                <b class="status statusAfterLeftExhaust"></b>
+            </div>
+            <div class="shadow-box left-list-box">
+                <span class="span">拨粮轮</span>
+                <b class="status statusGrain"></b>
+            </div>
+            <div class="shadow-box right-list-box">
+                <span class="span">后右置排风机</span>
+                <b class="status statusAfterRightExhaust"></b>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        // 接收服务器的消息
+        layui.use(['layer', 'laypage'], function() {
+
+            var search = location.search;
+			var params = {};
+            if (params != '') {
+                var ps = search.slice(1).split('&');
+                for (var i = 0; i < ps.length; i++) {
+                    var arr = ps[i].split('=');
+                    params[arr[0]] = arr[1];
+                }
+            }
+			var sn = params.sn;
+
+            //握手
+            var socket = null;
+            // 判断浏览器是否支持Websocket
+            if ('WebSocket' in window) {
+            	if (typeof(sn) != 'undefined' && sn != 'null' && sn != '') {
+                	socket = new WebSocket(ApiConf.webSocketServer + "/" + sn);
+                	console.log('websocket连接成功');
+                }
+            } else {
+                alert('当前浏览器不支持使用websocket，建议使用chrome或者火狐浏览器！')
+            }
+
+            // 接收服务器的消息
+            socket.onmessage = function(ev) {
+                console.log(ev.data);
+                if (ev.data == 'refresh') {
+                    getData();
+                    console.log('数据刷新成功！')
+                }
+            };
+
+            // 判断连接状态，如果断开主动重连
+            setInterval(function() {
+                console.log(socket.readyState);
+                if (socket.readyState == 3) {
+                    if (typeof(sn) != 'undefined' && sn != 'null' && sn != '') {
+                		socket = new WebSocket(ApiConf.webSocketServer + "/" + sn);
+                		console.log('websocket连接成功');
+                	}
+                }
+                console.log(socket.readyState);
+            }, 30000)
+
+            //关闭WebSocket连接
+            function closeWebSocket() {
+                socket.close();
+            }
+            window.onbeforeunload = function(event) {
+                closeWebSocket();
+            }
+
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+
+            
+            
+            //页面渲染
+            getData();
+
+            function getData() {
+                var data = {
+                    "sn": sn
+                };
+                WFang("Device/deviceRealTimeBySn", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        console.log(arr.data)
+                        if (arr.data.nStatus != 0) {
+                            var tempOutDoor = '', //室外温度
+                                waterFeed = '', //进粮水份值（浓度）
+                                malfunction = '', //故障诊断
+                                full = '', //是否满仓 0 未满仓 1 满仓
+                                workLoad = '', //累计作业量
+                                statusHoist = '', //提升机 0-停机 1-运行 2-故障
+                                statusUpMixer = '', //上搅龙
+                                statusDownMixer = '', //下搅龙
+                                statusGrain = '', //拨粮轮
+                                statusFrontLeftExhaust = '', //前左置排风电机状态
+                                statusFrontRightExhaust = '', //前右置排风电机状态
+                                statusAfterLeftExhaust = '', //后左置排风电机状态
+                                statusAfterRightExhaust = '', //后右置排风电机状态
+
+                                color = '';
+                            if (arr.data == '' || arr.data == null) {
+
+                            } else {
+                                tempOutDoor = arr.data.tempOutDoor;
+                                waterFeed = arr.data.waterFeed;
+                                malfunction = arr.data.malfunction;
+                                full = arr.data.full;
+                                workLoad = arr.data.workLoad;
+                                statusHoist = arr.data.statusHoist;
+                                statusUpMixer = arr.data.statusUpMixer;
+                                statusDownMixer = arr.data.statusDownMixer;
+                                statusGrain = arr.data.statusGrain;
+                                statusFrontLeftExhaust = arr.data.statusFrontLeftExhaust;
+                                statusFrontRightExhaust = arr.data.statusFrontRightExhaust;
+                                statusAfterLeftExhaust = arr.data.statusAfterLeftExhaust;
+                                statusAfterRightExhaust = arr.data.statusAfterRightExhaust;
+                                //左侧数据
+                                if (tempOutDoor == '') {
+                                    $('.tempOutDoor').html('--');
+                                } else {
+                                    $('.tempOutDoor').html(tempOutDoor);
+                                }
+                                if (waterFeed == '') {
+                                    $('.waterFeed').html('--');
+                                } else {
+                                    $('.waterFeed').html(waterFeed);
+                                }
+                                if (malfunction == '') {
+                                    $('.wStatus').html('--');
+                                } else {
+                                    $('.wStatus').html(malfunction);
+                                }
+                                if (full === '') {
+                                    $('.full').html('--');
+                                } else if (full == 0) {
+                                    $('.full').html('未满粮');
+                                } else if (full == 1) {
+                                    $('.full').html('满粮');
+                                }
+                                if (workLoad == '') {
+                                    $('.workLoad').html('--');
+                                } else {
+                                    $('.workLoad').html(workLoad);
+                                }
+                                //右侧状态
+                                switch (statusHoist) {
+                                    case 0:
+                                        $('.statusHoist').attr('style', 'background:url(images/zhuangtai03.png)');
+                                        $('.statusHoist').html('停止');
+                                        break;
+                                    case 1:
+                                        $('.statusHoist').attr('style', 'background:url(images/zhuangtai01.png)');
+                                        $('.statusHoist').html('运行');
+                                        break;
+                                    case 2:
+                                        $('.statusHoist').attr('style', 'background:url(images/zhuangtai02.png)');
+                                        $('.statusHoist').html('故障');
+                                        break;
+                                }
+                                switch (statusUpMixer) {
+                                    case 0:
+                                        $('.statusUpMixer').attr('style', 'background:url(images/zhuangtai03.png)');
+                                        $('.statusUpMixer').html('停止');
+                                        break;
+                                    case 1:
+                                        $('.statusUpMixer').attr('style', 'background:url(images/zhuangtai01.png)');
+                                        $('.statusUpMixer').html('运行');
+                                        break;
+                                    case 2:
+                                        $('.statusUpMixer').attr('style', 'background:url(images/zhuangtai02.png)');
+                                        $('.statusUpMixer').html('故障');
+                                        break;
+                                }
+                                switch (statusDownMixer) {
+                                    case 0:
+                                        $('.statusDownMixer').attr('style', 'background:url(images/zhuangtai03.png)');
+                                        $('.statusDownMixer').html('停止');
+                                        break;
+                                    case 1:
+                                        $('.statusDownMixer').attr('style', 'background:url(images/zhuangtai01.png)');
+                                        $('.statusDownMixer').html('运行');
+                                        break;
+                                    case 2:
+                                        $('.statusDownMixer').attr('style', 'background:url(images/zhuangtai02.png)');
+                                        $('.statusDownMixer').html('故障');
+                                        break;
+                                }
+                                switch (statusGrain) {
+                                    case 0:
+                                        $('.statusGrain').attr('style', 'background:url(images/zhuangtai03.png)');
+                                        $('.statusGrain').html('停止');
+                                        break;
+                                    case 1:
+                                        $('.statusGrain').attr('style', 'background:url(images/zhuangtai01.png)');
+                                        $('.statusGrain').html('运行');
+                                        break;
+                                    case 2:
+                                        $('.statusGrain').attr('style', 'background:url(images/zhuangtai02.png)');
+                                        $('.statusGrain').html('故障');
+                                        break;
+                                }
+                                switch (statusFrontLeftExhaust) {
+                                    case 0:
+                                        $('.statusFrontLeftExhaust').attr('style', 'background:url(images/zhuangtai03.png)');
+                                        $('.statusFrontLeftExhaust').html('停止');
+                                        break;
+                                    case 1:
+                                        $('.statusFrontLeftExhaust').attr('style', 'background:url(images/zhuangtai01.png)');
+                                        $('.statusFrontLeftExhaust').html('运行');
+                                        break;
+                                    case 2:
+                                        $('.statusFrontLeftExhaust').attr('style', 'background:url(images/zhuangtai02.png)');
+                                        $('.statusFrontLeftExhaust').html('故障');
+                                        break;
+                                }
+                                switch (statusFrontRightExhaust) {
+                                    case 0:
+                                        $('.statusFrontRightExhaust').attr('style', 'background:url(images/zhuangtai03.png)');
+                                        $('.statusFrontRightExhaust').html('停止');
+                                        break;
+                                    case 1:
+                                        $('.statusFrontRightExhaust').attr('style', 'background:url(images/zhuangtai01.png)');
+                                        $('.statusFrontRightExhaust').html('运行');
+                                        break;
+                                    case 2:
+                                        $('.statusFrontRightExhaust').attr('style', 'background:url(images/zhuangtai02.png)');
+                                        $('.statusFrontRightExhaust').html('故障');
+                                        break;
+                                }
+                                switch (statusAfterLeftExhaust) {
+                                    case 0:
+                                        $('.statusAfterLeftExhaust').attr('style', 'background:url(images/zhuangtai03.png)');
+                                        $('.statusAfterLeftExhaust').html('停止');
+                                        break;
+                                    case 1:
+                                        $('.statusAfterLeftExhaust').attr('style', 'background:url(images/zhuangtai01.png)');
+                                        $('.statusAfterLeftExhaust').html('运行');
+                                        break;
+                                    case 2:
+                                        $('.statusAfterLeftExhaust').attr('style', 'background:url(images/zhuangtai02.png)');
+                                        $('.statusAfterLeftExhaust').html('故障');
+                                        break;
+                                }
+                                switch (statusAfterRightExhaust) {
+                                    case 0:
+                                        $('.statusAfterRightExhaust').attr('style', 'background:url(images/zhuangtai03.png)');
+                                        $('.statusAfterRightExhaust').html('停止');
+                                        break;
+                                    case 1:
+                                        $('.statusAfterRightExhaust').attr('style', 'background:url(images/zhuangtai01.png)');
+                                        $('.statusAfterRightExhaust').html('运行');
+                                        break;
+                                    case 2:
+                                        $('.statusAfterRightExhaust').attr('style', 'background:url(images/zhuangtai02.png)');
+                                        $('.statusAfterRightExhaust').html('故障');
+                                        break;
+                                }
+                            }
+                        } else if (arr.data.nStatus == 0) {
+                            tempOutDoor = arr.data.tempOutDoor;
+                            waterFeed = arr.data.waterFeed;
+                            malfunction = arr.data.malfunction;
+                            full = arr.data.full;
+                            workLoad = arr.data.workLoad;
+                            if (tempOutDoor == '') {
+                                $('.tempOutDoor').html('--');
+                            } else {
+                                $('.tempOutDoor').html(tempOutDoor);
+                            }
+                            if (waterFeed == '') {
+                                $('.waterFeed').html('--');
+                            } else {
+                                $('.waterFeed').html(waterFeed);
+                            }
+                            if (malfunction == '') {
+                                $('.wStatus').html('--');
+                            } else {
+                                $('.wStatus').html(malfunction);
+                            }
+                            if (full === '') {
+                                $('.full').html('--');
+                            } else if (full == 0) {
+                                $('.full').html('未满粮');
+                            } else if (full == 1) {
+                                $('.full').html('满粮');
+                            }
+                            if (workLoad == '') {
+                                $('.workLoad').html('--');
+                            } else {
+                                $('.workLoad').html(workLoad);
+                            }
+                            $('.statusHoist,.statusUpMixer,.statusDownMixer,.statusGrain,.statusFrontLeftExhaust,.statusFrontRightExhaust,.statusAfterLeftExhaust,.statusAfterRightExhaust').attr('style', 'background:url(images/zhuangtai03.png)');
+                            $('.statusHoist,.statusUpMixer,.statusDownMixer,.statusGrain,.statusFrontLeftExhaust,.statusFrontRightExhaust,.statusAfterLeftExhaust,.statusAfterRightExhaust').html('停止');
+
+                        }
+                    }
+
+                }, data, 'postForm')
+            }
+        });
+    </script>
+</body>
+
+</html>

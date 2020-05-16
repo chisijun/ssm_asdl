@@ -1,0 +1,1783 @@
+/**
+ * Created by PC on 2017/12/26.
+ */
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a {
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+}
+
+html {
+    max-width: 750px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+body {
+    position: relative;
+    height: 100%;
+    background-color: #F7F7F7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+
+/*最终版页面基调颜色*/
+
+
+/*****电机状态背景颜色******/
+
+.header {
+    height: 0.89rem;
+    width: 100%;
+    font-size: 0.46rem;
+    color: white;
+    background-color: #6fab31;
+    line-height: 0.89rem;
+    text-align: center;
+}
+
+.header .back {
+    position: absolute;
+    left: 0.2rem;
+    color: white;
+    font-size: 0.38rem;
+}
+
+.header .back img {
+    width: 0.2rem;
+    height: 0.34rem;
+    vertical-align: middle;
+}
+
+.header .home {
+    position: absolute;
+    right: 0.2rem;
+    color: white;
+    font-size: 0.28rem;
+}
+
+.header .home img {
+    width: 0.48rem;
+    height: 0.45rem;
+    vertical-align: middle;
+}
+
+.footer {
+    width: 100%;
+    height: 1.3rem;
+    /* padding: 0 0.1rem; */
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #D2D2D2;
+    background-color: #F7F7F7;
+}
+
+.footer a {
+    display: inline-block;
+    float: left;
+    width: 25%;
+    height: 1rem;
+    margin-top: 0.2rem;
+    font-size: 0.25rem;
+    text-align: center;
+    color: #727272;
+}
+
+.footer a span {
+    display: block;
+}
+
+.footer .span-color {
+    color: #6fab31;
+}
+
+.footer #management img {
+    width: 0.46rem;
+    height: 0.46rem;
+}
+
+.footer #self img {
+    width: 0.34rem;
+    height: 0.46rem;
+}
+
+.footer #account img {
+    width: 0.54rem;
+    height: 0.46rem;
+}
+
+.footer #serve img {
+    width: 0.46rem;
+    height: 0.46rem;
+}
+
+.line-box {
+    cursor: pointer;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+    background-color: white;
+    min-height: 1rem;
+    width: 100%;
+    font-size: 0.32rem;
+}
+
+.line-box .line-div {
+    height: 0.88rem;
+    padding: 0.14rem;
+    padding-bottom: 0;
+    position: relative;
+}
+
+.line-box .line-div span {
+    display: inline-block;
+}
+
+.line-box .line-div .span-right {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.2rem;
+}
+
+.line-box .line-div img {
+    vertical-align: middle;
+    width: 0.7rem;
+    height: 0.7rem;
+}
+
+.line-box .line-bottom {
+    border-bottom: 1px solid #DEDEDE;
+}
+
+
+/**************login.html**************/
+
+.login {
+    position: absolute;
+    background: url("../images/heat_back.jpg") no-repeat center;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    min-height: 100%;
+}
+
+.login .logo {
+    padding: 1.2rem;
+    text-align: center;
+}
+
+.login .logo img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.login .login-box {
+    width: 5.5rem;
+    margin: 0 auto;
+    margin-top: 6.5rem;
+}
+
+.login .login-box input {
+    position: absolute;
+    width: 4.5rem;
+    height: 0.8rem;
+    border-radius: 0.4rem;
+    padding-left: 0.92rem;
+    border: 1px solid #fff;
+    font-size: 0.35rem;
+}
+
+.login .login-box .pos-img {
+    position: relative;
+    height: 0.8rem;
+    margin-bottom: 0.4rem;
+}
+
+.login .login-box .user-img {
+    position: absolute;
+    top: 0.24rem;
+    left: 0.4rem;
+    width: 0.32rem;
+    height: 0.34rem;
+}
+
+.login .login-box .del-img {
+    position: absolute;
+    top: 0.24rem;
+    right: 0.4rem;
+    width: 0.32rem;
+    height: 0.34rem;
+    cursor: pointer;
+}
+
+.login .login-box .forget-a {
+    position: absolute;
+    top: 0.24rem;
+    right: 0.4rem;
+    font-size: 0.24rem;
+    cursor: pointer;
+    color: #a2a2a2;
+}
+
+.login .login-box .pwd-img {
+    position: absolute;
+    top: 0.24rem;
+    left: 0.4rem;
+    width: 0.32rem;
+    height: 0.34rem;
+    cursor: pointer;
+}
+
+.login .login-box .putCode {
+    position: absolute;
+    left: 0;
+    width: 3.5rem;
+    height: 0.8rem;
+}
+
+.login .login-box .putCode #in-vcode {
+    width: 2.5rem;
+}
+
+.login .login-box .getCode {
+    position: absolute;
+    right: 0;
+    width: 1.5rem;
+    height: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.login .login-box .getCode #get-vcode {
+    width: 1.5rem;
+    padding: 0;
+    background: url("../images/fasong_bg.png") no-repeat center;
+    border: none;
+    color: white;
+    font-size: 0.2rem;
+}
+
+.login .login-box #login {
+    display: inline-block;
+    width: 5.5rem;
+    height: 0.8rem;
+    text-align: center;
+    color: white;
+    font-size: 0.35rem;
+    background-color: #65a6ea;
+    line-height: 0.8rem;
+    border-radius: 0.4rem;
+}
+
+.login .login-box .back-login {
+    text-align: right;
+    padding-right: 0.2rem;
+    position: relative;
+}
+
+.login .login-box .back-login a {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.2rem;
+    font-size: 0.24rem;
+    color: #000;
+    text-decoration: underline;
+}
+
+.login .login-box .go-loginFast {
+    position: relative;
+}
+
+.login .login-box .go-loginFast label {
+    position: absolute;
+    font-size: 0.24rem;
+    left: 0.2rem;
+    top: 0.5rem;
+}
+
+.login .login-box .go-loginFast label img {
+    cursor: pointer;
+    width: 0.24rem;
+    height: 0.24rem;
+}
+
+.login .login-box .go-loginFast a {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.5rem;
+    font-size: 0.24rem;
+    color: #000;
+    text-decoration: underline;
+}
+
+
+/**************index.html**************/
+
+.index .header {
+    background-color: #227fe1;
+}
+
+.index .single {
+    width: 100%;
+    height: 4rem;
+    background-color: #65a6ea;
+}
+
+.index .single .img {
+    text-align: center;
+}
+
+.index .single .img img {
+    margin-top: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.index .single .name {
+    text-align: center;
+    color: white;
+    height: 0.34rem;
+    width: 100%;
+    font-size: 0.32rem;
+}
+
+.index .modal {
+    width: 100%;
+    position: relative;
+}
+
+.index .modal .modal-box {
+    top: -1.2rem;
+    left: 0.1rem;
+    position: relative;
+    width: 7.32rem;
+    height: 4.2rem;
+}
+
+.index .modal .modal-box img {
+    width: 100%;
+}
+
+.index .modal .modal-box .row-box {
+    position: relative;
+    top: -4.6rem;
+}
+
+.index .modal .modal-box .row-box .row {
+    cursor: pointer;
+    width: 5.72rem;
+    height: 0.6rem;
+    margin: 0 auto;
+    border-bottom: 1px solid #DCDCDC;
+    margin-bottom: 0.2rem;
+}
+
+.index .modal .modal-box .row-box .row .row-left {
+    position: absolute;
+    top: 0.01rem;
+    left: 1rem;
+    width: 0.3rem;
+    height: 0.45rem;
+}
+
+.index .modal .modal-box .row-box .row .row-right {
+    position: absolute;
+    top: 0.1rem;
+    right: 0.9rem;
+    width: 0.14rem;
+    height: 0.26rem;
+}
+
+.index .modal .modal-box .row-box .row .span {
+    position: absolute;
+    top: 0.01rem;
+    left: 1.6rem;
+    font-size: 0.3rem;
+    color: #666666;
+}
+
+.index .modal .modal-box .row-box .break .row-left {
+    top: 0.91rem;
+    width: 0.36rem;
+    height: 0.24rem;
+}
+
+.index .modal .modal-box .row-box .break .row-right {
+    top: 0.9rem;
+}
+
+.index .modal .modal-box .row-box .break .span {
+    top: 0.81rem;
+}
+
+.index .modal .modal-box .row-box .pay .row-left {
+    top: 1.68rem;
+    width: 0.34rem;
+    height: 0.34rem;
+}
+
+.index .modal .modal-box .row-box .pay .row-right {
+    top: 1.7rem;
+}
+
+.index .modal .modal-box .row-box .pay .span {
+    top: 1.61rem;
+}
+
+.index .modal .modal-box .row-box .charg .row-left {
+    top: 2.48rem;
+    width: 0.28rem;
+    height: 0.32rem;
+}
+
+.index .modal .modal-box .row-box .charg .row-right {
+    top: 2.5rem;
+}
+
+.index .modal .modal-box .row-box .charg .span {
+    top: 2.41rem;
+}
+
+
+/**************device.html**************/
+
+.device .header,
+.break .header {
+    background-color: #227fe1;
+}
+
+.device .search,
+.break .search {
+    width: 100%;
+    height: 0.5rem;
+    margin: 0.3rem 0;
+}
+
+.device .search .search-box,
+.break .search .search-box {
+    position: relative;
+    width: 4.7rem;
+    height: 0.5rem;
+    margin: 0 auto;
+}
+
+.device .search .search-box input,
+.break .search .search-box input {
+    padding-left: 0.1rem;
+    position: absolute;
+    top: 0;
+    width: 4rem;
+    height: 0.48rem;
+    border: 1px solid #227fe1;
+    border-right: none;
+    border-radius: 0.08rem 0 0 0.08rem;
+}
+
+.device .search .search-box img,
+.break .search .search-box img {
+    position: absolute;
+    top: 0;
+    left: 4rem;
+    height: 0.52rem;
+    width: 0.7rem;
+}
+
+.device .device-list,
+.break .device-list,
+.device .break-list,
+.break .break-list {
+    width: 100%;
+    font-size: 0.2rem;
+}
+
+.device .device-list ul li,
+.break .device-list ul li,
+.device .break-list ul li,
+.break .break-list ul li {
+    width: 100%;
+    background-color: #65a6ea;
+    height: 0.8rem;
+    line-height: 0.8rem;
+}
+
+.device .device-list ul li span,
+.break .device-list ul li span,
+.device .break-list ul li span,
+.break .break-list ul li span {
+    display: inline-block;
+    font-size: 0.24rem;
+    color: white;
+    text-align: center;
+}
+
+.device .device-list ul li .span-left,
+.break .device-list ul li .span-left,
+.device .break-list ul li .span-left,
+.break .break-list ul li .span-left {
+    width: 25%;
+}
+
+.device .device-list ul li .span-center,
+.break .device-list ul li .span-center,
+.device .break-list ul li .span-center,
+.break .break-list ul li .span-center {
+    width: 40%;
+}
+
+.device .device-list ul li .span-right,
+.break .device-list ul li .span-right,
+.device .break-list ul li .span-right,
+.break .break-list ul li .span-right {
+    width: 30%;
+}
+
+.device .device-list ul .tab .tab-li,
+.break .device-list ul .tab .tab-li,
+.device .break-list ul .tab .tab-li,
+.break .break-list ul .tab .tab-li {
+    background-color: #65a6ea;
+}
+
+.device .device-list .data .data-li,
+.break .device-list .data .data-li,
+.device .break-list .data .data-li,
+.break .break-list .data .data-li {
+    cursor: pointer;
+    background-color: white;
+}
+
+.device .device-list .data .data-li span,
+.break .device-list .data .data-li span,
+.device .break-list .data .data-li span,
+.break .break-list .data .data-li span {
+    color: #303030;
+}
+
+.device .device-list .data .data-li .span-left,
+.break .device-list .data .data-li .span-left,
+.device .break-list .data .data-li .span-left,
+.break .break-list .data .data-li .span-left {
+    border-right: 1px solid #DCDCDC;
+}
+
+.device .device-list .data .data-li .span-center,
+.break .device-list .data .data-li .span-center,
+.device .break-list .data .data-li .span-center,
+.break .break-list .data .data-li .span-center {
+    border-right: 1px solid #DCDCDC;
+}
+
+.device .device-list .data li:nth-child(even),
+.break .device-list .data li:nth-child(even),
+.device .break-list .data li:nth-child(even),
+.break .break-list .data li:nth-child(even) {
+    background-color: #EAEAEA;
+}
+
+
+/**************break.html**************/
+
+.break .search {
+    width: 100%;
+    height: 0.5rem;
+    margin: 0.3rem 0;
+}
+
+.break .search .search-box {
+    position: relative;
+    width: 7rem;
+    height: 0.5rem;
+    margin: 0 auto;
+}
+
+.break .search .search-box .start,
+.break .search .search-box .end {
+    float: left;
+    width: 3.5rem;
+    height: 0.5rem;
+}
+
+.break .search .search-box .span {
+    font-size: 0.22rem;
+    position: absolute;
+    top: 0;
+    width: 1.2rem;
+    line-height: 0.5rem;
+    height: 0.5rem;
+    display: inline-block;
+}
+
+.break .search .search-box input {
+    padding-left: 0.1rem;
+    position: absolute;
+    top: 0;
+    left: 1.2rem;
+    width: 2rem;
+    height: 0.48rem;
+    border: 1px solid #227fe1;
+    border-radius: 0.08rem;
+}
+
+.break .search .search-box .end input {
+    left: 4.7rem;
+}
+
+@media screen and (max-width: 370px) {
+    .break .search {
+        width: 100%;
+        height: 1.3rem;
+        margin: 0.3rem 0;
+    }
+    .break .search .search-box {
+        position: relative;
+        width: 4.5rem;
+        height: 1.3rem;
+        margin: 0 auto;
+    }
+    .break .search .search-box .start,
+    .break .search .search-box .end {
+        width: 100%;
+        height: 0.5rem;
+    }
+    .break .search .search-box .span {
+        font-size: 0.22rem;
+        position: absolute;
+        top: 0;
+        width: 1.8rem;
+        line-height: 0.5rem;
+        height: 0.5rem;
+        display: inline-block;
+    }
+    .break .search .search-box input {
+        padding-left: 0.1rem;
+        position: absolute;
+        top: 0;
+        left: 1.8rem;
+        width: 2.5rem;
+        height: 0.48rem;
+        border: 1px solid #227fe1;
+        border-radius: 0.08rem;
+    }
+    .break .search .search-box .end .span {
+        top: 0.8rem;
+    }
+    .break .search .search-box .end input {
+        left: 1.8rem;
+        top: 0.8rem;
+    }
+}
+
+
+/**************detail.html**************/
+
+.detail .header {
+    background-color: #227fe1;
+}
+
+.detail .detail-list .detail-box {
+    padding: 0 0.16rem;
+    border-top: 1px solid #C2C2C2;
+    border-bottom: 1px solid #C2C2C2;
+    margin-bottom: 0.13rem;
+    box-shadow: 0 0.01rem 0.099rem 0.01rem rgba(55, 55, 55, 0.5);
+}
+
+.detail .detail-list .detail-box .row {
+    cursor: pointer;
+    font-size: 0.32rem;
+    position: relative;
+    width: 100%;
+    height: 0.7rem;
+    padding-bottom: 0.16rem;
+    margin-top: 0.16rem;
+    border-bottom: 1px solid #D2D2D2;
+}
+
+.detail .detail-list .detail-box .row .img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.7rem;
+    height: 0.7rem;
+}
+
+.detail .detail-list .detail-box .row .span-left {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    line-height: 0.7rem;
+}
+
+.detail .detail-list .detail-box .row .span-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 0.7rem;
+}
+
+.detail .detail-list .detail-box .row .sn {
+    color: #227fe1;
+}
+
+.detail .detail-list .detail-box .row .device-status {
+    top: 0.1rem;
+}
+
+.detail .detail-list .detail-box .row .device-status img {
+    width: 0.3rem;
+    height: 0.48rem;
+}
+
+.detail .detail-list .detail-box div:last-child {
+    border-bottom: none;
+}
+
+.detail .detail-list .box-top {
+    height: 2.1rem;
+}
+
+.detail .detail-list .box-center {
+    height: 6.3rem;
+}
+
+.detail .detail-list .box-bottom {
+    height: 1.1rem;
+}
+
+
+/**************motor.html**************/
+
+.motor .header {
+    background-color: #6fab31;
+}
+
+.motor .motor-list .motor-box {
+    height: 8.9rem;
+    padding: 0 0.16rem;
+    border-top: 1px solid #C2C2C2;
+    border-bottom: 1px solid #C2C2C2;
+    margin-top: 0.1rem;
+    box-shadow: 0 0.01rem 0.099rem 0.01rem rgba(55, 55, 55, 0.5);
+}
+
+.motor .motor-list .motor-box .row {
+    font-size: 0.32rem;
+    position: relative;
+    width: 100%;
+    height: 0.56rem;
+    padding-bottom: 0.24rem;
+    margin-top: 0.3rem;
+    border-bottom: 1px solid #D2D2D2;
+}
+
+.motor .motor-list .motor-box .row .span-left {
+    position: absolute;
+    top: 0;
+    left: 0.1rem;
+    height: 0.56rem;
+    line-height: 0.56rem;
+}
+
+.motor .motor-list .motor-box .row .span-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 0.56rem;
+    line-height: 0.56rem;
+    border-radius: 0.08rem;
+    color: white;
+    padding: 0 0.12rem;
+    font-size: 0.32rem;
+}
+
+.motor .motor-list .motor-box .row .on {
+    background-color: #62b0d5;
+}
+
+.motor .motor-list .motor-box .row .stop {
+    background-color: #90c50f;
+}
+
+.motor .motor-list .motor-box .row .break {
+    background-color: #ef4343;
+}
+
+.motor .motor-list .motor-box .row .run {
+    background-color: #ef4343;
+}
+
+.motor .motor-list .motor-box div:last-child {
+    border-bottom: none;
+}
+
+
+/**************pay.html**************/
+
+.pay .header {
+    background-color: #6fab31;
+}
+
+.pay .pay-box {
+    margin-top: 0.2rem;
+    padding: 0.5rem 0;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+}
+
+.pay .pay-box .div-box {
+    padding: 0 0.5rem;
+}
+
+.pay .pay-box .div-box p {
+    font-size: 0.32rem;
+}
+
+.pay .pay-box .div-box .yuan {
+    border-bottom: 1px solid #B5B5B5;
+    margin-top: 0.1rem;
+}
+
+.pay .pay-box .div-box .yuan .left {
+    font-size: 0.56rem;
+    width: 0.6rem;
+}
+
+.pay .pay-box .div-box .yuan .right {
+    background-color: transparent;
+    text-align: left;
+    width: 4rem;
+    font-size: 0.4rem;
+}
+
+.pay .pay-box .div-box .yuan .span-right {
+    width: 1rem;
+    text-align: right;
+}
+
+.pay .pay-box .div-box span {
+    font-size: 0.32rem;
+    width: 2rem;
+    display: inline-block;
+}
+
+.pay .pay-box .div-box input {
+    text-align: right;
+    border: none;
+    padding-right: 0.2rem;
+}
+
+.pay .pay-box .test {
+    width: 6.3rem;
+    padding: 0.1rem;
+    height: 1rem;
+    margin-top: 0.2rem;
+    border: 1px solid #d2d2d2;
+    border-radius: 5px;
+    color: #666666;
+    font-size: 0.36rem;
+}
+
+.pay .pay-box .pay {
+    cursor: pointer;
+    padding: 0 0.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.pay .pay-box .pay img {
+    vertical-align: bottom;
+    width: 0.8rem;
+}
+
+.pay .pay-box .pay span {
+    width: 3rem;
+    display: inline-block;
+}
+
+.pay .pay-box .pay .icon {
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin-left: 1.8rem;
+    vertical-align: middle;
+}
+
+.pay .pay-box .def {
+    padding-left: 0;
+}
+
+.pay .pay-box .def img {
+    width: 100%;
+}
+
+.pay .pay-box .text-center {
+    text-align: center;
+}
+
+.pay .pay-box .sure {
+    text-align: center;
+    line-height: 0.8rem;
+    font-size: 0.38rem;
+    color: white;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    display: inline-block;
+    width: 5rem;
+    background-color: red;
+    height: 0.8rem;
+    border-radius: 0.2rem;
+}
+
+
+/**************management.html**************/
+
+.management .search-box {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.management .search-box .device-sn {
+    position: relative;
+    width: 1.2rem;
+    height: 0.5rem;
+    display: inline-block;
+    line-height: 0.92rem;
+    margin-left: 0.6rem;
+}
+
+.management .search-box .device-sn span {
+    display: inline-block;
+    width: 1.58rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 5px;
+    font-size: 0.28rem;
+}
+
+.management .search-box .device-name {
+    position: relative;
+    width: 4.5rem;
+    height: 0.5rem;
+    border: 1px solid #6fab31;
+    border-radius: 5px;
+    display: inline-block;
+    line-height: 0.92rem;
+    margin-left: 0;
+}
+
+.management .search-box .device-name a {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0.48rem;
+    height: 0.5rem;
+    background-color: #6fab31;
+}
+
+.management .search-box .device-name a img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.management .search-box .device-name span {
+    display: inline-block;
+    width: 3.8rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 5px;
+    font-size: 0.28rem;
+}
+
+.management .search-box .device-name ul {
+    display: none;
+    z-index: 999;
+    background-color: white;
+    position: absolute;
+    width: 4.0rem;
+    max-height: 2rem;
+    overflow: auto;
+    top: 0.5rem;
+    left: 0;
+    border: 1px solid #6fab31;
+}
+
+.management .search-box .device-name ul li {
+    cursor: pointer;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    padding: 0 5px;
+    font-size: 0.28rem;
+}
+
+.management .search-box .search-box {
+    position: relative;
+    width: 3.6rem;
+    height: 0.5rem;
+    border: 1px solid #6fab31;
+    border-radius: 5px;
+    display: inline-block;
+    line-height: 0.92rem;
+    margin-left: 0.2rem;
+}
+
+.management .search-box .search-box input {
+    display: inline-block;
+    width: 2.7rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    position: absolute;
+    border: none;
+    border-radius: 5px;
+    top: 0;
+    left: 0;
+    padding: 0 5px;
+    font-size: 0.28rem;
+}
+
+.management .search-box .search-box a {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0.9rem;
+    height: 0.5rem;
+    background-color: #6fab31;
+}
+
+.management .search-box .search-box a img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.management .control {
+    margin-top: 0.2rem;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+    margin-bottom: 0.2rem;
+}
+
+.management .control .top {
+    font-size: 0.24rem;
+    font-weight: bold;
+    color: white;
+    background-color: #6fab31;
+}
+
+.management .control p {
+    height: 0.6rem;
+    width: 100%;
+}
+
+.management .control p span {
+    display: inline-block;
+    width: 30%;
+    line-height: 0.6rem;
+    text-align: center;
+}
+
+.management .control .content {
+    font-size: 0.2rem;
+}
+
+.management .control .content p {
+    height: 0.8rem;
+}
+
+.management .control .content p span {
+    line-height: 0.8rem;
+}
+
+.management .control .content p span:nth-child(2) {
+    border-left: 1px solid #DCDCDC;
+}
+
+.management .control .content p span:nth-child(3) {
+    border-left: 1px solid #DCDCDC;
+}
+
+.management .control .content p:nth-child(2n-1) {
+    background-color: white;
+}
+
+.management .control .content p:nth-child(2n) {
+    background-color: #EAEAEA;
+}
+
+.management #motor .span-right img {
+    width: 0.3rem;
+    height: 0.48rem;
+}
+
+
+/**************self.html**************/
+
+.self .card-img {
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.self .card-img img {
+    margin: 0 auto;
+    display: inherit;
+    margin-top: 2rem;
+    width: 7rem;
+}
+
+.self .card-img #closeImg {
+    cursor: pointer;
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.self .hetong-img {
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.self .hetong-img img {
+    margin: 0 auto;
+    display: inherit;
+    margin-top: 0.8rem;
+    width: 7rem;
+}
+
+.self .hetong-img #htCloseImg {
+    cursor: pointer;
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-top: 0.2rem;
+}
+
+.self .address {
+    width: 4rem;
+}
+
+.self .search-box {
+    padding-bottom: 2rem;
+    margin-top: 0.12rem;
+    width: 100%;
+}
+
+.self .a {
+    text-align: center;
+    line-height: 0.6rem;
+    display: inline-block;
+    color: white;
+    width: 1rem;
+    height: 0.6rem;
+    background-color: #6fab31;
+    border: 1px solid #6fab31;
+    border-radius: 5px;
+}
+
+
+/**************account.html**************/
+
+.account .search-box {
+    margin-top: 0.2rem;
+    width: 100%;
+    padding-bottom: 2rem;
+}
+
+.account .search-box .information {
+    font-size: 0.32rem;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+}
+
+.account .search-box .information .information-box {
+    position: relative;
+    height: 0.7rem;
+}
+
+.account .search-box .information .information-box span {
+    display: inline-block;
+    line-height: 0.7rem;
+}
+
+.account .search-box .information .information-box .span-left {
+    color: #666666;
+    position: absolute;
+    top: 0;
+    left: 0.2rem;
+}
+
+.account .search-box .information .information-box .span-right {
+    position: absolute;
+    top: 0;
+    right: 0.2rem;
+}
+
+.account .search-box .information .line-bottom {
+    border: 1px solid #D2D2D2;
+}
+
+.account .search-box .detail {
+    margin-top: 0.2rem;
+}
+
+.account .search-box .detail p {
+    font-size: 0.32rem;
+    padding-left: 0.1rem;
+}
+
+.account .search-box .detail .control {
+    margin-top: 0.2rem;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+    margin-bottom: 0.2rem;
+}
+
+.account .search-box .detail .control .top {
+    font-size: 0.24rem;
+    font-weight: bold;
+    color: white;
+    background-color: #6fab31;
+}
+
+.account .search-box .detail .control .top_coupon {
+    font-size: 0.24rem;
+    font-weight: bold;
+    color: white;
+    background-color: #6fab31;
+}
+
+.account .search-box .detail .control p {
+    padding-left: 0;
+    height: 0.6rem;
+    width: 100%;
+    font-size: 0.3rem;
+}
+
+.account .search-box .detail .control p span {
+    display: inline-block;
+    line-height: 0.6rem;
+    text-align: center;
+    float: left;
+}
+
+.account .search-box .detail .control p span:nth-child(1) {
+    white-space: normal;
+    width: 45%;
+}
+
+.account .search-box .detail .control p span:nth-child(2) {
+    width: 18%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control p span:nth-child(3) {
+    width: 18%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control p span:nth-child(4) {
+    width: 18%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control p span:nth-child(5) {
+    white-space: normal;
+    width: 18%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control .content {
+    font-size: 0.24rem;
+}
+
+.account .search-box .detail .control .content p {
+    height: 0.8rem;
+}
+
+.account .search-box .detail .control .content p span {
+    line-height: 0.8rem;
+    border-left: 1px solid #DCDCDC;
+}
+
+.account .search-box .detail .control .content p span b {
+    display: inline-block;
+    font-weight: normal;
+    line-height: 0.24rem;
+}
+
+.account .search-box .detail .control .content p span:nth-child(1) {
+    border-left: none;
+}
+
+.account .search-box .detail .control .content p:nth-child(2n-1) {
+    background-color: white;
+}
+
+.account .search-box .detail .control .content p:nth-child(2n) {
+    background-color: #EAEAEA;
+}
+
+.account .search-box .detail .control .content .total span:nth-child(1) {
+    width: 42%;
+    padding-left: 1px;
+}
+
+.account .search-box .detail .control .content .total span:nth-child(2) {
+    width: 18%;
+}
+
+.account .search-box .detail .control .content .total span:nth-child(3) {
+    width: 17%;
+    padding-left: 4px;
+    border-right: 1px solid #DCDCDC;
+}
+
+.account .search-box .detail .control .top_coupon p span {
+    display: inline-block;
+    line-height: 0.6rem;
+    text-align: center;
+    float: left;
+}
+
+.account .search-box .detail .control .top_coupon p span:nth-child(1) {
+    white-space: normal;
+    width: 28%;
+}
+
+.account .search-box .detail .control .top_coupon p span:nth-child(2) {
+    width: 28%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control .top_coupon p span:nth-child(3) {
+    width: 22%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control .top_coupon p span:nth-child(4) {
+    width: 20%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control .content_coupon p span:nth-child(1) {
+    white-space: normal;
+    width: 28%;
+}
+
+.account .search-box .detail .control .content_coupon p span:nth-child(2) {
+    width: 28%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control .content_coupon p span:nth-child(3) {
+    width: 22%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control .content_coupon p span:nth-child(4) {
+    width: 20%;
+    border-left: 1px solid #6fab31;
+}
+
+.account .search-box .detail .control .content_coupon {
+    font-size: 0.24rem;
+}
+
+.account .search-box .detail .control .content_coupon {
+    font-size: 0.24rem;
+}
+
+.account .search-box .detail .control .content_coupon p {
+    height: 0.8rem;
+}
+
+.account .search-box .detail .control .content_coupon p span {
+    line-height: 0.8rem;
+    border-left: 1px solid #DCDCDC;
+}
+
+.account .search-box .detail .control .content_coupon p span b {
+    display: inline-block;
+    font-weight: normal;
+    line-height: 0.24rem;
+}
+
+.account .search-box .detail .control .content_coupon p span:nth-child(1) {
+    border-left: none;
+}
+
+.account .search-box .detail .control .content_coupon p:nth-child(2n-1) {
+    background-color: white;
+}
+
+.account .search-box .detail .control .content_coupon p:nth-child(2n) {
+    background-color: #EAEAEA;
+}
+
+.account .search-box .detail .control .content_coupon .total span:nth-child(1) {
+    width: 42%;
+    padding-left: 1px;
+}
+
+.account .search-box .detail .control .content_coupon .total span:nth-child(2) {
+    width: 18%;
+}
+
+.account .search-box .detail .control .content_coupon .total span:nth-child(3) {
+    width: 17%;
+    padding-left: 4px;
+    border-right: 1px solid #DCDCDC;
+}
+
+.account .search-box #myPay {
+    width: 5rem;
+    height: 0.8rem;
+    background-color: #6fab31;
+    border-radius: 0.2rem;
+    color: white;
+    font-size: 0.46rem;
+    text-align: center;
+    display: block;
+    line-height: 0.8rem;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+}
+
+
+/**************serve.html**************/
+
+.serve .card-img {
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    overflow: scroll;
+}
+
+.serve .card-img img {
+    margin: 0 auto;
+    display: inherit;
+    margin-top: 1rem;
+    width: 7rem;
+}
+
+.serve .card-img .closeImg {
+    cursor: pointer;
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.serve .search-box {
+    margin-top: 0.3rem;
+    padding-bottom: 2rem;
+    width: 100%;
+}
+
+.serve .search-box .serve-box {
+    position: relative;
+    width: 7.5rem;
+    height: 3.2rem;
+    background: url("../images/fuwuyinji_bg01.png") no-repeat;
+    background-size: cover;
+}
+
+.serve .search-box .serve-box span {
+    display: inline-block;
+    position: absolute;
+}
+
+.serve .search-box .serve-box .one {
+    top: 0.3rem;
+    left: 1.2rem;
+    height: 0.5rem;
+    width: 6rem;
+    position: absolute;
+}
+
+.serve .search-box .serve-box .two {
+    top: 0.8rem;
+    left: 1.2rem;
+    height: 0.3rem;
+    width: 6rem;
+    position: absolute;
+}
+
+.serve .search-box .serve-box .three {
+    top: 1.2rem;
+    left: 4.5rem;
+    height: 0.3rem;
+    width: 3rem;
+    position: absolute;
+}
+
+.serve .search-box .serve-box .four {
+    top: 1.6rem;
+    left: 1.2rem;
+    height: 1.2rem;
+    width: 6rem;
+    position: absolute;
+}
+
+.serve .search-box .serve-box .serve-name {
+    font-size: 0.34rem;
+    color: #6fab31;
+}
+
+.serve .search-box .serve-box .serve-time {
+    font-size: 0.24rem;
+    color: #6fab31;
+    margin-left: 1.5rem;
+    margin-top: 0.1rem;
+}
+
+.serve .search-box .serve-box .serve-status {
+    font-size: 0.24rem;
+    color: #666666;
+}
+
+.serve .search-box .serve-box .serve-user {
+    font-size: 0.24rem;
+    color: #666666;
+}
+
+.serve .search-box .serve-box .img-left {
+    height: 1.2rem;
+}
+
+.serve .search-box .serve-box .img-right {
+    height: 1.2rem;
+}
+
+
+/**************record.html**************/
+
+.record .control {
+    margin-top: 0.2rem;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+    margin-bottom: 0.2rem;
+}
+
+.record .control .top {
+    font-size: 0.3rem;
+    font-weight: bold;
+    color: white;
+    background-color: #6fab31;
+}
+
+.record .control p {
+    height: 0.6rem;
+    width: 100%;
+}
+
+.record .control p span {
+    display: inline-block;
+    width: 32%;
+    line-height: 0.6rem;
+    text-align: center;
+}
+
+.record .control p span:nth-child(1) {
+    width: 45%;
+}
+
+.record .control p span:nth-child(2) {
+    width: 25%;
+}
+
+.record .control p span:nth-child(3) {
+    width: 25%;
+}
+
+.record .control .content {
+    font-size: 0.28rem;
+}
+
+.record .control .content p {
+    height: 0.8rem;
+}
+
+.record .control .content p span {
+    line-height: 0.8rem;
+}
+
+.record .control .content p span:nth-child(2) {
+    border-left: 1px solid #DCDCDC;
+}
+
+.record .control .content p span:nth-child(3) {
+    border-left: 1px solid #DCDCDC;
+}
+
+.record .control .content p span:nth-child(1) {
+    width: 45%;
+}
+
+.record .control .content p span:nth-child(2) {
+    width: 25%;
+}
+
+.record .control .content p span:nth-child(3) {
+    width: 25%;
+}
+
+.record .control .content p:nth-child(2n-1) {
+    background-color: white;
+}
+
+.record .control .content p:nth-child(2n) {
+    background-color: #EAEAEA;
+}
+
+
+/**************apply_list.html**************/
+
+.apply_list .control {
+    margin-top: 0.2rem;
+    box-shadow: 0 1px 9.9px 0.1px rgba(55, 55, 55, 0.5);
+    margin-bottom: 0.2rem;
+}
+
+.apply_list .control .top {
+    font-size: 0.3rem;
+    font-weight: bold;
+    color: white;
+    background-color: #6fab31;
+}
+
+.apply_list .control p {
+    height: 0.6rem;
+    width: 100%;
+}
+
+.apply_list .control p span {
+    display: inline-block;
+    width: 32%;
+    line-height: 0.6rem;
+    text-align: center;
+}
+
+.apply_list .control p span:nth-child(1) {
+    width: 45%;
+}
+
+.apply_list .control p span:nth-child(2) {
+    width: 25%;
+}
+
+.apply_list .control p span:nth-child(3) {
+    width: 25%;
+}
+
+.apply_list .control .content {
+    font-size: 0.28rem;
+}
+
+.apply_list .control .content p {
+    height: 0.8rem;
+}
+
+.apply_list .control .content p span {
+    line-height: 0.8rem;
+}
+
+.apply_list .control .content p span:nth-child(2) {
+    border-left: 1px solid #DCDCDC;
+}
+
+.apply_list .control .content p span:nth-child(3) {
+    border-left: 1px solid #DCDCDC;
+}
+
+.apply_list .control .content p span:nth-child(1) {
+    width: 45%;
+}
+
+.apply_list .control .content p span:nth-child(2) {
+    width: 25%;
+}
+
+.apply_list .control .content p span:nth-child(3) {
+    width: 25%;
+}
+
+.apply_list .control .content p:nth-child(2n-1) {
+    background-color: white;
+}
+
+.apply_list .control .content p:nth-child(2n) {
+    background-color: #EAEAEA;
+}
+
+.management .search-box #stop {
+    width: 5rem;
+    height: 0.8rem;
+    background-color: red;
+    border-radius: 0.2rem;
+    color: white;
+    font-size: 0.46rem;
+    text-align: center;
+    display: block;
+    line-height: 0.8rem;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+}
+
+.management .search-box #start {
+    width: 5rem;
+    height: 0.8rem;
+    background-color: #6fab31;
+    border-radius: 0.2rem;
+    color: white;
+    font-size: 0.46rem;
+    text-align: center;
+    display: block;
+    line-height: 0.8rem;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+}

@@ -1,0 +1,398 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+</head>
+
+<body style="background:#65A6EA;width:1254px;">
+    <div class="wrapper-container deviceDetail">
+        <!--搜索框-->
+        <!--
+  <div class="search-box">
+    <input class="isPhone" type="text" placeholder="请输入用户姓名"/>
+    <button class="searchBtn">搜索</button>
+  </div>
+  -->
+        <!--table数据-->
+        <div class="table-box" style="margin-top: 50px;">
+            <div class="table-head">
+            </div>
+            <div class="table-body">
+            </div>
+        </div>
+        <!--分页-->
+        <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+        <!--查看大图图片-->
+        <div class="card-img">
+            <img class="cardImg" src="" alt="图片">
+            <img class="closeImg" src="images/xx_icon.png" alt="图片">
+        </div>
+    </div>
+
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog myDialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h2 class="modal-title text-c c-primary">项目二维码</h2>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <p class="text-c"><img class="erweima" src="" alt="pic" width="190px" height="190px"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage; //获取跳转url的参数
+            var search = location.search;
+            var params = {};
+            if (params != '') {
+                var ps = search.slice(1).split('&');
+                for (var i = 0; i < ps.length; i++) {
+                    var arr = ps[i].split('=');
+                    params[arr[0]] = arr[1];
+                }
+            }
+            var userId = params.userId;
+            //设备详情跳转
+            $('body').on('click', '.a-deviceInfo', function() {
+                var sn = $(this).attr('data-sn');
+                window.location.href = 'detailLook.html?sn=' + sn;
+            });
+            //页面渲染
+            getData(1);
+
+            function getData(pageNo) {
+                var pageNo = pageNo;
+                var pageSize = 10000;
+
+                var data = {
+                    "pageNum": pageNo,
+                    "pageSize": pageSize,
+                    "userId": userId
+                };
+                WFang("Device/deviceShowByUserId", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        //分页
+                        //          laypage.render({
+                        //            elem: 'page',//容器
+                        //            count: arr.data.total,//总条数
+                        //            theme: '#0D3D89',//主题
+                        //            last: '末页',//最后一页
+                        //            limit:'8',//每页条数限制
+                        //            curr: arr.data.pageNum,//当前页
+                        //            prev: '<em><</em>',//上一页
+                        //            next: '<em>></em>',//下一页
+                        //            layout: ['count', 'prev', 'page', 'next','skip'],
+                        //            jump: function(obj,first){
+                        //              //obj包含了当前分页的所有参数，比如：
+                        //              if(!first){
+                        //                getData(obj.curr);//得到当前页，以便向服务端请求对应页的数据。
+                        //              }
+                        //            }
+                        //          });
+                        var html = '',
+                            html1 = '',
+                            sn = '',
+                            qr = '', //二维码
+                            WorkTime = '',
+                            workMode = '', // 工作模式 0-停止 1-进粮 2-烘干 3-放粮 4-通风
+                            full = '',
+                            wStatus = '',
+                            address = '',
+                            color = '';
+                        html1 = '<span>设备铭牌</span>' +
+                            '<span>设备二维码</span>' +
+                            '<span>累计作业时间（小时）</span>' +
+                            '<span>工作模式</span>' +
+                            '<span>满粮监测</span>' +
+                            '<span>故障诊断</span>' +
+                            '<span>GPS定位</span>' +
+                            '<span>操作</span>';
+                        $('.table-head').html(html1);
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            html = '<div class="div-box">' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span>' +
+                                '<a class="a-add" href="javascript:void (0);">添加</a>' +
+                                '</span>' +
+                                '</div>';
+                            $('.table-body').html(html);
+                            layer.msg('暂无数据！');
+                        } else {
+                            console.log(arr)
+                            for (var i = 0; i < arr.data.list.length; i++) {
+                                //设备编码
+                                if (arr.data.list[i].sn == '') {
+                                    sn = '--';
+                                } else {
+                                    sn = arr.data.list[i].sn;
+                                }
+                                //累计作业时长
+                                if (arr.data.list[i].WorkTime == '') {
+                                    WorkTime = '--';
+                                } else {
+                                    WorkTime = arr.data.list[i].WorkTime;
+                                }
+                                //作业模式
+                                if (arr.data.list[i].workMode === '') {
+                                    workMode = '--';
+                                } else if (arr.data.list[i].workMode == 0) {
+                                    workMode = '停机';
+                                } else if (arr.data.list[i].workMode == 1) {
+                                    workMode = '进粮';
+                                } else if (arr.data.list[i].workMode == 2) {
+                                    workMode = '干燥';
+                                } else if (arr.data.list[i].workMode == 3) {
+                                    workMode = '放粮';
+                                } else if (arr.data.list[i].workMode == 4) {
+                                    workMode = '通风';
+                                }
+                                //满粮监测
+                                if (arr.data.list[i].full === '') {
+                                    full = '--';
+                                } else if (arr.data.list[i].full == '0') {
+                                    full = '监测中';
+                                } else if (arr.data.list[i].full == '1') {
+                                    full = '满粮';
+                                }
+                                //故障诊断
+                                if (arr.data.list[i].nStatus == '0') {
+                                    wStatus = '未联网'
+                                } else {
+                                    if (arr.data.list[i].wStatus === '') {
+                                        wStatus = '--';
+                                    } else if (arr.data.list[i].wStatus == '0') {
+                                        wStatus = '监测中';
+                                    } else if (arr.data.list[i].wStatus == '1') {
+                                        wStatus = '故障';
+                                    }
+                                }
+
+                                //GPS定位
+                                if (arr.data.list[i].address == '') {
+                                    address = '--';
+                                } else {
+                                    address = arr.data.list[i].address;
+                                }
+
+
+                                html += '<div class="div-box">' +
+                                    '<span><input type="text" style="position: relative;top: -2px;" value="' + sn + '" readonly><input class="devid" type="hidden" value="' + arr.data.list[i].id + '"/></span>' +
+                                    '<span><a class="look" data-qr="' + arr.data.list[i].qr + '" href="javascript:void(0);"><img src="images/erweima01.png" alt="图片">查看大图</a></span>' +
+                                    '<span>' + WorkTime + '</span>' +
+                                    '<span>' + workMode + '</span>' +
+                                    '<span>' + full + '</span>' +
+                                    '<span>' + wStatus + '</span>' +
+                                    '<span>' + address + '</span>' +
+                                    '<span>' +
+                                    '<a class="a-edit" href="javascript:void (0);">编辑</a>' +
+                                    '<a class="a-deviceInfo" data-sn="' + sn + '" href="javascript:void (0);">查看详情</a>' +
+                                    '</span>' +
+                                    '</div>';
+                            }
+                            html += '<div class="div-box">' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span>' +
+                                '<a class="a-add" href="javascript:void (0);">添加</a>' +
+                                '</span>' +
+                                '</div>';
+                        }
+                        $('.table-body').html(html);
+                    }
+
+                }, data, 'postForm')
+            }
+
+            //点击查看大图
+            $('body').on('click', '.look', function() {
+                var src = $(this).attr('data-qr');
+                $('.cardImg').attr('src', src);
+                $('.card-img').attr('style', 'display:block;')
+            });
+            //点击退出查看大图
+            $('body').on('click', '.closeImg', function() {
+                $('.card-img').attr('style', 'display:none;')
+            });
+            /*******************点击编辑设置**********************/
+            var editnum = '0';
+
+            var addStas = '0';
+            // 点击添加
+            $('body').on('click', '.a-edit', function() {
+                //判断自定义变量，获取是否有正在编辑的项目
+                if (addStas == '1') {
+                    layer.msg('请先保存！');
+                } else if (editnum == '1') {
+                    layer.msg('一次只能编辑一项！');
+                } else {
+                    //改变自定义变量状态
+                    editnum = '1';
+                    var userId = $(this).attr('data-userId');
+                    $(this).html('保存');
+                    $(this).removeClass('a-edit').addClass('a-save1');
+                    $($($(this).parent().parent().children()[0]).children()[0]).addClass('edit-address');
+                    $('.edit-address').attr('readonly', false);
+                    $('.edit-address').attr('style', 'color:#a0a0a0;');
+                }
+            });
+
+
+            /*******************添加设备明细**********************/
+            //自定义变量状态  0-不存在添加框 1-已存在
+
+            //点击添加
+            $('body').on('click', '.a-add', function() {
+                //判断自定义变量状态 是否已存在添加框
+                if (editnum == '1') {
+                    layer.msg('请先完成编辑！')
+                } else if (addStas == '1') {
+                    layer.msg('一次只能添加一项！');
+                } else {
+                    //改变自定义变量状态
+                    addStas = '1';
+                    var html = '',
+                        html1 = '',
+                        len = '';
+                    html = '<div class="div-box">' +
+                        '<span><input class="add-sn" type="text" ></span>' +
+                        '<span><input type="text" readonly value="--"></span>' +
+                        '<span><input type="text" readonly value="--"></span>' +
+                        '<span><input type="text" readonly value="--"></span>' +
+                        '<span><input type="text" readonly value="--"></span>' +
+                        '<span><input type="text" readonly value="--"></span>' +
+                        '<span><input class="add-address" type="text" ></span>' +
+                        '<span>' +
+                        '<a class="a-save" href="javascript:void (0);">保存</a>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="div-box">' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '<span></span>' +
+                        '<span>' +
+                        '<a class="a-add" href="javascript:void (0);">添加</a>' +
+                        '</span>' +
+                        '</div>';
+                    //减去一行
+                    len = $($('.table-body').children()).length;
+                    html1 = $('.table-body').children()[len - 1];
+                    html1.remove();
+                    //增加一行
+                    $('.table-body').append(html);
+                }
+            });
+
+            //编辑点击保存
+            $('body').on('click', '.a-save1', function() {
+                var sn = $($($(this).parent().parent().children()[0]).children()[0]).val();
+                var address = $('.add-address').val();
+                var devid = $($($(this).parent().parent().children()[0]).children()[1]).val();
+                var data = {
+                    "userId": userId,
+                    "sn": sn,
+                    "id": devid
+                };
+                console.log(devid);
+                console.log(sn);
+                console.log(userId);
+                WFang("Device/deviceUpdate", function(arr) {
+                    if (arr.status == false) {
+                        if (arr.message === "添加设备参数检验失败") {
+                            layer.msg('铭牌编号必须为字母或数字！');
+                        }
+                        setTimeout(function() {
+                            //改变自定义变量状态
+                            editnum = '0';
+                            getData(1);
+                        }, 1800)
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            //改变自定义变量状态
+                            editnum = '0';
+                            getData(1);
+                        }, 1800)
+                    }
+                }, data, 'postForm');
+            });
+
+
+
+
+            //添加点击保存
+            $('body').on('click', '.a-save', function() {
+                var sn = $(".add-sn").val();
+                var address = $('.add-address').val();
+                var data = {
+                    "userId": userId,
+                    "sn": sn,
+                    "address": address
+                };
+                WFang("Device/deviceAdd", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            //改变自定义变量状态
+                            addStas = '0';
+                            getData(1);
+                        }, 1800)
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            //改变自定义变量状态
+                            addStas = '0';
+                            getData(1);
+                        }, 1800)
+                    }
+                }, data, 'postForm');
+            });
+        });
+    </script>
+</body>
+
+</html>

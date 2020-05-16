@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+</head>
+
+<body style="background:#65A6EA;width:1254px;">
+    <div class="wrapper-container">
+        <div class="add-user-box">
+            <ul class="ul-Box ul-left">
+                <li><span>*</span>建档日期:<input type="date" class="createDate" /></li>
+                <li><span>*</span>用户姓名:<input type="text" class="name" /></li>
+                <li><span>*</span>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业:<input type="text" class="job" /></li>
+                <li><span>*</span>身份证件:
+                    <button class="btn-file1">上传</button>
+                    <input id="fileUpload1" type="file" class="input-files" accept="image/jpg,image/jpeg,image/png" />
+                </li>
+                <li><span>*</span>日处理量:<input type="number" class="dealDay" style="width:150px;" />&nbsp;&nbsp;&nbsp;吨</li>
+                <li><span>*</span>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:<input type="text" class="phone" /></li>
+            </ul>
+            <ul class="ul-Box ul-right">
+                <li><span>*</span>项目名称:<input type="text" class="project" /></li>
+                <li><span>*</span>与( <input class="company" type="text" value=""> )签订的合同:<button class="btn-file2">上传</button><input id="fileUpload2" type="file" class="input-files2"></li>
+                <li class="li-textarea"><span>*</span>经营范围:<textarea placeholder="请输入相关内容" class="scope"></textarea></li>
+                <li class="li-textarea"><span>*</span>其他信用:<textarea placeholder="请输入相关内容" class="credit"></textarea></li>
+            </ul>
+        </div>
+        <div class="user-btn-box">
+            <button class="btn btn-primary radius save">保存</button>
+        </div>
+
+    </div>
+
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use('layer', function() {
+            var layer = layui.layer;
+
+            //页面跳转
+            function jumpTo(href) {
+                alert("子页面");
+                window.location.href = href;
+            };
+            //页面渲染
+            $('body').on('change', '#fileUpload1', img_up);
+
+            $('body').on('change', '#fileUpload2', img_up);
+
+            function img_up() {
+                var that = this; // 保存当前this
+                var file = that.files[0];
+                var fd = new FormData();
+                fd.append("file", file);
+                fd.append("fileDesc", "test");
+                layer.load(1);
+                $.ajax({
+                    async: true,
+                    url: ApiConf.server + 'Resource/ResourceAdd',
+                    type: "POST",
+                    dataType: 'json',
+                    data: fd,
+                    contentType: false,
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("authorization", ApiConf.token);
+                    },
+                    xhr: function() {
+                        myXhr = $.ajaxSettings.xhr();
+                        return myXhr;
+                    },
+                    success: function(arr) {
+                        //头像id
+                        that.setAttribute('name', arr.data[0].resourcepath);
+                        layer.msg('上传成功！');
+                        layer.closeAll('loading');
+                    },
+                    error: function() {
+                        layer.msg("上传失败！");
+                    },
+                    cache: false,
+                    processData: false
+                });
+            }
+
+            function uploadPic(file, callback, desc) {
+                Toast(null, null, null, 2);
+                var fd = new FormData();
+                fd.append("uid", window.sessionStorage.getItem(UrlConf.tk_uid))
+                fd.append("file", file);
+                fd.append("fileDesc", desc);
+                var xhr = new XMLHttpRequest();
+                if (typeof(callback) === 'function') {
+                    xhr.addEventListener("load", function(evt) {
+                        Toast(null, null, null, 3);
+                        callback(evt);
+                    }, false);
+                }
+                xhr.addEventListener("error", uploadFailed, false);
+                xhr.addEventListener("abort", uploadCanceled, false);
+                xhr.open("POST", ApiConf + ApiConf.upload_img);
+                xhr.send(fd);
+            }
+
+            $('body').on('click', '.save', function() {
+                var name = $('.name').val();
+                var phone = $('.phone').val();
+                var scope = $('.scope').val();
+                var card = $('#fileUpload1').attr('name');
+                var project = $('.project').val();
+                var company = $('.company').val();
+                var contract = $('#fileUpload2').attr('name');
+                var createDate = $('.createDate').val();
+                var job = $('.job').val();
+                var dealDay = $('.dealDay').val();
+                var credit = $('.credit').val();
+                var partten = /^1[3,5,8]\d{9}$/;
+
+                if (name == '' || phone == '' || scope == '' || card == '' || project == '' || company == '' || contract == '' || createDate == '' || job == '' || dealDay == '' || credit == '' || card == undefined || contract == undefined) {
+                    layer.msg('请填写完整再提交！');
+                    return;
+                } else if (!/(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/.test(phone) || !/(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/.test(phone)) {
+                    layer.msg('用户电话号码格式不正确！');
+                    return;
+                } else if (dealDay.length > 8) {
+                    layer.msg('日处理量不能超过8个字符！');
+                    return;
+                } else {
+                    var data = {
+                        'name': name,
+                        'phone': phone,
+                        'scope': scope,
+                        'card': card,
+                        'project': project,
+                        'company': company,
+                        'contract': contract,
+                        'contract': contract,
+                        'createDate': createDate,
+                        'job': job,
+                        'dealDay': dealDay,
+                        'credit': credit
+                    };
+
+                    WFang("user/addUser", function(arr) {
+                        if (arr.status) {
+                            layer.msg('修改成功！');
+                            setTimeout(function() {
+                                window.location.href = 'user.html';
+                            }, 1800);
+                        } else {
+                            layer.msg(arr.message);
+                        }
+                    }, data, 'postForm');
+                }
+            });
+        });
+        // input失去焦点验证
+        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\]<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        $("input[type='text']").blur(function() {
+            if (!pattern.exec($(this).val())) {
+                //不包含
+                return true;
+            } else {
+                layer.msg('请不要输入除-外的非法字符')
+                $(this).val('');
+                return false;
+            }
+        })
+    </script>
+</body>
+
+</html>

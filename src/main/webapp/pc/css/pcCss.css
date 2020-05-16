@@ -1,0 +1,2189 @@
+/**
+ * Created by fun on 2018/1/23.
+ */
+
+
+/**
+ *公共颜色
+ *
+*/
+
+
+/**
+ *table 表格 公共样式
+ * width:1131px;
+ * font-size:14px;
+ * box-sizing:border-box;
+*/
+
+.table-box {
+    margin: 0 auto;
+    width: 1131px;
+    box-sizing: border-box;
+}
+
+.table-box div {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.table-box div span {
+    display: inline-block;
+    line-height: 32px;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.table-box .table-head {
+    background-color: #65a6ea;
+    border: 1px solid #65a6ea;
+    height: 32px;
+}
+
+.table-box .table-head .div-box {
+    border-left: 1px solid #c1c3c0;
+}
+
+.table-box .table-head .div-box div {
+    display: inline-block;
+}
+
+.table-box .table-body {
+    border: 1px solid #c1c3c0;
+    min-height: 32px;
+    border-top: 0;
+}
+
+.table-box .table-body .div-box {
+    height: 32px;
+}
+
+.table-box .table-body .div-box span {
+    color: #666666;
+}
+
+.table-box .table-body .div-box .red {
+    color: #ef4343;
+}
+
+.table-box .table-body .div-box .a-save {
+    color: #ef4343;
+    text-decoration: underline;
+}
+
+.table-box .table-body .div-box .a-save1 {
+    color: #ef4343;
+    text-decoration: underline;
+}
+
+.table-box .table-body .div-box .a-edit {
+    color: #65a6ea;
+    text-decoration: underline;
+}
+
+.table-box .table-body .div-box .a-deviceInfo {
+    color: #65a6ea;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.table-box .table-body .div-box .a-mark {
+    color: #65a6ea;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.table-box .table-body .div-box .a-delete {
+    color: #65a6ea;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.table-box .table-body .div-box .a-room {
+    color: #65a6ea;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.table-box .table-body .div-box .a-modifyPwd {
+    color: #65a6ea;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.table-box .table-body .div-box .a-add {
+    color: #ef4343;
+    text-decoration: underline;
+}
+
+.table-box .table-body div:nth-child(2n) {
+    background-color: #eaeaea;
+}
+
+.table-box .table-foot {
+    border: 1px solid #c1c3c0;
+    border-top: none;
+    min-height: 32px;
+}
+
+.table-box .table-foot .div-box {
+    height: 32px;
+}
+
+.table-box .table-foot .div-box span {
+    color: #666666;
+}
+
+.table-box .table-foot .div-box div {
+    display: inline-block;
+}
+
+
+/**
+ *div 阴影边框 公共样式
+ * box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.35);
+ * box-sizing:border-box;
+*/
+
+.shadow-box {
+    display: inline-block;
+    border: 1px solid #c1c3c0;
+    box-sizing: border-box;
+    border-radius: 15px;
+    box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.35);
+}
+
+
+/********************room_management.html*************************/
+
+.roomManagement .table-box .div-box span:nth-child(1),
+.roomManagement .table-box .table-head span:nth-child(1) {
+    width: 120px;
+}
+
+.roomManagement .table-box .div-box span:nth-child(2),
+.roomManagement .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.roomManagement .table-box .div-box span:nth-child(3),
+.roomManagement .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.roomManagement .table-box .div-box span:nth-child(4),
+.roomManagement .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.roomManagement .table-box .div-box span:nth-child(5),
+.roomManagement .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.roomManagement .table-box .div-box span:nth-child(6),
+.roomManagement .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.roomManagement .table-box .div-box span:nth-child(7),
+.roomManagement .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.roomManagement .table-box .div-box span:nth-child(7) input,
+.roomManagement .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.roomManagement .table-box .div-box span:nth-child(8),
+.roomManagement .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.roomManagement .table-box .a-save {
+    color: #ef4343;
+}
+
+.roomManagement .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************site_management.html*************************/
+
+.siteManagement .table-box .div-box span:nth-child(1),
+.siteManagement .table-box .table-head span:nth-child(1) {
+    width: 300px;
+}
+
+.siteManagement .table-box .div-box span:nth-child(2),
+.siteManagement .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 300px;
+}
+
+.siteManagement .table-box .div-box span:nth-child(3),
+.siteManagement .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 350px;
+}
+
+.siteManagement .table-box .div-box span:nth-child(4),
+.siteManagement .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.siteManagement .table-box .div-box span:nth-child(5),
+.siteManagement .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.siteManagement .table-box .div-box span:nth-child(6),
+.siteManagement .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.siteManagement .table-box .div-box span:nth-child(7),
+.siteManagement .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.siteManagement .table-box .div-box span:nth-child(7) input,
+.siteManagement .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.siteManagement .table-box .div-box span:nth-child(8),
+.siteManagement .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.siteManagement .table-box .a-save {
+    color: #ef4343;
+}
+
+.siteManagement .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************room_type_list.html*************************/
+
+.room_type_list .table-box .div-box span:nth-child(1),
+.room_type_list .table-box .table-head span:nth-child(1) {
+    width: 300px;
+}
+
+.room_type_list .table-box .div-box span:nth-child(2),
+.room_type_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 300px;
+}
+
+.room_type_list .table-box .div-box span:nth-child(3),
+.room_type_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 350px;
+}
+
+.room_type_list .table-box .div-box span:nth-child(4),
+.room_type_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.room_type_list .table-box .div-box span:nth-child(5),
+.room_type_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.room_type_list .table-box .div-box span:nth-child(6),
+.room_type_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.room_type_list .table-box .div-box span:nth-child(7),
+.room_type_list .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.room_type_list .table-box .div-box span:nth-child(7) input,
+.room_type_list .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.room_type_list .table-box .div-box span:nth-child(8),
+.room_type_list .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.room_type_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.room_type_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+
+/********************buildingManagement.html*************************/
+
+.buildingManagement .table-box .div-box span:nth-child(1),
+.buildingManagement .table-box .table-head span:nth-child(1) {
+    width: 200px;
+}
+
+.buildingManagement .table-box .div-box span:nth-child(2),
+.buildingManagement .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.buildingManagement .table-box .div-box span:nth-child(3),
+.buildingManagement .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.buildingManagement .table-box .div-box span:nth-child(4),
+.buildingManagement .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.buildingManagement .table-box .div-box span:nth-child(5),
+.buildingManagement .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.buildingManagement .table-box .div-box span:nth-child(6),
+.buildingManagement .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.buildingManagement .table-box .div-box span:nth-child(7),
+.buildingManagement .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.buildingManagement .table-box .div-box span:nth-child(7) input,
+.buildingManagement .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.buildingManagement .table-box .div-box span:nth-child(8),
+.buildingManagement .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.buildingManagement .table-box .a-save {
+    color: #ef4343;
+}
+
+.buildingManagement .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************coupon_list.html*************************/
+
+.coupon_list .table-box .div-box span:nth-child(1),
+.coupon_list .table-box .table-head span:nth-child(1) {
+    width: 220px;
+}
+
+.coupon_list .table-box .div-box span:nth-child(2),
+.coupon_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 220px;
+}
+
+.coupon_list .table-box .div-box span:nth-child(3),
+.coupon_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.coupon_list .table-box .div-box span:nth-child(4),
+.coupon_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.coupon_list .table-box .div-box span:nth-child(5),
+.coupon_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.coupon_list .table-box .div-box span:nth-child(5) input,
+.coupon_list .table-box .table-head span:nth-child(5) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+.coupon_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.coupon_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************user_list.html*************************/
+
+.user_list .table-box .div-box span:nth-child(1),
+.user_list .table-box .table-head span:nth-child(1) {
+    width: 140px;
+}
+
+.user_list .table-box .div-box span:nth-child(2),
+.user_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.user_list .table-box .div-box span:nth-child(3),
+.user_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 170px;
+}
+
+.user_list .table-box .div-box span:nth-child(4),
+.user_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 170px;
+}
+
+.user_list .table-box .div-box span:nth-child(5),
+.user_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.user_list .table-box .div-box span:nth-child(6),
+.user_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.user_list .table-box .div-box span:nth-child(7),
+.user_list .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 210px;
+}
+
+.user_list .table-box .div-box span:nth-child(7) input,
+.user_list .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.user_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.user_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+
+/********************user_room.html*************************/
+
+.user_room .table-box .div-box span:nth-child(1),
+.user_room .table-box .table-head span:nth-child(1) {
+    width: 140px;
+}
+
+.user_room .table-box .div-box span:nth-child(2),
+.user_room .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 220px;
+}
+
+.user_room .table-box .div-box span:nth-child(3),
+.user_room .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.user_room .table-box .div-box span:nth-child(4),
+.user_room .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.user_room .table-box .div-box span:nth-child(5),
+.user_room .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.user_room .table-box .div-box span:nth-child(6),
+.user_room .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.user_room .table-box .div-box span:nth-child(7),
+.user_room .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.user_room .table-box .div-box span:nth-child(7) input,
+.user_room .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.user_room .table-box .a-save {
+    color: #ef4343;
+}
+
+.user_room .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+
+/********************user_history.html*************************/
+
+.user_history .table-box .div-box span:nth-child(1),
+.user_history .table-box .table-head span:nth-child(1) {
+    width: 130px;
+}
+
+.user_history .table-box .div-box span:nth-child(2),
+.user_history .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 220px;
+}
+
+.user_history .table-box .div-box span:nth-child(3),
+.user_history .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.user_history .table-box .div-box span:nth-child(4),
+.user_history .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.user_history .table-box .div-box span:nth-child(5),
+.user_history .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.user_history .table-box .div-box span:nth-child(6),
+.user_history .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 160px;
+}
+
+.user_history .table-box .div-box span:nth-child(7),
+.user_history .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 160px;
+}
+
+.user_history .table-box .div-box span:nth-child(7) input,
+.user_history .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.user_history .table-box .a-save {
+    color: #ef4343;
+}
+
+.user_history .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************ticket_list.html*************************/
+
+.ticket_list .table-box .div-box span:nth-child(1),
+.ticket_list .table-box .table-head span:nth-child(1) {
+    width: 130px;
+}
+
+.ticket_list .table-box .div-box span:nth-child(2),
+.ticket_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.ticket_list .table-box .div-box span:nth-child(3),
+.ticket_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.ticket_list .table-box .div-box span:nth-child(4),
+.ticket_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.ticket_list .table-box .div-box span:nth-child(5),
+.ticket_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.ticket_list .table-box .div-box span:nth-child(6),
+.ticket_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.ticket_list .table-box .div-box span:nth-child(7),
+.ticket_list .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.ticket_list .table-box .div-box span:nth-child(8),
+.ticket_list .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.ticket_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.ticket_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************payment_list.html*************************/
+
+.payment_list .table-box .div-box span:nth-child(1),
+.payment_list .table-box .table-head span:nth-child(1) {
+    width: 130px;
+}
+
+.payment_list .table-box .div-box span:nth-child(2),
+.payment_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 150px;
+}
+
+.payment_list .table-box .div-box span:nth-child(3),
+.payment_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.payment_list .table-box .div-box span:nth-child(4),
+.payment_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.payment_list .table-box .div-box span:nth-child(5),
+.payment_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.payment_list .table-box .div-box span:nth-child(6),
+.payment_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.payment_list .table-box .div-box span:nth-child(7),
+.payment_list .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.payment_list .table-box .div-box span:nth-child(8),
+.payment_list .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.payment_list .table-box .div-box span:nth-child(8) input,
+.payment_list .table-box .table-head span:nth-child(8) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.payment_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.payment_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************payment_detail_list.html*************************/
+
+.payment_detail_list .table-box .div-box span:nth-child(1),
+.payment_detail_list .table-box .table-head span:nth-child(1) {
+    width: 220px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(2),
+.payment_detail_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 220px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(3),
+.payment_detail_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(4),
+.payment_detail_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(5),
+.payment_detail_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(6),
+.payment_detail_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(7),
+.payment_detail_list .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(8),
+.payment_detail_list .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(8) input,
+.payment_detail_list .table-box .table-head span:nth-child(8) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.payment_detail_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.payment_detail_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************apply_list.html*************************/
+
+.apply_list .table-box .div-box span:nth-child(1),
+.apply_list .table-box .table-head span:nth-child(1) {
+    width: 180px;
+}
+
+.apply_list .table-box .div-box span:nth-child(2),
+.apply_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 230px;
+}
+
+.apply_list .table-box .div-box span:nth-child(3),
+.apply_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.apply_list .table-box .div-box span:nth-child(4),
+.apply_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.apply_list .table-box .div-box span:nth-child(5),
+.apply_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.apply_list .table-box .div-box span:nth-child(6),
+.apply_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 160px;
+}
+
+.apply_list .table-box .div-box span:nth-child(6) input,
+.apply_list .table-box .table-head span:nth-child(6) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.apply_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.apply_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************deviceManegement.html*************************/
+
+.deviceManegement .table-box .div-box span:nth-child(1),
+.deviceManegement .table-box .table-head span:nth-child(1) {
+    width: 100px;
+}
+
+.deviceManegement .table-box .div-box span:nth-child(2),
+.deviceManegement .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 144px;
+}
+
+.deviceManegement .table-box .div-box span:nth-child(3),
+.deviceManegement .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 172px;
+}
+
+.deviceManegement .table-box .div-box span:nth-child(4),
+.deviceManegement .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 92px;
+}
+
+.deviceManegement .table-box .div-box span:nth-child(5),
+.deviceManegement .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 76px;
+}
+
+.deviceManegement .table-box .div-box span:nth-child(6),
+.deviceManegement .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 90px;
+}
+
+.deviceManegement .table-box .div-box span:nth-child(7),
+.deviceManegement .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 220px;
+}
+
+.deviceManegement .table-box .div-box span:nth-child(7) input,
+.deviceManegement .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceManegement .table-box .div-box span:nth-child(8),
+.deviceManegement .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.deviceManegement .table-box .a-save {
+    color: #ef4343;
+}
+
+.deviceManegement .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+
+/********************deviceDetail.html*************************/
+
+.deviceDetail .card-img {
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.deviceDetail .card-img img {
+    margin: 0 auto;
+    display: inherit;
+    margin-top: 100px;
+    width: 200px;
+}
+
+.deviceDetail .card-img .closeImg {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin-top: 30px;
+}
+
+.deviceDetail .table-box span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    text-align: center;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(1),
+.deviceDetail .table-box .table-head span:nth-child(1) {
+    width: 100px;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(1) input,
+.deviceDetail .table-box .table-head span:nth-child(1) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(2),
+.deviceDetail .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 100px;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(2) input,
+.deviceDetail .table-box .table-head span:nth-child(2) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(3),
+.deviceDetail .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 144px;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(3) input,
+.deviceDetail .table-box .table-head span:nth-child(3) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(4),
+.deviceDetail .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(4) input,
+.deviceDetail .table-box .table-head span:nth-child(4) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(5),
+.deviceDetail .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 92px;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(5) input,
+.deviceDetail .table-box .table-head span:nth-child(5) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(6),
+.deviceDetail .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 118px;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(6) input,
+.deviceDetail .table-box .table-head span:nth-child(6) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(7),
+.deviceDetail .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 220px;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(7) input,
+.deviceDetail .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(8),
+.deviceDetail .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.deviceDetail .table-box .div-box span:nth-child(8) input,
+.deviceDetail .table-box .table-head span:nth-child(8) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.deviceDetail .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+
+/********************deviceDetail.html*************************/
+
+.lookDetail .left-box {
+    float: left;
+    width: 330px;
+    height: 520px;
+    margin-top: 30px;
+    margin-left: 82px;
+}
+
+.lookDetail .left-box .list-box {
+    display: inline-block;
+    width: 300px;
+    height: 80px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.lookDetail .left-box .list-box .b-img {
+    float: left;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    line-height: 80px;
+}
+
+.lookDetail .left-box .list-box .span {
+    font-size: 18px;
+    line-height: 80px;
+}
+
+.lookDetail .left-box .list-box .data {
+    font-size: 24px;
+    line-height: 80px;
+}
+
+.lookDetail .left-box .list-box .special {
+    display: inline-block;
+    height: 80px;
+}
+
+.lookDetail .left-box .list-box .special .span {
+    margin-top: 15px;
+    line-height: normal;
+}
+
+.lookDetail .left-box .list-box .special .data {
+    margin-left: 15px;
+    line-height: normal;
+    color: #ef4343;
+}
+
+.lookDetail .right-box {
+    float: left;
+    width: 620px;
+    height: 520px;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    margin-left: 82px;
+    padding: 0 15px;
+}
+
+.lookDetail .right-box .title {
+    font-size: 28px;
+    margin: 20px 0;
+}
+
+.lookDetail .right-box .left-list-box {
+    position: relative;
+    width: 240px;
+    height: 88px;
+    float: left;
+    margin-bottom: 25px;
+}
+
+.lookDetail .right-box .left-list-box .span {
+    text-align: center;
+    display: inline-block;
+    height: 88px;
+    line-height: 88px;
+    font-size: 28px;
+    color: #65a6ea;
+    width: 150px;
+}
+
+.lookDetail .right-box .left-list-box .status {
+    position: absolute;
+    top: 15px;
+    text-align: center;
+    display: inline-block;
+    background: url('../images/zhuangtai02.png') no-repeat;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 50%;
+}
+
+.lookDetail .right-box .right-list-box {
+    position: relative;
+    width: 330px;
+    height: 88px;
+    float: left;
+    margin-left: 15px;
+    margin-bottom: 25px;
+}
+
+.lookDetail .right-box .right-list-box .span {
+    text-align: center;
+    display: inline-block;
+    height: 88px;
+    line-height: 88px;
+    font-size: 28px;
+    color: #65a6ea;
+    width: 240px;
+}
+
+.lookDetail .right-box .right-list-box .status {
+    position: absolute;
+    top: 15px;
+    text-align: center;
+    display: inline-block;
+    background: url('../images/zhuangtai03.png') no-repeat;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 50%;
+}
+
+
+/********************serviceMark.html*************************/
+
+.serviceMark {
+    padding: 30px 0;
+}
+
+.serviceMark .card-img {
+    display: none;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    overflow: scroll;
+}
+
+.serviceMark .card-img img {
+    margin: 0 auto;
+    display: inherit;
+    margin-top: 100px;
+    width: 600px;
+    margin-bottom: 100px;
+}
+
+.serviceMark .card-img .closeImg {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    /*margin-top: 30px;*/
+    position: absolute;
+    top: -40px;
+    right: 280px;
+}
+
+.serviceMark .table-box .span-fileUp {
+    position: relative;
+}
+
+.serviceMark .table-box .span-fileUp .fileUp {
+    display: inline-block;
+    width: 80%;
+    text-align: center;
+    height: 30px;
+}
+
+.serviceMark .table-box .span-fileUp #fileUpload {
+    opacity: 0;
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.serviceMark .table-box .div-box span:nth-child(1),
+.serviceMark .table-box .table-head span:nth-child(1) {
+    width: 100px;
+}
+
+.serviceMark .table-box .div-box span:nth-child(1) input,
+.serviceMark .table-box .table-head span:nth-child(1) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.serviceMark .table-box .div-box span:nth-child(2),
+.serviceMark .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 264px;
+}
+
+.serviceMark .table-box .div-box span:nth-child(2) input,
+.serviceMark .table-box .table-head span:nth-child(2) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.serviceMark .table-box .div-box span:nth-child(3),
+.serviceMark .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 292px;
+}
+
+.serviceMark .table-box .div-box span:nth-child(3) input,
+.serviceMark .table-box .table-head span:nth-child(3) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.serviceMark .table-box .div-box span:nth-child(4),
+.serviceMark .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 118px;
+}
+
+.serviceMark .table-box .div-box span:nth-child(4) input,
+.serviceMark .table-box .table-head span:nth-child(4) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.serviceMark .table-box .div-box span:nth-child(5),
+.serviceMark .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.serviceMark .table-box .div-box span:nth-child(5) input,
+.serviceMark .table-box .table-head span:nth-child(5) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.serviceMark .table-box .div-box span:nth-child(6),
+.serviceMark .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.serviceMark .table-box .div-box span:nth-child(6) input,
+.serviceMark .table-box .table-head span:nth-child(6) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.serviceMark .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+.serviceMark #modalAdd .myDialog,
+.serviceMark #modalEdit .myDialog {
+    width: 460px;
+}
+
+.serviceMark #modalAdd .modal-header h2,
+.serviceMark #modalEdit .modal-header h2 {
+    font-size: 24px;
+}
+
+.serviceMark #modalAdd .modal-body,
+.serviceMark #modalEdit .modal-body {
+    padding: 0 80px;
+}
+
+.serviceMark #modalAdd .modal-body .row,
+.serviceMark #modalEdit .modal-body .row {
+    height: 32px;
+    margin: 0 auto;
+}
+
+.serviceMark #modalAdd .modal-body .row .left,
+.serviceMark #modalEdit .modal-body .row .left {
+    width: 100px;
+    display: inline-block;
+    text-align: right;
+}
+
+.serviceMark #modalAdd .modal-body .row input,
+.serviceMark #modalEdit .modal-body .row input {
+    width: 160px;
+    height: 24px;
+    border: 1px solid #c1c3c0;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+
+.serviceMark #modalAdd .modal-body .row .serviceType,
+.serviceMark #modalEdit .modal-body .row .serviceType,
+.serviceMark #modalAdd .modal-body .row .edit-serviceType,
+.serviceMark #modalEdit .modal-body .row .edit-serviceType {
+    width: 170px;
+    height: 24px;
+    border: 1px solid #c1c3c0;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+
+.serviceMark #modalAdd .modal-body .row .span-content,
+.serviceMark #modalEdit .modal-body .row .span-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.serviceMark #modalAdd .modal-body .row .content,
+.serviceMark #modalEdit .modal-body .row .content,
+.serviceMark #modalAdd .modal-body .row .edit-content,
+.serviceMark #modalEdit .modal-body .row .edit-content {
+    position: absolute;
+    top: 0;
+    left: 105px;
+    width: 170px;
+    height: 50px;
+    font-size: 14px;
+    border: 1px solid #c1c3c0;
+    border-radius: 3px;
+}
+
+.serviceMark #modalAdd .modal-body .row .btn-file,
+.serviceMark #modalEdit .modal-body .row .btn-file,
+.serviceMark #modalAdd .modal-body .row .edit-btn-file,
+.serviceMark #modalEdit .modal-body .row .edit-btn-file {
+    width: 170px;
+    height: 24px;
+    border: 1px solid #65a6ea;
+    background-color: #65a6ea;
+    border-radius: 3px;
+    color: #ffffff;
+}
+
+.serviceMark #modalAdd .modal-body .row .url,
+.serviceMark #modalEdit .modal-body .row .url,
+.serviceMark #modalAdd .modal-body .row .edit-url,
+.serviceMark #modalEdit .modal-body .row .edit-url {
+    position: absolute;
+    left: 185px;
+    opacity: 0;
+}
+
+.serviceMark #modalAdd .modal-body .row-content,
+.serviceMark #modalEdit .modal-body .row-content {
+    height: 60px;
+    position: relative;
+}
+
+.serviceMark #modalAdd .modal-body p,
+.serviceMark #modalEdit .modal-body p {
+    padding: 0 20px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.serviceMark #modalAdd .modal-footer,
+.serviceMark #modalEdit .modal-footer {
+    text-align: center;
+    background-color: white;
+    border: none;
+}
+
+.serviceMark #modalAdd .modal-footer .a-save,
+.serviceMark #modalEdit .modal-footer .a-save,
+.serviceMark #modalAdd .modal-footer .a-editSure,
+.serviceMark #modalEdit .modal-footer .a-editSure {
+    background-color: #227fe1;
+    border: 1px solid #227fe1;
+    border-radius: 3px;
+}
+
+.serviceMark #modalAdd .modal-footer .a-close,
+.serviceMark #modalEdit .modal-footer .a-close,
+.serviceMark #modalAdd .modal-footer .a-editclose,
+.serviceMark #modalEdit .modal-footer .a-editclose {
+    background-color: #eaeaea;
+    border: 1px solid #eaeaea;
+    border-radius: 3px;
+    margin-left: 35px;
+}
+
+
+/********************moneyCare.html*************************/
+
+.moneyCare .table-box .div-box span:nth-child(1),
+.moneyCare .table-box .table-head span:nth-child(1) {
+    width: 100px;
+}
+
+.moneyCare .table-box .div-box span:nth-child(1) input,
+.moneyCare .table-box .table-head span:nth-child(1) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.moneyCare .table-box .div-box span:nth-child(2),
+.moneyCare .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 264px;
+}
+
+.moneyCare .table-box .div-box span:nth-child(2) input,
+.moneyCare .table-box .table-head span:nth-child(2) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.moneyCare .table-box .div-box span:nth-child(3),
+.moneyCare .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 292px;
+}
+
+.moneyCare .table-box .div-box span:nth-child(3) input,
+.moneyCare .table-box .table-head span:nth-child(3) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.moneyCare .table-box .div-box span:nth-child(4),
+.moneyCare .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 118px;
+}
+
+.moneyCare .table-box .div-box span:nth-child(4) input,
+.moneyCare .table-box .table-head span:nth-child(4) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.moneyCare .table-box .div-box span:nth-child(5),
+.moneyCare .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 320px;
+}
+
+.moneyCare .table-box .div-box span:nth-child(5) input,
+.moneyCare .table-box .table-head span:nth-child(5) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.moneyCare .table-box .a-save {
+    color: #ef4343;
+}
+
+.moneyCare .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+.moneyCare .table-body div:nth-child(2n) select {
+    background-color: #eaeaea;
+}
+
+.moneyCare .edit-repayStatus {
+    border: none;
+}
+
+
+/********************myBill.html*************************/
+
+.myBill .table-box {
+    width: 770px;
+}
+
+.myBill .table-box span {
+    margin: 0;
+    padding: 0;
+}
+
+.myBill .table-box .div-box span:nth-child(1),
+.myBill .table-box .table-head span:nth-child(1) {
+    width: 50px;
+}
+
+.myBill .table-box .div-box span:nth-child(1) input,
+.myBill .table-box .table-head span:nth-child(1) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.myBill .table-box .div-box span:nth-child(2),
+.myBill .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 150px;
+}
+
+.myBill .table-box .div-box span:nth-child(2) input,
+.myBill .table-box .table-head span:nth-child(2) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.myBill .table-box .div-box span:nth-child(3),
+.myBill .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.myBill .table-box .div-box span:nth-child(3) input,
+.myBill .table-box .table-head span:nth-child(3) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 29px;
+    text-align: center;
+}
+
+.myBill .table-box .div-box span:nth-child(4),
+.myBill .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 80px;
+}
+
+.myBill .table-box .div-box span:nth-child(4) input,
+.myBill .table-box .table-head span:nth-child(4) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.myBill .table-box .div-box span:nth-child(5),
+.myBill .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 80px;
+}
+
+.myBill .table-box .div-box span:nth-child(5) input,
+.myBill .table-box .table-head span:nth-child(5) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.myBill .table-box .div-box span:nth-child(6),
+.myBill .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 272px;
+}
+
+.myBill .table-box .div-box span:nth-child(6) input,
+.myBill .table-box .table-head span:nth-child(6) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.myBill .table-box .table-foot span {
+    margin: 0;
+    padding: 0;
+}
+
+.myBill .table-box .table-foot .div-box span:nth-child(1),
+.myBill .table-box .table-foot .table-head span:nth-child(1) {
+    width: 316px;
+}
+
+.myBill .table-box .table-foot .div-box span:nth-child(2),
+.myBill .table-box .table-foot .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 76px;
+}
+
+.myBill .table-box .table-foot .div-box span:nth-child(3),
+.myBill .table-box .table-foot .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 76px;
+}
+
+.myBill .table-box .table-foot .div-box span:nth-child(4),
+.myBill .table-box .table-foot .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 260px;
+}
+
+.myBill .person {
+    font-size: 16px;
+    color: #666666;
+    width: 310px;
+    margin: 0 auto;
+    padding: 25px 0;
+}
+
+.myBill .person p {
+    margin-bottom: 20px;
+}
+
+.myBill .person p .span {
+    display: inline-block;
+    width: 100px;
+}
+
+.myBill .person .repayWay {
+    width: 120px;
+    height: 30px;
+}
+
+.myBill .person .payNum {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    border: 1px solid #c1c3c0;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.myBill .person .rate {
+    display: inline-block;
+    width: 105px;
+    height: 30px;
+    border: 1px solid #c1c3c0;
+    border-radius: 5px;
+    line-height: 30px;
+    padding-left: 15px;
+    font-size: 18px;
+}
+
+.myBill .person .btn-pay {
+    display: inline-block;
+    width: 40px;
+    height: 30px;
+    border: 1px solid #c1c3c0;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px;
+}
+
+.myBill .person .btn-pay:hover {
+    text-decoration: none;
+    border: 1px solid #65a6ea;
+}
+
+.myBill .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+.myBill .edit-div {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.myBill .edit-div .edit-btn,
+.myBill .edit-div .sure-btn {
+    width: 70px;
+    height: 30px;
+    font-size: 18px;
+    background-color: #227fe1;
+    border: 1px solid #227fe1;
+    border-radius: 3px;
+    color: #ffffff;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.myBill .edit-div .sure-btn {
+    background-color: #90c50f;
+    border: 1px solid #90c50f;
+}
+
+.myBill .edit-div .edit-btn.sure-btn:hover {
+    background-color: #65a6ea;
+    border: 1px solid #65a6ea;
+}
+
+
+/********************remind.html*************************/
+
+.remind {
+    padding-top: 40px;
+}
+
+.remind .table-box span {
+    margin: 0;
+    padding: 0;
+}
+
+.remind .table-box .div-box span:nth-child(1),
+.remind .table-box .table-head span:nth-child(1) {
+    width: 150px;
+}
+
+.remind .table-box .div-box span:nth-child(2),
+.remind .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 460px;
+}
+
+.remind .table-box .div-box span:nth-child(2) .content,
+.remind .table-box .table-head span:nth-child(2) .content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 360px;
+    display: inline-block;
+    text-align: center;
+}
+
+.remind .table-box .div-box span:nth-child(2) .a-look,
+.remind .table-box .table-head span:nth-child(2) .a-look {
+    display: inline-block;
+    width: 100px;
+}
+
+.remind .table-box .div-box span:nth-child(3),
+.remind .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 250px;
+}
+
+.remind .table-box .div-box span:nth-child(4),
+.remind .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 150px;
+}
+
+.remind .table-box .div-box span:nth-child(5),
+.remind .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 100px;
+}
+
+.remind #modalPay .modal-header h2 {
+    font-size: 24px;
+}
+
+.remind #modalPay .modal-body p {
+    padding: 0 20px;
+    font-size: 18px;
+    color: #666666;
+}
+
+.remind #modalPay .modal-body .p2 {
+    text-indent: 2em;
+    line-height: 30px;
+}
+
+.remind #modalPay .modal-body .minePay {
+    padding: 0 8px;
+    color: #ef4343;
+}
+
+.remind #modalAdd .myDialog,
+.remind #modalEdit .myDialog {
+    width: 600px;
+}
+
+.remind #modalAdd .modal-header h2,
+.remind #modalEdit .modal-header h2 {
+    font-size: 24px;
+}
+
+.remind #modalAdd .modal-body,
+.remind #modalEdit .modal-body {
+    padding: 0 40px;
+}
+
+.remind #modalAdd .modal-body .row,
+.remind #modalEdit .modal-body .row {
+    height: 32px;
+}
+
+.remind #modalAdd .modal-body .row input,
+.remind #modalEdit .modal-body .row input {
+    width: 100px;
+    height: 24px;
+    border: 1px solid #c1c3c0;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+
+.remind #modalAdd .modal-body .row .right,
+.remind #modalEdit .modal-body .row .right {
+    padding-left: 10px;
+}
+
+.remind #modalAdd .modal-body .row .date,
+.remind #modalEdit .modal-body .row .date {
+    width: 140px;
+}
+
+.remind #modalAdd .modal-body p,
+.remind #modalEdit .modal-body p {
+    padding: 0 20px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.remind #modalAdd .modal-body .bottom p,
+.remind #modalEdit .modal-body .bottom p {
+    padding: 0;
+}
+
+.remind #modalAdd .modal-body .bottom .title,
+.remind #modalEdit .modal-body .bottom .title {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #227fe1;
+}
+
+.remind #modalAdd .modal-body .bottom .p2,
+.remind #modalEdit .modal-body .bottom .p2 {
+    text-indent: 2em;
+    line-height: 30px;
+}
+
+.remind #modalAdd .modal-body .bottom .minePay,
+.remind #modalEdit .modal-body .bottom .minePay {
+    padding: 0 8px;
+    color: #ef4343;
+}
+
+.remind #modalAdd .modal-body .bottom .preview-span,
+.remind #modalEdit .modal-body .bottom .preview-span {
+    color: #65a6ea;
+}
+
+.remind #modalAdd .modal-footer,
+.remind #modalEdit .modal-footer {
+    text-align: center;
+    background-color: white;
+    border: none;
+}
+
+.remind #modalAdd .modal-footer .a-sure,
+.remind #modalEdit .modal-footer .a-sure,
+.remind #modalAdd .modal-footer .a-editSure,
+.remind #modalEdit .modal-footer .a-editSure {
+    background-color: #227fe1;
+    border: 1px solid #227fe1;
+    border-radius: 3px;
+}
+
+.remind #modalAdd .modal-footer .a-close,
+.remind #modalEdit .modal-footer .a-close,
+.remind #modalAdd .modal-footer .a-editclose,
+.remind #modalEdit .modal-footer .a-editclose {
+    background-color: #eaeaea;
+    border: 1px solid #eaeaea;
+    border-radius: 3px;
+    margin-left: 35px;
+}
+
+.remind #modalAdd .modal-footer .a-preview,
+.remind #modalEdit .modal-footer .a-preview {
+    background-color: #90c50f;
+    border: 1px solid #90c50f;
+    border-radius: 3px;
+}
+
+
+/********************remind.html*************************/
+
+.record {
+    padding-top: 40px;
+}
+
+.record .table-box span {
+    margin: 0;
+    padding: 0;
+}
+
+.record .table-box .div-box span:nth-child(1),
+.record .table-box .table-head span:nth-child(1) {
+    width: 100px;
+}
+
+.record .table-box .div-box span:nth-child(2),
+.record .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 100px;
+}
+
+.record .table-box .div-box span:nth-child(3),
+.record .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.record .table-box .div-box span:nth-child(4),
+.record .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 100px;
+}
+
+.record .table-box .div-box span:nth-child(5),
+.record .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.record .table-box .div-box span:nth-child(6),
+.record .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.record .table-box .div-box span:nth-child(7),
+.record .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.record .table-box .div-box span:nth-child(8),
+.record .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 174px;
+}
+
+.record #modalAdd .myDialog {
+    width: 460px;
+}
+
+.record #modalAdd .modal-header h2 {
+    font-size: 24px;
+}
+
+.record #modalAdd .modal-body {
+    padding: 0 80px;
+}
+
+.record #modalAdd .modal-body .row {
+    height: 32px;
+    margin: 0 auto;
+}
+
+.record #modalAdd .modal-body .row .left {
+    width: 100px;
+    display: inline-block;
+    text-align: right;
+}
+
+.record #modalAdd .modal-body .row input {
+    width: 180px;
+    height: 24px;
+    border: 1px solid #c1c3c0;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+
+.record #modalAdd .modal-body .row .right {
+    padding-left: 10px;
+}
+
+.record #modalAdd .modal-body .row .date {
+    width: 140px;
+}
+
+.record #modalAdd .modal-body p {
+    padding: 0 20px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.record #modalAdd .modal-footer {
+    text-align: center;
+    background-color: white;
+    border: none;
+}
+
+.record #modalAdd .modal-footer .a-save {
+    background-color: #227fe1;
+    border: 1px solid #227fe1;
+    border-radius: 3px;
+}
+
+.record #modalAdd .modal-footer .a-close {
+    background-color: #eaeaea;
+    border: 1px solid #eaeaea;
+    border-radius: 3px;
+    margin-left: 35px;
+}
+
+
+/**********************首页头部导航**************************/
+
+.top_fenlan div {
+    float: left;
+}
+
+.top_fenlan .top-menu {
+    width: 1214px;
+    float: left;
+    margin-left: 20px;
+}
+
+.top_fenlan .top-menu ul li {
+    float: left;
+    margin-left: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 28px;
+    color: black;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.top_fenlan .top-menu ul li a {
+    cursor: pointer;
+}
+
+.top_fenlan .top-menu ul li a img {
+    width: 12px;
+    height: 12px;
+}

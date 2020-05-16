@@ -1,0 +1,358 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+    <style>
+
+    </style>
+</head>
+
+<body style="background:#65A6EA;width:1254px;" class="ifram">
+    <div class="wrapper-container siteManagement">
+        <!--搜索框-->
+        <div class="search-box">
+            
+            <input class="isPhone" type="text" placeholder="请输入小区名称" />
+            <button class="searchBtn">搜索</button>
+            <button class="addBtn">新建</button>
+        </div>
+        <!--table数据-->
+        <div class="table-box">
+            <div class="table-head">
+            </div>
+            <div class="table-body">
+            </div>
+        </div>
+        <!--分页-->
+        <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+    </div>
+
+    <!--新增-->
+    <div class="add_mask" id="add_mask">
+        <div class="mask_contain" style="height: 260px;">
+            <div class="mask_top">新增小区<span class="close1">&times;</span></div>
+            <div class="form" style="padding-bottom:0;">
+                <div>
+                    <span>所在热站：</span>
+                    <select id="add_siteSlt" style="width:172px;">
+                        <option value="-1">请选择热站</option>
+                    </select>
+                </div><br>
+                <div><span>小区名称：</span><input id="areaName" type="text" placeholder="请输入小区名称"></div><br>
+                <div><span>小区说明：</span><input id="remark" type="text" placeholder="请输入小区说明"></div><br>
+            </div>
+            <div class="mask_btn"><button class="comfire" id="add_site">确认</button><button class="cansle">取消</button></div>
+        </div>
+    </div>
+
+    <!-- 编辑 -->
+    <div class="modify_mask">
+        <input type="hidden" id="m_areaId" value="">
+        <input type="hidden" id="m_siteId" value="">
+        <div class="mask_contain" style="height:260px;">
+            <div class="mask_top">修改小区<span class="close5">&times;</span></div>
+            <div class="modify_box">
+                <div>
+                    <span>所在热站：</span>
+                    <select id="m_siteSlt" style="width:172px;">
+                        <option value="-1">请选择热站</option>
+                    </select>
+                </div><br>
+                <div><span>小区名称：</span><input id="m_areaName" type="text" value=""></div><br>
+                <div><span>小区说明：</span><input id="m_remark" type="text" value=""></div>
+                <div class="delete_btn"><button class="modify_comfire" id="update_site" style="margin-top:18px;">确认</button><button class="modify_cansle">取消</button></div>
+            </div>
+         </div>
+    </div>
+
+    <!--确认删除-->
+    <div class="delete_mask">
+        <input type="hidden" id="d_areaId" value="">
+        <div class="mask_contain">
+            <div class="mask_top">删除小区<span class="close3">&times;</span></div>
+            <div class="delete_title">是否删除选中小区？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="del_user">确认</button><button class="delete_cansle">取消</button></div>
+        </div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+            //设备明细跳转
+            $('body').on('click', '.a-deviceInfo', function() {
+                var userId = $(this).attr('data-userId');
+                window.location.href = 'deviceDetails.html?userId=' + userId;
+            });
+            //服务印记跳转
+            $('body').on('click', '.a-mark', function() {
+                var userId = $(this).attr('data-userId');
+                window.location.href = 'serviceMark.html?userId=' + userId;
+            });
+
+            // 热站加载
+            load_site();
+
+            function load_site() {
+                var data = {
+                    "pageNum": 1,
+                    "pageSize": 100
+                };
+                WFang("site/queryListWithPage", function(arr) {
+                    var datarow = "";
+                    if (arr.status == false) {
+                        
+                    } else {
+                        datarow += '<option value="-1">请选择热站</option>';
+                        for (var i = 0; i < arr.data.list.length; i++) {
+                            datarow += '<option value=' + arr.data.list[i].id+'>'
+                                    + arr.data.list[i].siteName + '</option>';
+                        }
+                    }
+                    $('#add_siteSlt').html(datarow);
+                    $('#m_siteSlt').html(datarow);  
+                }, data, 'postForm');
+            }
+
+            //页面渲染 
+            var name = '';
+            getData(1, name);
+
+            function getData(pageNo, name) {
+                var pageNo = pageNo;
+                var pageSize = 8;
+
+                var data = {
+                    "pageNum": pageNo,
+                    "pageSize": pageSize,
+                    "siteName": name
+                };
+                WFang("area/queryListWithPage", function(arr) {
+                    // console.log(arr);
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        //分页
+                        laypage.render({
+                            elem: 'page', //容器
+                            pages: arr.data.pages, // 总页数
+                            count: arr.data.total, //总条数
+                            theme: '#0D3D89', //主题
+                            last: '末页', //最后一页
+                            limit: '8', //每页条数限制
+                            curr: arr.data.pageNum, //当前页
+                            prev: '<em><</em>', //上一页
+                            next: '<em>></em>', //下一页
+                            layout: ['count', 'prev', 'page', 'next', 'skip'],
+                            jump: function(obj, first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                if (!first) {
+                                    addStas = 0;
+                                    getData(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                }
+                            }
+                        });
+                        var html = '',
+                            html1 = '',
+                            wStatus = '',
+                            nStatus = '',
+                            lock = '',
+                            color = ''
+                            roomType = '';
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            layer.msg('暂无数据!');
+                        } else {
+                            html1 = 
+                                '<span>热站名称</span>' +
+                                '<span>小区名称</span>' +
+                                '<span>小区说明</span>' +
+                                '<span>操作</span>';
+                            $('.table-head').html(html1);
+                            
+                            for (var i = 0; i < arr.data.list.length; i++) {
+
+                                html += 
+                                    '<div class="div-box">' +
+                                    '<span>' + arr.data.list[i].siteName + '</span>' +
+                                    '<span>' + arr.data.list[i].areaName + '</span>' +
+                                    '<span>' + arr.data.list[i].remark + '</span>' +
+                                    '<span>' +
+                                    '<a class="a-edit" data-remark = "' 
+                                        + arr.data.list[i].remark + '" data-areaName = "' 
+                                        + arr.data.list[i].areaName + '" data-siteId = "' 
+                                        + arr.data.list[i].siteId + '" data-areaId="' 
+                                        + arr.data.list[i].id + '" href="javascript:void (0);">编辑</a>' +
+                                    '<a class="a-delete" data-areaId="' + arr.data.list[i].id + '" href="javascript:void (0);">删除</a>' +
+                                    '</span>' +
+                                    '</div>';
+                            }
+                            
+                           $('.table-body').html(html);
+                        }
+                    }
+
+                }, data, 'postForm')
+            }
+            
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".cansle",function(){
+                $(".add_mask").hide();
+            });
+            
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".close1",function(){
+                $(".add_mask").hide();
+            });
+            
+            
+            /***********************根据名称查询*****************************/
+            $('body').on('click', '.searchBtn', function() {
+                var name = $('.isPhone').val();
+                getData(1, name);
+            });
+
+            /***********************编辑弹框*****************************/
+            $('body').on('click', '.a-edit', function() {
+                var siteId = $(this).attr('data-siteId');
+                var areaId = $(this).attr('data-areaId');
+                var areaName = $(this).attr('data-areaName');
+                var remark = $(this).attr('data-remark');
+                $("#m_areaId").val(areaId);
+                $("#m_areaName").val(areaName);
+                $("#m_remark").val(remark);
+                $("#m_siteSlt").val(siteId);
+
+                $(".modify_mask").show();
+            });
+
+            /***********************编辑-确定****************************/
+            $('body').on("click",".modify_comfire", function(){
+                var siteId = $('#m_siteSlt').find("option:selected").val();
+                var areaId = $("#m_areaId").val();
+                var areaName = $("#m_areaName").val();
+                var remark = $("#m_remark").val();
+                var data = {
+                    "id": areaId,
+                    "siteId": siteId,
+                    "areaName": areaName,
+                    "remark": remark
+                };
+                WFang("area/save", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".modify_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+            
+
+            /***********************关闭-编辑弹框*****************************/
+            $('body').on("click",".modify_cansle",function(){
+                $(".modify_mask").hide();
+            });
+
+             /***********************关闭-编辑弹框*****************************/
+            $('body').on("click",".close5",function(){
+                $(".modify_mask").hide();
+            });
+
+
+            /***********************添加房间弹框*****************************/
+            $('body').on('click', '.addBtn', function() {
+                $("#add_siteSlt").val("-1");
+                $("#areaName").val("");
+                $("#remark").val("");
+
+                $("#add_mask").show();
+            });
+
+            /***********************添加实现*****************************/
+            $("body").on("click","#add_site",function() {
+                var siteId = $('#add_siteSlt').find("option:selected").val();
+                var areaName = $("#areaName").val();
+                var remark = $("#remark").val();
+                var data = {
+                    "siteId": siteId,
+                    "areaName": areaName,
+                    "remark": remark
+                };
+                WFang("area/save", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".add_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+            /***********************删除弹框*****************************/
+            $('body').on('click', '.a-delete', function() {
+                var areaId = $(this).attr('data-areaId');
+                $("#d_areaId").val(areaId);
+                $(".delete_mask").show();
+            });
+
+            /***********************关闭删除弹框*****************************/
+            $('body').on('click', '.delete_cansle', function() {
+                $(".delete_mask").hide();
+            });
+
+            /***********************关闭删除弹框*****************************/
+            $('body').on("click",".close3",function(){
+                $(".delete_mask").hide();
+            });
+
+            /***********************删除实现*****************************/
+            $('#del_user').click(function() {
+                var areaId = $("#d_areaId").val();
+                var pageNo = $('.layui-input').val();
+                WFang("area/deleteById/" + areaId, function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".delete_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, '', 'postForm')
+            });
+        });
+    </script>
+</body>
+
+</html>

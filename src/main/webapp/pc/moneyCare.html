@@ -1,0 +1,253 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+</head>
+
+<body style="background:#65A6EA;width:1254px;" class="ifram">
+    <div class="wrapper-container moneyCare">
+        <!--搜索框-->
+        <div class="search-box">
+            <input class="isPhone" type="text" placeholder="请输入用户姓名" />
+            <button class="searchBtn">搜索</button>
+        </div>
+        <!--table数据-->
+        <div class="table-box">
+            <div class="table-head">
+                <span>用户姓名</span>
+                <span>身份证号</span>
+                <span>合同金额</span>
+                <span>状态</span>
+                <span>操作</span>
+            </div>
+            <div class="table-body">
+            </div>
+        </div>
+        <!--分页-->
+        <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+
+            //我的账单跳转
+            $('body').on('click', '.a-myBill', function() {
+                var userId = $(this).attr('data-id');
+                window.location.href = 'myBill.html?userId=' + userId;
+            });
+            //还款提醒跳转
+            $('body').on('click', '.a-remind', function() {
+                var userId = $(this).attr('data-id');
+                var phone = $(this).attr('data-phone');
+                var name = $(this).attr('data-name');
+                //name 为中文  传参之前用encodeURL 转码
+                window.location.href = 'remind.html?userId=' + userId + '&phone=' + phone + '&name=' + encodeURI(name);
+            });
+            //还款记录跳转
+            $('body').on('click', '.a-record', function() {
+                var userId = $(this).attr('data-id');
+                var name = $(this).attr('data-name');
+                //name 为中文  传参之前用encodeURL 转码
+                window.location.href = 'record.html?userId=' + userId + '&name=' + encodeURI(name);
+            });
+            //页面渲染
+            var name = '';
+            getData(1, name);
+
+            function getData(pageNo, name) {
+                var pageNo = pageNo;
+                var pageSize = 8;
+
+                var data = {
+                    "pageNum": pageNo,
+                    "pageSize": pageSize,
+                    "name": name
+                };
+                WFang("Stage/showStage", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        laypage.render({
+                            elem: 'page', //容器
+                            count: arr.data.total, //总条数
+                            theme: '#0D3D89', //主题
+                            last: '末页', //最后一页
+                            limit: '8', //每页条数限制
+                            curr: arr.data.pageNum, //当前页
+                            prev: '<em><</em>', //上一页
+                            next: '<em>></em>', //下一页
+                            layout: ['count', 'prev', 'page', 'next', 'skip'],
+                            jump: function(obj, first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                if (!first) {
+                                    getData(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                }
+                            }
+                        });
+                        var html = '',
+                            html1 = '',
+                            userName = '', //名字
+                            idty = '', //身份证
+                            accountNum = '', //合同总金额
+                            repayStatus = '', //还款状态 1 正常 2 拖欠
+
+                            color = '';
+
+                        //分页
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            layer.msg('暂无数据!');
+                        } else {
+                            html1 = '<span>用户姓名</span>' +
+                                '<span>身份证号</span>' +
+                                '<span>合同金额</span>' +
+                                '<span>状态</span>' +
+                                '<span>操作</span>';
+                            $('.table-head').html(html1);
+                            for (var i = 0; i < arr.data.list.length; i++) {
+
+                                //姓名
+                                if (arr.data.list[i].name == '') {
+                                    userName = '--';
+                                } else {
+                                    userName = arr.data.list[i].name;
+                                }
+                                //身份证
+                                if (arr.data.list[i].idty == '') {
+                                    idty = '--';
+                                } else {
+                                    idty = arr.data.list[i].idty;
+                                }
+                                //合同总金额
+                                if (arr.data.list[i].accountNum == '') {
+                                    accountNum = '--';
+                                } else {
+                                    accountNum = arr.data.list[i].accountNum;
+                                }
+                                //还款状态 1 正常 2 拖欠
+                                if (arr.data.list[i].repayStatus == '1') {
+                                    repayStatus = '正常';
+                                    color = '';
+                                } else if (arr.data.list[i].repayStatus == '2') {
+                                    repayStatus = '拖欠';
+                                    color = 'red';
+                                }
+
+                                html += '<div class="div-box">' +
+                                    '<span>' + userName + '</span>' +
+                                    '<span><input type="text" value="' + idty + '" readonly></span>' +
+                                    '<span><input type="text" value="' + accountNum + '" readonly></span>' +
+                                    '<span class="' + color + '">' + repayStatus + '</span>' +
+                                    '<span>' +
+                                    '<a data-id="' + arr.data.list[i].id + '" class="a-deviceInfo a-edit" href="javascript:void (0);">编辑</a>' +
+                                    '<a data-id="' + arr.data.list[i].id + '" class="a-deviceInfo a-myBill" href="javascript:void (0);">我的账单</a>' +
+                                    '<a data-name="' + arr.data.list[i].name + '" data-id="' + arr.data.list[i].id + '" data-phone="' + arr.data.list[i].phone + '" class="a-deviceInfo a-remind" href="javascript:void (0);">支付提醒</a>' +
+                                    '<a data-name="' + arr.data.list[i].name + '" data-id="' + arr.data.list[i].id + '" class="a-deviceInfo a-record" href="javascript:void (0);">支付记录</a>' +
+                                    '</span>' +
+                                    '</div>';
+                            }
+                        }
+                        $('.table-body').html(html);
+                    }
+
+                }, data, 'postForm')
+            }
+            /***********************根据名称查询*****************************/
+            $('body').on('click', '.searchBtn', function() {
+                var name = $('.isPhone').val();
+                getData(1, name);
+            });
+            /*********************编辑我的账本***********************/
+            //自定义变量状态  0-不存在添加框 1-已存在
+            var addStas = '0';
+            $('body').on('click', '.a-edit', function() {
+                if (addStas == '1') {
+                    layer.msg('一次只能编辑一项！');
+                } else {
+                    //改变自定义变量状态
+                    addStas = '1';
+                    $(this).html('保存');
+                    $(this).removeClass('a-edit').removeClass('a-deviceInfo').addClass('a-save');
+                    $($($(this).parent().parent().children()[1]).children()[0]).addClass('edit-idty');
+                    $($($(this).parent().parent().children()[2]).children()[0]).addClass('edit-accountNum');
+                    $($(this).parent().parent().children()[3]).addClass('edit-spanStatus');
+                    var html = '<select class="edit-repayStatus">' +
+                        '<option value="1">正常</option>' +
+                        '<option value="2">拖欠</option>' +
+                        '</select>';
+                    $('.edit-spanStatus').html(html);
+                    $('.edit-idty').attr('readonly', false);
+                    $('.edit-idty').attr('style', 'color:#a0a0a0;');
+                    $('.edit-accountNum').attr('readonly', false);
+                    $('.edit-accountNum').attr('style', 'color:#a0a0a0;');
+                }
+            });
+            $('body').on('click', '.a-save', function() {
+                var id = $(this).attr('data-id');
+                var idty = $('.edit-idty').val();
+                var accountNum = $('.edit-accountNum').val();
+                var repayStatus = $('.edit-repayStatus').find("option:selected").val();
+                edit(id, idty, accountNum, repayStatus);
+            });
+
+            function edit(id, idty, accountNum, repayStatus) {
+                var pageNo = $('.layui-input').val();
+                var data = {
+                    "id": id,
+                    "idty": idty,
+                    "accountNum": accountNum,
+                    "repayStatus": repayStatus
+                };
+                WFang("Stage/updateStage", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            //改变自定义变量状态
+                            addStas = '0';
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            }
+        });
+        // input失去焦点验证
+        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\]<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        $("input[type='text']").blur(function() {
+            if (!pattern.exec($(this).val())) {
+                //不包含
+                return true;
+            } else {
+                layer.msg('请不要输入除-外的非法字符')
+                $(this).val('');
+                return false;
+            }
+        })
+    </script>
+</body>
+
+</html>

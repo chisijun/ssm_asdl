@@ -1,0 +1,302 @@
+<!--
+  Created by PC on 2017/12/27.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=motor-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <title>供热管理系统</title>
+
+    <link rel="stylesheet" href="../css/Myless.css">
+</head>
+
+<body>
+    <form>
+    <div class="account">
+        <!--头部-->
+        <div class="header">
+            <a id="head-back" href="javascript:void (0);" class="back"><img src="../images/back_icon.png" alt="图片">&nbsp;返回</a>
+            缴费单详情
+        </div>
+        <div class="search-box">
+            <!--身份信息-->
+            <div class="information" style="font-size: 0.35rem;">
+                <div class="information-box line-bottom">
+                    <span class="span-left">缴费单号:</span>
+                    <span class="span-right paymentNo">--</span>
+                </div>
+                <div class="information-box line-bottom">
+                    <span class="span-left">年度:</span>
+                    <span class="span-right paymentYear">--</span>
+                </div>
+                <div class="information-box line-bottom">
+                    <span class="span-left">面积:</span>
+                    <span class="span-right acreage">--</span>
+                </div>
+                <div class="information-box line-bottom">
+                    <input type="hidden" id="actfee">
+                    <span class="span-left">总额:</span>
+                    <span class="span-right actfee">--</span>
+                </div>
+                <div id="g_discount" class="information-box line-bottom">
+                    <span class="span-left">折扣:</span>
+                    <span class="span-right discount"></span>
+                </div>
+                <!--
+                <div class="information-box line-bottom">
+                    <span class="span-left">支付方式:</span>
+                    <span class="span-right repayNum"></span>
+                </div>
+                -->
+                <div id="g_fee" class="information-box line-bottom">
+                    <span class="span-left">支付金额:</span>
+                    <span class="span-right fee"></span>
+                </div>
+
+            </div>
+            <!--账单详情-->
+            <div class="detail">
+                <p style="font-size: 0.35rem;">账单详情:</p>
+                <div class="control">
+                    <div class="top">
+                        <p>
+                            <span>房子地址</span>
+                            <span>房子面积</span>
+                            <span>单价(￥)</span>
+                            <span>总价(￥)</span>
+                        </p>
+                    </div>
+                    <div class="content">
+                    </div>
+                </div>
+            </div>
+            <!--我要还款-->
+            <div id="g_coupon_yes" style="display: none;" class="detail">
+                <p style="font-size: 0.35rem;">可使用优惠券:</p>
+                <div class="control">
+                    <div class="top_coupon">
+                        <p>
+                            <span>开始时间</span>
+                            <span>结束时间</span>
+                            <span>优惠比例</span>
+                            <span>是否选中</span>
+                        </p>
+                    </div>
+                    <div class="content_coupon">
+                        <p>
+                            <span>2019-06-18</span>
+                            <span>2019-12-18</span>
+                            <span>20%</span>
+                            <span><input type="radio" name="coupon" value="1"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="g_coupon_no" style="text-align: center; margin-right: 20px; font-size: 0.35rem; display: none;">
+                <p style="font-size: 0.35rem;">暂无可使用优惠券</p>
+            </div>
+            
+            <div id="g_pay" style="text-align: right; margin-right: 20px; font-size: 0.35rem; display: none; margin-top:20px;">
+                <span>支付金额:</span>
+                <span>￥</span><span style="color: red;" id="fee"></span>
+            </div>
+            <div>
+                <a style="display: none;" id="myPay" href="javascript:void (0);">我要支付</a>
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a href="javascript:window.location.href='management.html';" id="management">
+                <img src="../images/zuoye_icon02.png" alt="图片">
+                <span>房子管理</span>
+            </a>
+            <a href="javascript:window.location.href='payment_list.html';" id="self">
+                <img src="../images/jizhangben_icon03.png" alt="图片">
+                <span class="span-color">缴费单</span>
+            </a>
+            <a href="javascript:window.location.href='apply_list.html';" id="account">
+                <img src="../images/fuwu_icon02.png" alt="图片">
+                <span>停栓复热</span>
+            </a>
+            <a href="javascript:window.location.href='my.html';" id="serve">
+                <img src="../images/zhiwo_icon02.png" alt="图片">
+                <span>我的</span>
+            </a>
+        </div>
+    </div>
+    </form>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/pub.js"></script>
+    <script src="../js/WFang.js"></script>
+    <script>
+        $(document).ready(function() {
+            layui.use('layer', function() {
+
+                var form = layui.form;
+
+                var search=location.search;
+                var params={};
+                if (params!='') {
+                    var ps = search.slice(1).split('&');
+                    for (var i=0;i<ps.length;i++) {
+                        var arr=ps[i].split('=');
+                        params[arr[0]]=arr[1];
+                    }
+                }
+                var paymentNo = params.paymentNo;
+
+                //头部返回上一页按键
+                $('body').on('click', '#head-back', function() {
+                    window.location.href = 'payment_list.html';
+                });
+
+                $("input[name=coupon]").click(function(){
+                    var coupon = $(this).val();
+                    var discount = $(this).attr('data-discount');
+                    alert(coupon);
+                    alert(discount);
+                });
+
+                $(':radio').click(function(){
+                    var checkValue = $(this).val(); 
+                    alert(checkValue);
+                });
+
+                // form.on('radio(filter)', function(data){
+                //   console.log(data.elem); //得到radio原始DOM对象
+                //   console.log(data.value); //被点击的radio的value值
+                // }); 
+
+                //我要还款
+                $('body').on('click', '#myPay', function() {
+                    var couponId = $("input[name=coupon]:checked").val();
+                    var fee = $("#fee").html();
+                    window.sessionStorage.setItem("fee", fee);
+                    if (couponId != null) {
+                        window.sessionStorage.setItem("couponId", couponId);
+                    } else {
+                        window.sessionStorage.setItem("couponId", -1);
+                    }
+                    window.location.href = 'pay.html?paymentNo=' + paymentNo;
+                });
+
+                $('body').on('click', '.coupon', function() {
+                    //var couponId = $("input[name=coupon]:checked").val();
+                    var discount = $(this).attr('data-discount');
+                    var fee = $("#actfee").val();
+                    if ($(this).attr("checked")) {
+                        $(this).attr("checked",false);
+                    } else {
+                        $(this).attr("checked",true);
+                        fee = parseInt(fee) - parseInt((fee * discount) / 100);
+                    }
+
+                    $("#fee").html(fee);
+                });
+
+                getData();
+                //记账本
+                function getData() {
+                    WFang("payment/queryPaymentDetailByNo/" + paymentNo, function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            console.log(arr);
+                            //合同金额 accountNum
+                            $('.paymentNo').html(paymentNo);
+                            $('.paymentYear').html(arr.data.paymentYear);
+                            $('.acreage').html(arr.data.acreage + '&nbsp;㎡');
+                            $('.actfee').html('&nbsp;￥' + arr.data.actfee);
+                            $('.discount').html(arr.data.discount + '&nbsp;%');
+                            $('.fee').html('&nbsp;￥' + arr.data.fee);
+                            $('#fee').html(arr.data.actfee);
+                            $('#actfee').val(arr.data.actfee);
+                            
+                            // 设置显示我要支付
+                            if (arr.data.isPay == 0) {
+                                // 显示 我要支付
+                                $("#myPay").show();
+                                 $("#g_discount").hide();
+                                 $("#g_fee").hide();
+                                 $("#g_coupon_yes").show();
+                                 //$("#g_coupon_no").show();
+                                 $("#g_pay").show();
+                                
+                            }
+
+                            var html = '',
+                                totalAccount = 0,
+                                totalRepayAccount = 0,
+                                roomLocation = '';
+                            if (arr.data.paymentDetailList != '') {
+                                for (var i = 0; i < arr.data.paymentDetailList.length; i++) { 
+                                    html += '<p>' +
+                                        '<span><b>' + arr.data.paymentDetailList[i].roomName + '</b></span>' +
+                                        '<span><b>' + arr.data.paymentDetailList[i].acreage + '</b></span>' +
+                                        '<span><b>' + arr.data.paymentDetailList[i].price + '</b></span>' +
+                                        '<span><b>' + arr.data.paymentDetailList[i].fee + '</b></span>' +
+                                        '</p>';
+                                    //totalAccount += parseInt(arr.data.stages[i].account);
+                                    //totalRepayAccount += parseInt(arr.data.stages[i].repayAccount);
+                                }
+
+                                $('.content').html(html);
+                            } else {
+                                html = '<p>' +
+                                    '<span><b>无</b></span>' +
+                                    '<span><b>无</b></span>' +
+                                    '<span><b>无</b></span>' +
+                                    '<span><b>无</b></span>' +
+                                    '</p>';
+                                $('.content').html(html);
+                            }
+                        }
+                    }, {}, 'post', '', '', 'html/payment_detail.html')
+                }
+
+                load_coupon();
+
+                function test() {
+                    alert(111);
+                }
+
+                function load_coupon() {
+
+                    WFang("coupon/queryUsableListWithPage", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            console.log(arr);
+                            var html = '';
+                            for (var i = 0; i < arr.data.list.length; i++) {
+                                html += '<p>' + 
+                                    '<span>' + arr.data.list[i].periodStart.substring(0, 10) + '</span>' + 
+                                    '<span>' + arr.data.list[i].periodEnd.substring(0, 10) + '</span>' + 
+                                    '<span>' + arr.data.list[i].discount + '%</span>' + 
+                                    '<span><input class="coupon" type="radio" name="coupon" data-discount="' 
+                                        + arr.data.list[i].discount + '" value="' + arr.data.list[i].id + '"></span>'
+                                    '</p>'
+                            }
+                            $('.content_coupon').html(html);
+                        }
+                    }, {
+                        "pageNum": 1,
+                        "pageSize": 100
+                    }, 'postForm', '', '', 'html/payment_detail.html')
+
+                }
+
+                
+            });
+        });
+    </script>
+</body>
+
+</html>

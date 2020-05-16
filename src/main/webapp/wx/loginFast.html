@@ -1,0 +1,190 @@
+<!--
+  Created by PC on 2017/12/28.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!--<meta name="format-detection" content="telephone=no">-->
+  <title>谷物干燥机物联智慧系统</title>
+
+  <link rel="stylesheet" href="css/Myless.css">
+</head>
+<body>
+<div class="login">
+  <!--头部-->
+  <div class="header">
+    <a id="head-back" href="javascript:void (0);" class="back"><img src="images/back_icon.png" alt="图片">&nbsp;返回</a>
+    快速登录
+  </div>
+  <!--logo-->
+  <div class="logo">
+    <img src="images/loding_touxiang.png" alt="图片">
+  </div>
+  <!--登录信息-->
+  <div class="login-box">
+    <div class="pos-img">
+      <input id="login-user" type="tel" class="user form-control" maxlength="11" placeholder="输入手机号">
+      <img class="user-img" src="images/loding_user_icon.png" alt="图片">
+      <img class="del-img clear" src="images/delete_icon.png" alt="图片">
+    </div>
+
+    <div class="pos-img">
+      <div class="putCode">
+        <input id="in-vcode" type="text" class="code form-control" maxlength="8" placeholder="输入验证码">
+        <img class="pwd-img" src="images/loding_open_icon.png" alt="图片">
+      </div>
+      <div class="getCode">
+        <!--获取验证码-->
+        <input id="get-vcode" type="button" value="发送验证码">
+        <!--验证码60s倒计时遮罩层-->
+        <span></span>
+      </div>
+    </div>
+    <div class="pos-img">
+      <a id="login" href="#">登&nbsp;录</a>
+    </div>
+    <div class="back-login">
+      <a id="back-login" href="#">密码登录</a>
+    </div>
+  </div>
+</div>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="lib/layui/layui.js"></script>
+<script src="js/pub.js"></script>
+<script src="js/WFang.js"></script>
+<script>
+  $(document).ready(function() {
+    layui.use('layer', function(){
+      var layer = layui.layer;
+      //头部返回上一页按键
+      $('body').on('click','#head-back',function(){
+        window.location.href='login.html';
+      });
+      //短信验证码
+      function time(that,wait){
+        if(wait==0){
+          wait=60;
+          //去掉遮罩层
+//          that.next().removeClass('layer-span');
+//          that.removeClass('vcode-a-hover');
+          that.attr('style','background: url("images/fasong_bg.png") no-repeat center;');
+          that.val('发送验证码');
+//        window.location.reload();//刷新导致原先输入的账号密码不保存
+        }else{
+          wait--;
+          that.val(wait+'秒');
+          setTimeout(function(){
+            time(that,wait);
+          },1000)
+        }
+      }
+      $('#get-vcode').click(function(){
+        var phone=$('#login-user').val();
+
+        //判断phone是否为空
+        if(phone==''){
+          layer.tips('手机号不能为空', '#login-user', {
+            tips: [1, '#e4393c'],
+            time: 2000
+          });
+        }else{
+          var wait=60;
+          var that=$(this);//保存当前对象
+          //添加遮罩层
+//          that.next().addClass('layer-span');
+//          that.addClass('vcode-a-hover');
+          that.attr('style','background: url("images/fasong_bg01.png") no-repeat center;');
+          that.val(wait+'秒');
+          time(that,wait);
+          var codeType= 5;//获取验证码的类型；1 注册；2 修改密码； 3 修改手机号 5 短信登入
+          var data={ "phone": phone,"codeType":codeType};
+          getcode(data);
+        }
+        function getcode(data){
+          //加载动画
+          layer.load();
+          $.ajax({
+            async: true,
+            url: ApiConf.server+'user/code',
+            type: "post",
+            data:data,
+            dataType:'json',
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader("authorization", token);
+            },
+            success: function (arr) {
+              //停止加载动画
+              layer.closeAll('loading');
+              if(arr.status==true){//验证码发送成功
+                $('#get-vcode').attr('name',arr.data.phone);//保存后台验证匹配码
+                //保存在cookie
+                $.cookie("keyCode",arr.data, { expires: 180/(24*60*60) });
+                layer.msg(arr.message,{icon:1});
+              }else if(arr.status==false){//验证码发送失败
+                layer.tips(arr.data.phone, '#login-user', {
+                  tips: [1, '#e4393c'],
+                  time: 2000
+                });
+                //设置一个定时
+                setTimeout(function (){
+                  location.reload();
+                },1800) ;
+              }
+            }
+          });
+        }
+      });
+
+      //登录
+      $('body').on('click','#login',function(){
+        //code
+        var code = $('#in-vcode').val().trim();
+        //codekey
+        var codekey = $('#get-vcode').attr('name');
+        if (code == ''){//用户名验证
+          layer.tips('请填写验证码', '#in-vcode', {//layer提示信息
+            tips: [1, '#3595CC'],
+            time: 2000
+          });
+        }
+        else if (codekey ==''){//密码验证
+          layer.tips('请重新获取验证码', '#get-vcode', {
+            tips: [1, '#3595CC'],
+            time: 2000
+          });
+        }else{
+          sms_login(code,codekey);
+        }
+      });
+      //短信登录函数
+      function sms_login(code,codekey){
+        WFang ("login/SMSLogin",function(arr){
+          if(arr.status == false){
+            layer.msg(arr.message);
+          }else{
+            layer.msg(arr.message);
+            setTimeout(function(){
+              window.location.href='index.html';
+            },1800);
+          }
+        },{"code":code,"codekey":codekey},'postForm');
+      }
+      //清空输入框
+      $('body').on('click','.del-img',function(){
+        $($(this).siblings()[0]).val('');
+      });
+
+      //密码登录
+      $('body').on('click','#back-login',function(){
+        window.location.href='login.html';
+      });
+    });
+  });
+</script>
+</body>
+</html>

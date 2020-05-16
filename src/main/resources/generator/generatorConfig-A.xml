@@ -28,15 +28,39 @@
         <javaClientGenerator targetPackage="${targetMapperPackage}"
                              targetProject="${targetJavaProject}" type="XMLMAPPER"/>
 
-        <table tableName="t_user" domainObjectName="User">
+        <!--<table tableName="t_user" domainObjectName="User">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+		<!--<table tableName="t_role" domainObjectName="Role">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+		<!--<table tableName="t_role_user" domainObjectName="RoleUser">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <table tableName="t_room" domainObjectName="Room">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
-		<table tableName="t_role" domainObjectName="Role">
+        <table tableName="t_order" domainObjectName="Order">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
-		<table tableName="t_role_user" domainObjectName="RoleUser">
+        <table tableName="t_lock" domainObjectName="Lock">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table tableName="t_lock_room" domainObjectName="l=LockRoom">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table tableName="t_apartment" domainObjectName="Apartment">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table tableName="t_cmd" domainObjectName="Cmd">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

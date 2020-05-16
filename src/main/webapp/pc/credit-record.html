@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<link rel="Shortcut Icon" href="favicon.ico" />
+
+	<link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" href="lib/layui/css/layui.css">
+	<!--<link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />-->
+	<link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+	<link rel="stylesheet" href="css/myCss.css">
+	<style>
+		a.back{
+			width: 50px;
+    		background: #5a98de;
+			display: inline-block;
+			box-sizing: border-box;
+			cursor: pointer;
+			text-align: center;
+			font-weight: 400;
+			white-space: nowrap;
+			vertical-align: middle;
+			color: #fff;
+			border-radius: 4px;
+			font-size: 14px;
+    		height: 31px;
+			line-height: 31px;
+		}
+		a.back:hover{
+			background: #227EE1;
+		}
+	</style>
+</head>
+<body style="background:#65A6EA;width:1254px;">
+	<div class="wrapper-container">
+		<div class="credit-record-box">
+			<a onclick="javascript:history.go(-1);" class="back">返回</a>
+			<ul class="record-ul">
+				<li>累计作业量：<span class="totalCount"></span>&nbsp;吨</li>
+				<li>累计作业时间：<span class="totalHour"></span>&nbsp;</li>
+				<li>还款记录：</li>
+			</ul>
+			<table class="record-table table table-border table-bordered" >
+				<thead>
+					<tr>
+						<td>期次</td>
+						<td>还款阶段</td>
+						<td>还款日期</td>
+						<td>应还额度</td>
+						<td>已还款</td>
+						<td>状态</td>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+			<div>
+				其他信用：<span class="span">无</span>
+				<textarea class="textarea-none"></textarea>
+			</div>
+			<div class="text-c record-btn">
+				<button class="btn btn-primary radius edit-btn">编辑</button>
+				<button class="btn btn-primary radius save-btn">保存</button>
+			</div>
+		</div>
+	</div>
+		
+
+	<script src="lib/jquery/1.9.1/jquery.min.js"></script>
+	<!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+	<script type="text/javascript" src="lib/layui/layui.js"></script>
+	<script type="text/javascript" src="js/WFang.js"></script>
+	<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> 
+	<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> 
+	<script>
+	layui.use('layer', function(){
+		var layer = layui.layer;
+		var userId = getUrl().userId;
+		//页面渲染
+		getData();
+		function getData(){
+			// console.log(userId);
+			var data = {"id":userId};
+			WFang ("user/creditShow",function(arr){
+				var html = '',totalCount = 0,getCount = 0,status = '';
+			  	if(arr.status == false){
+			  		layer.msg(arr.message);
+			   	}else{
+			   		if(arr.data == ''||arr.data == null){
+			   			layer.msg('暂无数据！');
+			   			$('.totalCount').html('暂无数据');
+			   			$('.totalHour').html('暂无数据');
+			   			$('.span').html('暂无数据');
+			   			html = '';
+			   		}else{
+			   			$('.totalCount').html(arr.data.workLoad);
+			   			$('.totalHour').html(arr.data.workTime);
+			   			$('.span').html(arr.data.credit);
+			   			$('.textarea-none').text(arr.data.credit);
+			   			for(var i = 0;i < arr.data.stages.length;i++){
+			   				html +='<tr>'+
+										'<td>'+arr.data.stages[i].num+'</td>'+
+										'<td>'+arr.data.stages[i].stage+'</td>'+
+										'<td>'+arr.data.stages[i].repayDate+'</td>'+
+										'<td>'+arr.data.stages[i].repayAccount+'</td>'+
+										'<td>'+arr.data.stages[i].account+'</td>'+
+										'<td>'+arr.data.stages[i].status+'</td>'+
+									'</tr>';
+							totalCount += Number(arr.data.stages[i].repayAccount);
+							getCount += Number(arr.data.stages[i].account);
+							if(totalCount-getCount>0){
+								status = '拖欠'+(totalCount-getCount)+'元';
+							}else{
+								status = '还清';
+							}
+			   			}
+			   			
+			   			$('tbody').html(html);
+			   			$('tfoot').html('<tr><td colspan="3" class="text-c">合计：</td><td>'+totalCount+'</td><td>'+getCount+'</td><td>'+status+'</td></tr>');
+				    }
+			   	}
+			   	
+			},data,'get')	 
+		}
+
+		$('body').on('click','.edit-btn',function(){
+			$('.textarea-none').show();
+			$('.span').hide();
+			$('.save-btn').show();
+			$(this).hide();
+		});
+		
+		$('body').on('click','.save-btn',function(){
+			var credit = $('.textarea-none').val();
+			WFang ("user/updateUser",function(arr){
+				if(arr.status){
+					layer.msg('编辑成功！');
+					getData();
+					$('.textarea-none').hide();
+					$('.span').show();
+					$('.save-btn').hide();
+					$('.edit-btn').show();
+				}
+			},{'id':userId,'credit':credit},'postForm');
+		});
+	});
+	// input失去焦点验证
+	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\]<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]") ;
+    $("input[type='text']").blur(function(){
+        if(!pattern.exec($(this).val())){
+            //不包含
+            return true;
+        }else{
+            layer.msg('请不要输入除-外的非法字符')
+            $(this).val('');
+            return false;
+        }
+    })
+	</script>
+</body>
+</html>

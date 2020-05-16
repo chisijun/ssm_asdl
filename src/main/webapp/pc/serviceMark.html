@@ -1,0 +1,527 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <link rel="Shortcut Icon" href="favicon.ico" />
+
+  <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+  <link rel="stylesheet" href="lib/layui/css/layui.css">
+  <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+  <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+  <link rel="stylesheet" href="css/myCss.css">
+  <link rel="stylesheet" href="css/pcCss.css">
+</head>
+<body style="background:#65A6EA;width:1254px;">
+<div class="wrapper-container serviceMark">
+  <!--table数据-->
+  <div class="table-box">
+    <div class="table-head">
+      <!--<span>服务类型</span>-->
+      <!--<span>服务起/止时间</span>-->
+      <!--<span>服务内容</span>-->
+      <!--<span>服务人</span>-->
+      <!--<span>相关附件</span>-->
+      <!--<span>操作</span>-->
+    </div>
+    <div class="table-body">
+      <!--<div class="div-box">-->
+        <!--<span>通常</span>-->
+        <!--<span>2018-1-23/2018-1-23</span>-->
+        <!--<span>谷物干燥机到货验收</span>-->
+        <!--<span>张三</span>-->
+        <!--<span>-->
+          <!--<a class="a-deviceInfo" href="javascript:void (0);">查看大图</a>-->
+        <!--</span>-->
+        <!--<span>-->
+          <!--<a class="a-deviceInfo" href="javascript:void (0);">编辑</a>-->
+        <!--</span>-->
+      <!--</div>-->
+      <!--<div class="div-box">-->
+        <!--<span></span>-->
+        <!--<span></span>-->
+        <!--<span></span>-->
+        <!--<span></span>-->
+        <!--<span></span>-->
+        <!--<span>-->
+          <!--<a class="a-add" href="javascript:void (0);">添加</a>-->
+        <!--</span>-->
+      <!--</div>-->
+    </div>
+  </div>
+  <!--分页-->
+  <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+  <!--查看大图图片-->
+  <div class="card-img">
+    <img class="cardImg" src="" alt="图片">
+    <img class="closeImg" src="images/xx_icon.png" alt="图片">
+  </div>
+
+  <div id="modalAdd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog myDialog">
+      <div class="modal-content radius">
+        <div class="modal-header">
+          <h2 class="modal-title text-c c-primary">添&nbsp;加</h2>
+          <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void (0);">×</a>
+        </div>
+        <div class="modal-body">
+          <div class="top">
+            <div class="row">
+              <span class="left">服务类型：</span>
+              <select class="serviceType">
+                <option value="0">通常</option>
+                <option value="1">帮扶用户</option>
+                <option value="2">设备保养</option>
+                <option value="3">故障排除</option>
+              </select>
+            </div>
+            <div class="row">
+              <span class="left">开始时间：</span>
+              <input type="date" class="startTime">
+            </div>
+            <div class="row">
+              <span class="left">结束时间：</span>
+              <input type="date" class="endTime">
+            </div>
+            <div class="row row-content">
+              <span class="left span-content">服务内容：</span>
+              <textarea class="content" placeholder="输入相关内容..."></textarea>
+            </div>
+            <div class="row">
+              <span class="left">服务人：</span>
+              <input type="text" class="servePeople">
+            </div>
+            <div class="row">
+              <span class="left">相关附件：</span>
+              <button class="btn-file">上&nbsp;传</button>
+              <input id="fileUpload" type="file" class="url">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary a-save">保&nbsp;存</button>
+          <button class="btn btn-default a-close">退&nbsp;出</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog myDialog">
+      <div class="modal-content radius">
+        <div class="modal-header">
+          <h2 class="modal-title text-c c-primary">编&nbsp;辑</h2>
+          <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void (0);">×</a>
+        </div>
+        <div class="modal-body">
+          <div class="top">
+            <div class="row">
+              <span class="left">服务类型：</span>
+              <select class="edit-serviceType">
+                <option value="0">通常</option>
+                <option value="1">帮扶用户</option>
+                <option value="2">设备保养</option>
+                <option value="3">故障排除</option>
+              </select>
+            </div>
+            <div class="row">
+              <span class="left">开始时间：</span>
+              <input type="date" class="edit-startTime">
+            </div>
+            <div class="row">
+              <span class="left">结束时间：</span>
+              <input type="date" class="edit-endTime">
+            </div>
+            <div class="row row-content">
+              <span class="left span-content">服务内容：</span>
+              <textarea class="edit-content" placeholder="输入相关内容..."></textarea>
+            </div>
+            <div class="row">
+              <span class="left">服务人：</span>
+              <input type="text" class="edit-servePeople">
+            </div>
+            <div class="row">
+              <span class="left">相关附件：</span>
+              <button class="edit-btn-file">上&nbsp;传</button>
+              <input id="edit-fileUpload" type="file" class="edit-url">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary a-editSure">保&nbsp;存</button>
+          <button class="btn btn-default a-editclose">退&nbsp;出</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="lib/jquery/1.9.1/jquery.min.js"></script>
+<!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+<script type="text/javascript" src="lib/layui/layui.js"></script>
+<script type="text/javascript" src="js/WFang.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+<script>
+  layui.use(['layer', 'laypage'], function(){
+    var layer = layui.layer;
+    var laypage = layui.laypage;
+    var search=location.search;
+    var params={};
+    if(params!=''){
+      var ps=search.slice(1).split('&');
+      for(var i=0;i<ps.length;i++){
+        var arr=ps[i].split('=');
+        params[arr[0]]=arr[1];
+      }
+    }
+    var userId=params.userId;
+    //页面渲染
+    getData(1);
+    function getData(pageNo){
+      var pageNo = pageNo;
+      var pageSize = 10000;
+      var data = {"pageNum":pageNo,"pageSize":pageSize,"userId":userId};
+      WFang ("Device/serviceMarkShowAll",function(arr){
+        if(arr.status == false){
+          layer.msg(arr.message);
+        }else{
+          //分页
+          laypage.render({
+            elem: 'page',//容器
+            count: arr.data.total,//总条数
+            theme: '#0D3D89',//主题
+            last: '末页',//最后一页
+            limit:'8',//每页条数限制
+            curr: arr.data.pageNum,//当前页
+            prev: '<em><</em>',//上一页
+            next: '<em>></em>',//下一页
+            layout: ['count', 'prev', 'page', 'next','skip'],
+            jump: function(obj,first){
+              //obj包含了当前分页的所有参数，比如：
+              if(!first){
+                getData(obj.curr);//得到当前页，以便向服务端请求对应页的数据。
+              }
+            }
+          });
+          var html = '',
+              html1='',
+              serviceType='',//服务类别 0-通常 1-帮扶用户 2-设备保养 3-故障排除
+              startTime='',//服务起/止时间
+              endTime='',//服务起/止时间
+              content='',//服务内容
+              servePeople='',// 服务人
+              url='',//相关附件url
+          html1='<span>服务类型</span>'+
+                '<span>服务起/止时间</span>'+
+                '<span>服务内容</span>'+
+                '<span>服务人</span>'+
+                '<span>相关附件</span>'+
+                '<span>操作</span>';
+          $('.table-head').html(html1);
+          if(arr.data.list == ''||arr.data.list== null){
+            html+='<div class="div-box">'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span>'+
+                '<a class="a-add" href="javascript:void (0);">添加</a>'+
+                '</span>'+
+                '</div>';
+            $('.table-body').html(html);
+          }else{
+            for(var i=0;i<arr.data.list.length;i++){
+              //服务类别
+              if(arr.data.list[i].serviceType=='0'){//0-通常 1-帮扶用户 2-设备保养 3-故障排除
+                serviceType='通常';
+              }else if(arr.data.list[i].serviceType=='1'){
+                serviceType='帮扶用户';
+              }else if(arr.data.list[i].serviceType=='2'){
+                serviceType='设备保养';
+              }else if(arr.data.list[i].serviceType=='3'){
+                serviceType='故障排除';
+              }
+              //服务起/止时间
+              if(arr.data.list[i].startTime==''){
+                startTime='--';
+              }else{
+                startTime=formatDate(arr.data.list[i].startTime);
+              }
+              if(arr.data.list[i].endTime==''){
+                endTime='--';
+              }else{
+                endTime=formatDate(arr.data.list[i].endTime);
+              }
+              //服务内容
+              if(arr.data.list[i].content==''){
+                content='--';
+              }else{
+                content=arr.data.list[i].content;
+              }
+              // 服务人
+              if(arr.data.list[i].servePeople==''){
+                servePeople='--';
+              }else{
+                servePeople=arr.data.list[i].servePeople;
+              }
+              //相关附件url
+              if(arr.data.list[i].url==''){
+                url='--';
+              }else{
+                url=arr.data.list[i].url;
+              }
+              html+='<div class="div-box">'+
+                  '<span>'+serviceType+'</span>'+
+                  '<span>'+startTime+'/'+endTime+'</span>'+
+                  '<span>'+content+'</span>'+
+                  '<span>'+servePeople+'</span>'+
+                  '<span>'+
+                  '<a data-url="'+url+'" class="a-deviceInfo look" href="javascript:void (0);">查看大图</a>'+
+                  '</span>'+
+                  '<span>'+
+                  '<a data-id="'+arr.data.list[i].id+'" data-serviceType="'+arr.data.list[i].serviceType+'" data-startTime="'+arr.data.list[i].startTime+'" data-endTime="'+arr.data.list[i].endTime+'" data-content="'+arr.data.list[i].content+'" data-servePeople="'+arr.data.list[i].servePeople+'" data-url="'+arr.data.list[i].url+'" class="a-deviceInfo a-edit" href="javascript:void (0);">编辑</a>'+
+                  '</span>'+
+                  '</div>';
+            }
+            html+='<div class="div-box">'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span>'+
+                '<a class="a-add" href="javascript:void (0);">添加</a>'+
+                '</span>'+
+                '</div>';
+          }
+          $('.table-body').html(html);
+        }
+
+      },data,'postForm')
+    }
+    /*******************添加服务信息**********************/
+    //点击添加
+    $('body').on('click','.a-add', function () {
+      $('#modalAdd').modal('show');
+      //清空数据
+      $('.serviceType').val('0');//服务类别 0-通常 1-帮扶用户 2-设备保养 3-故障排除
+      $('.startTime').val('');//服务起/止时间
+      $('.endTime').val('');//服务起/止时间
+      $('.content').val('');//服务内容
+      $('.servePeople').val('');// 服务人
+      $('.url').attr('data-url','');//相关附件url
+      $('.btn-file').html('上&nbsp;传');//相关附件名称
+    });
+    //点击保存
+    $('body').on('click','.a-save',function (){
+      var serviceType=$('.serviceType').val();//服务类别 0-通常 1-帮扶用户 2-设备保养 3-故障排除
+      var startTime=$('.startTime').val();//服务起/止时间
+      //将 - 替换为 /
+      startTime = startTime.replace(/-/g, '/');
+      var endTime=$('.endTime').val();//服务起/止时间
+      //将 - 替换为 /
+      endTime = endTime.replace(/-/g, '/');
+      var content=$('.content').val();//服务内容
+      var servePeople=$('.servePeople').val();//服务人
+      var url=$('.url').attr('data-url');//相关附件url
+      var data = {
+        "serviceType":serviceType,
+        "content":content,
+        "endTime":endTime,
+        "url":url,
+        "servePeople":servePeople,
+        "userId":userId,
+        "startTime":startTime
+      };
+      if(serviceType==''||startTime==''||endTime==''||content==''||servePeople==''||url==''){
+        layer.msg('请完善信息！');
+        return false;
+      }else{
+        add(data);
+      } 
+    });
+    function add(data){
+      var pageNo = $('.layui-input').val();
+      WFang ("Device/serviceMarkAdd",function(arr){
+        if(arr.status == false){
+          layer.msg(arr.message);
+        }else{
+          layer.msg(arr.message);
+          setTimeout(function(){
+            $('#modalAdd').modal('hide');
+            getData(pageNo);
+          },1800)
+        }
+      },data,'postForm');
+    }
+    $('body').on('change','#fileUpload',img_up);
+    //添加点击取消
+    $('body').on('click','.a-close', function () {
+      $('#modalAdd').modal('hide');
+    });
+
+    /*******************编辑服务信息**********************/
+      //点击编辑
+    $('body').on('click','.a-edit', function () {
+      $('.a-editSure').attr('data-id',$(this).attr('data-id'));
+      $('#modalEdit').modal('show');
+      //设置数据
+      $('.edit-serviceType').val($(this).attr('data-serviceType'));//服务类别 0-通常 1-帮扶用户 2-设备保养 3-故障排除
+      var startTime=$(this).attr('data-startTime');
+      //将 / 替换为 -
+      startTime = startTime.replace(/\//g, '-');
+      var endTime=$(this).attr('data-endTime');
+      //将 / 替换为 -
+      endTime = endTime.replace(/\//g, '-');
+      $('.edit-startTime').val(startTime);//服务起/止时间
+      $('.edit-endTime').val(endTime);//服务起/止时间
+      $('.edit-content').val($(this).attr('data-content'));//服务内容
+      $('.edit-servePeople').val($(this).attr('data-servePeople'));// 服务人
+      $('.edit-url').attr('data-url',$(this).attr('data-url'));//相关附件url
+      $('.edit-btn-file').html('上&nbsp;传');//相关附件名称
+    });
+    //点击保存
+    $('body').on('click','.a-editSure',function (){
+      var id=$(this).attr('data-id');
+      var serviceType=$('.edit-serviceType').val();//服务类别 0-通常 1-帮扶用户 2-设备保养 3-故障排除
+      var startTime=$('.edit-startTime').val();//服务起/止时间
+      //将 - 替换为 /
+      startTime = startTime.replace(/-/g, '/');
+      var endTime=$('.edit-endTime').val();//服务起/止时间
+      //将 - 替换为 /
+      endTime = endTime.replace(/-/g, '/');
+      var content=$('.edit-content').val();//服务内容
+      var servePeople=$('.edit-servePeople').val();// 服务人
+      var url=$('.edit-url').attr('data-url');//相关附件url
+      var data = {
+        "id":id,
+        "serviceType":serviceType,
+        "content":content,
+        "endTime":endTime,
+        "url":url,
+        "servePeople":servePeople,
+        "userId":userId,
+        "startTime":startTime
+      };
+      edit(data);
+    });
+    function edit(data){
+      var pageNo = $('.layui-input').val();
+      WFang ("Device/serviceMarkUpdate",function(arr){
+        if(arr.status == false){
+          layer.msg(arr.message);
+        }else{
+          layer.msg(arr.message);
+          setTimeout(function(){
+            $('#modalEdit').modal('hide');
+            getData(pageNo);
+          },1800)
+        }
+      },data,'postForm');
+    }
+    //编辑点击取消
+    $('body').on('click','.a-editclose', function () {
+      $('#modalEdit').modal('hide');
+    });
+    //点击图片上传
+    $('body').on('change','#fileUpload',img_up);
+    $('body').on('change','#edit-fileUpload',img_up);
+
+    //文件上传
+    function img_up(){
+      var that=this;//保存当前this
+      var file = that.files[0];
+      var fd = new FormData();
+      fd.append("file", file);
+      fd.append("fileDesc", "test");
+      layer.load(0);
+      $.ajax({
+        async: true,
+        url: ApiConf.server+'Resource/ResourceAdd',
+        type: "POST",
+        dataType: 'json',
+        data: fd,
+        contentType: false,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("authorization", ApiConf.token);
+        },
+        xhr: function() {
+          myXhr = $.ajaxSettings.xhr();
+          return myXhr;
+        },
+        success:function(arr) {
+          //头像id
+          that.setAttribute('data-id',arr.data[0].resourceid);
+          that.setAttribute('data-url',arr.data[0].resourcepath);
+          $(that).prev().html(arr.data[0].resourcename);
+          layer.msg('上传成功！',{icon: 1});
+          layer.closeAll('loading');
+        },
+        error:function() {
+          layer.msg("上传失败！");
+        },
+        cache:false,
+        processData:false
+      });
+    }
+    function uploadPic(file, callback, desc) {
+      Toast(null, null, null, 2);
+      var fd = new FormData();
+      fd.append("uid", window.sessionStorage.getItem(UrlConf.tk_uid))
+      fd.append("file", file);
+      fd.append("fileDesc", desc);
+      var xhr = new XMLHttpRequest();
+      if (typeof(callback) === 'function') {
+        xhr.addEventListener("load", function (evt) {
+          Toast(null, null, null, 3);
+          callback(evt);
+        }, false);
+      }
+      xhr.addEventListener("error", uploadFailed, false);
+      xhr.addEventListener("abort", uploadCanceled, false);
+      xhr.open("POST", ApiConf+ ApiConf.upload_img);
+      xhr.send(fd);
+    }
+
+    //时间戳改为日期
+    function  formatDate(now)   {
+      var d=new Date(now);
+      var   year=d.getFullYear();
+      var   month=d.getMonth()+1;
+      var   date=d.getDate();
+      return   year+"-"+month+"-"+date;
+    }
+    //点击查看大图
+    $('body').on('click','.look', function () {
+      var src=$(this).attr('data-url');
+      $('.cardImg').attr('src',src);
+      $('.card-img').attr('style','display:block;')
+    });
+    //点击退出查看大图
+    $('body').on('click','.closeImg', function () {
+      $('.card-img').attr('style','display:none;')
+    });
+
+  });
+  // input失去焦点验证
+	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\]<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]") ;
+    $("input[type='text']").blur(function(){
+        if(!pattern.exec($(this).val())){
+            //不包含
+            return true;
+        }else{
+            layer.msg('请不要输入除-外的非法字符')
+            $(this).val('');
+            return false;
+        }
+    })
+</script>
+</body>
+</html>

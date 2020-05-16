@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+</head>
+
+<body style="background:#65A6EA;width:1254px;" class="ifram">
+    <div class="wrapper-container">
+        <div class="search-box">
+            <label for="">建档日期：</label><input type="date" class="start" /> - <input type="date" class="end" />
+            <input class="isPhone" type="text" placeholder="请输入用户姓名" />
+            <button class="searchBtn">搜索</button>
+        </div>
+        <ul class="section user-ul">
+            <li>
+                <ul class="li-ul">
+					<li class="shenfen"><img src="" alt=""></li>
+					<li>姓&nbsp;&nbsp;名:<span>周小红</span></li>
+					<li>职&nbsp;&nbsp;业:<span>公司</span></li>
+					<li>日处理量:<span>200吨</span></li>
+					<li>电&nbsp;&nbsp;话:<span>1369849549</span></li>
+					<li>项目二维码:<a href="#" class="searchBigImg">查看大图</a><img src="images/erweima01.png" alt="pic"></li>
+					<li>项目名称:<span>周小红谷物干燥工程</span></li>
+					<li>经营范围：</li>
+					<li class="range">
+						<p>建立适应市场经济的粮食流通模式，
+							切实抓好储备和经营，平抑梁价，
+							搞活流通，扩大了粮食销售市场占有率，
+							充分发挥了国有粮食企业的主渠道作用
+						</p>
+					</li>
+					<li>与（小禾）签订的合同：<button>下载</button></li>
+					<li class="btn-box">
+						<button>编辑</button>
+						<button class="credit-record">信用记录</button>
+						<button class="lock">锁机</button>
+					</li>
+				</ul>
+            </li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div id="page" style="text-align:center;padding-top:30px;width:100%;"></div>
+    </div>
+
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog myDialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h2 class="modal-title text-c c-primary">项目二维码</h2>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <p class="text-c"><img class="erweima" src="" alt="pic" width="190px" height="190px"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="usermodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog myDialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h2 class="modal-title text-c c-primary">身份证件</h2>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body myImg">
+                    <p class="text-c"><img class="erweima" src="" alt="pic"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalLock1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog myDialog">
+            <div class="modal-content radius">
+                <div class="modal-body">
+                    <p class="text-c">
+                        <img src="images/suoji_icon.png" alt="pic" width="80px" height="80px">
+                        <p class="text-c lock-p">确认该用户锁机？</p>
+                    </p>
+                    <div><button class="btn radius btn-sure">确定</button><button class="btn btn-primary radius" data-dismiss="modal" aria-hidden="true">取消</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalLock2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog myDialog">
+            <div class="modal-content radius">
+                <div class="modal-body">
+                    <p class="text-c">
+                        <img src="images/suoji_icon.png" alt="pic" width="80px" height="80px">
+                        <p class="text-c lock-p">确认该用户解机？</p>
+                    </p>
+                    <div><button class="btn radius btn-sure">确定</button>
+                        <button class="btn btn-primary radius" data-dismiss="modal" aria-hidden="true">取消</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalLock" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog myDialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h2 class="modal-title text-c c-primary">解锁成功！</h2>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <p class="text-c">
+                        <img src="images/jisuochenggong_icon.png" alt="pic" width="80px" height="80px">
+                        <p class="text-c lock-p">用户解锁成功!</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+            //页面跳转
+            function jumpTo() {
+                alert("子页面");
+                //			window.location.href=href;
+            };
+            //页面渲染
+            //getData(1);
+
+            function getData(pageNo) {
+                var pageNo = pageNo;
+                var pageSize = 4;
+                var id = '';
+                var name = $('.isPhone').val();
+                var phone = '';
+                var startDate = $('.start').val();
+                var endDate = $('.end').val();
+                var partten = /^1[3,5,8]\d{9}$/;
+
+                if (startDate > endDate) {
+                    layer.msg('开始日期不能大于结束日期！');
+                    return;
+                }
+                var data = {
+                    "phone": phone,
+                    "id": id,
+                    "name": name,
+                    "startDate": startDate,
+                    "endDate": endDate,
+                    "pageNum": pageNo,
+                    "pageSize": pageSize,
+                    "project": ''
+                };
+                WFang("user/userShowAll", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        //分页
+                        console.log(arr)
+                        laypage.render({
+                            elem: 'page', //容器
+                            pages: arr.data.pages, // 总页数
+                            count: arr.data.total, //总条数
+                            theme: '#0D3D89', //主题
+                            last: '末页', //最后一页
+                            limit: '4', //每页条数限制
+                            curr: arr.data.pageNum, //当前页
+                            prev: '<em><</em>', //上一页
+                            next: '<em>></em>', //下一页
+                            layout: ['count', 'prev', 'page', 'next', 'skip'],
+                            jump: function(obj, first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                if (!first) {
+                                    getData(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                }
+                            }
+                        });
+                        var html = '',
+                            lock = '',
+                            lockClass = '',
+                            imgSrc = '';
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            layer.msg('暂无数据！');
+                            html = '';
+                        } else {
+                            for (var i = 0; i < arr.data.list.length; i++) {
+                                if (arr.data.list[i].lock == 0) {
+                                    lock = '锁机';
+                                    lockClass = 'lock';
+                                } else {
+                                    lock = '不锁机';
+                                    lockClass = 'no-lock';
+                                }
+                                if (arr.data.list[i].card == '' || arr.data.list[i].card == 'null') {
+                                    imgSrc = 'images/shenfen.png';
+                                } else {
+                                    imgSrc = arr.data.list[i].card;
+                                }
+                                //数据渲染
+                                //$('li-ul li.shenfen').css('background','url("'+arr.data.list[i].card+' no-repeat")');
+                                html += '<li>' +
+                                    '<ul class="li-ul">' +
+                                    '<li class="shenfen"><a href="#" class="userBigImg"><img class="img-responsive" style="height:84px;" src="' + imgSrc + '" ></a></li>' +
+                                    '<li>姓&nbsp;&nbsp;名:<span>' + arr.data.list[i].name + '</span></li>' +
+                                    '<li>职&nbsp;&nbsp;业:<span>' + arr.data.list[i].job + '</span></li>' +
+                                    '<li>日处理量:<span>' + arr.data.list[i].dealDay + '吨</span></li>' +
+                                    '<li>电&nbsp;&nbsp;话:<span>' + arr.data.list[i].phone + '</span></li>' +
+                                    '<li>项目二维码:<a href="#" class="searchBigImg">查看大图</a><img src="' + arr.data.list[i].qr + '" class="small" width="12px" height="12px"></li>' +
+                                    '<li>项目名称:<span>' + arr.data.list[i].project + '</span></li>' +
+                                    '<li>经营范围：</li>' +
+                                    '<li class="range">' +
+                                    '<p>' + arr.data.list[i].scope + '</p>' +
+                                    '</li>' +
+                                    '<li>与（' + arr.data.list[i].company + '）签订的合同：<a href="#"><button class="downContract" url="' + arr.data.list[i].contract + '">下载</button></a></li>' +
+                                    '<li class="btn-box">' +
+                                    '<button class="edit" name="' + arr.data.list[i].id + '">编辑</button>' +
+                                    '<button class="credit-record" name="' + arr.data.list[i].id + '">信用记录</button>' +
+                                    '<button class="btn-lock ' + lockClass + '" name="' + arr.data.list[i].id + '">' + lock + '</button>' +
+                                    '</li>' +
+                                    '</ul>' +
+                                    '</li>';
+                            }
+                        }
+                        if (html == '') {
+                            layer.msg('暂无数据，请添加用户档案！');
+                        } else {
+                            $('.user-ul').html(html);
+                        }
+                    }
+
+                }, data, 'postForm')
+            }
+            // 项目二维码大图
+            $('body').on('click', '.searchBigImg', function() {
+                var img = $(this).next('img').attr('src');
+                $('.erweima').attr('src', img);
+                $('#modal').modal('show');
+            });
+            // 点击用户头像显示大图
+            $('body').on('click', '.userBigImg', function() {
+                var userimg = $(this).children('img').attr('src');
+                $('.erweima').attr('src', userimg);
+                $('#usermodal').modal('show');
+                var imgW = typeof($('.myImg').children('img'));
+            });
+            //  下载合同
+            $('body').on('click', '.downContract', function() {
+                    var url = $(this).attr('url'); // 资源url
+                    alert(url);
+                    window.location.href = ApiConf.server + "Resource/downUrl?url=" + url;
+                })
+                //点锁机
+            $('body').on('click', '.lock', function() {
+                $('#modalLock1').modal('show');
+                var userId = $(this).attr('name');
+                $('#modalLock1 .btn-sure').attr('name', userId);
+            });
+            //点不锁机
+            $('body').on('click', '.no-lock', function() {
+                $('#modalLock2').modal('show');
+                var userId = $(this).attr('name');
+                $('#modalLock2 .btn-sure').attr('name', userId);
+            });
+            $('body').on('click', '#modalLock1 .btn-sure', function() {
+                var userId = $(this).attr('name');
+                var swStatus = 1;
+                var pageNo = $('.layui-input').val();
+                WFang("Device/deviceSwitch", function(arr) {
+                    $('#modalLock1').modal('hide');
+                    if (arr.status) {
+                        setTimeout(function() {
+                            layer.msg(arr.message);
+                            getData(pageNo);
+                        }, 1000);
+                    } else {
+                        layer.msg(arr.message);
+                    }
+                }, {
+                    'userId': userId,
+                    'swStatus': swStatus
+                }, 'postForm');
+            });
+            $('body').on('click', '#modalLock2 .btn-sure', function() {
+                var userId = $(this).attr('name');
+                var swStatus = 0;
+                var pageNo = $('.layui-input').val();
+                WFang("Device/deviceSwitch", function(arr) {
+                    $('#modalLock2').modal('hide');
+                    if (arr.status) {
+                        setTimeout(function() {
+                            layer.msg(arr.message);
+                            getData(pageNo);
+                        }, 1000);
+                    } else {
+                        layer.msg(arr.message);
+                    }
+                }, {
+                    'userId': userId,
+                    'swStatus': swStatus
+                }, 'postForm');
+            });
+            //信用记录
+            $('body').on('click', '.credit-record', function() {
+                var userId = $(this).attr('name');
+                window.location.href = 'credit-record.html?userId=' + userId;
+            });
+            //编辑
+            $('body').on('click', '.edit', function() {
+                var userId = $(this).attr('name');
+                window.location.href = 'edit-user.html?userId=' + userId;
+            });
+            //搜索
+            $('body').on('click', '.searchBtn', function() {
+                getData(1);
+            });
+        });
+        // input失去焦点验证
+        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\]<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        $("input[type='text']").blur(function() {
+            if (!pattern.exec($(this).val())) {
+                //不包含
+                return true;
+            } else {
+                layer.msg('请不要输入除-外的非法字符')
+                $(this).val('');
+                return false;
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,225 @@
+<!--
+  Created by PC on 2017/12/27.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=motor-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <title>供热管理系统</title>
+
+    <link rel="stylesheet" href="../css/Myless.css">
+</head>
+
+<body>
+    <div class="motor">
+        <!--头部-->
+        <div class="header">
+            <a id="head-back" href="javascript:void (0);" class="back"><img src="../images/back_icon.png" alt="图片">&nbsp;返回</a>
+            电机状态监控
+        </div>
+        <div class="motor-list">
+            <div class="motor-box">
+                <div class="row">
+                    <span class="span-left">提升机</span>
+                    <span class="span-right statusHoist">开机</span>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <span class="span-left">上搅龙</span>
+                        <span class="span-right statusUpMixer">停机</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <span class="span-left">下搅龙</span>
+                        <span class="span-right statusDownMixer">故障</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <span class="span-left">拨粮轮</span>
+                        <span class="span-right statusGrain">运行</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <span class="span-left">前左置排风机</span>
+                        <span class="span-right statusFrontLeftExhaust ">停机</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <span class="span-left">前右置排风机</span>
+                        <span class="span-right statusFrontRightExhaust">停机</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <span class="span-left">后左置排风机</span>
+                        <span class="span-right statusAfterLeftExhaust">停机</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <span class="span-left">后右置排风机</span>
+                        <span class="span-right statusAfterRightExhaust">停机</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a href="javascript:window.location.href='management.html';" id="management">
+                <img src="../images/zuoye_icon03.png" alt="图片">
+                <span class="span-color">作业管理</span>
+            </a>
+            <a href="javascript:window.location.href='self.html';" id="self">
+                <img src="../images/zhiwo_icon02.png" alt="图片">
+                <span>智我</span>
+            </a>
+            <a href="javascript:window.location.href='account.html';" id="account">
+                <img src="../images/jizhangben_icon02.png" alt="图片">
+                <span>记账本</span>
+            </a>
+            <a href="javascript:window.location.href='serve.html';" id="serve">
+                <img src="../images/fuwu_icon02.png" alt="图片">
+                <span>服务印记</span>
+            </a>
+        </div>
+    </div>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/pub.js"></script>
+    <script src="../js/WFang.js"></script>
+    <script>
+        $(document).ready(function() {
+            layui.use('layer', function() {
+
+                //握手
+                var socket = null;
+                // 判断浏览器是否支持Websocket
+                if ('WebSocket' in window) {
+                    // www.51cs8.com
+                    socket = new WebSocket("ws://www.sangtech.cn/Dryer/websocket");
+                    console.log('WebSocket连接成功！')
+                } else {
+                    alert('当前浏览器不支持使用websocket，建议使用chrome或者火狐浏览器！')
+                }
+                // 接收服务器的消息
+                socket.onmessage = function(ev) {
+                    console.log(ev.data);
+                    if (ev.data == 'refresh') {
+                        getData(pageNum, pageSize, userId, ind);
+                        console.log('数据刷新成功！')
+                    }
+                };
+
+                // 判断连接状态，如果断开，再连一次
+                setInterval(function() {
+                    console.log(socket.readyState);
+                    if (socket.readyState == 3) {
+                        socket = new WebSocket("ws://www.sangtech.cn/Dryer/websocket");
+                        console.log('WebSocket重连成功！');
+                    }
+                    console.log(socket.readyState);
+                }, 30000);
+
+                window.onbeforeunload = function(event) {
+                    alert("onbeforeunload");
+                    closeWebSocket();
+                }
+
+
+                //关闭WebSocket连接
+                function closeWebSocket() {
+                    socket.close();
+                }
+
+                //头部返回上一页按键
+                $('body').on('click', '#head-back', function() {
+                    closeWebSocket();
+                    window.location.href = 'management.html';
+                });
+                //获取跳转url的参数
+                var search = location.search;
+                var params = {};
+                if (params != '') {
+                    var ps = search.slice(1).split('&');
+                    for (var i = 0; i < ps.length; i++) {
+                        var arr = ps[i].split('=');
+                        params[arr[0]] = arr[1];
+                    }
+                }
+                var sn = params.sn;
+                var ind = params.ind;
+                var pageNum = '1',
+                    pageSize = '1000',
+                    userId = ApiConf.userId;
+                getData(pageNum, pageSize, userId, ind);
+                //数据初始化
+                function getData(pageNum, pageSize, userId, ind) {
+                    WFang("Device/deviceRealTime", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            var obj = arr.data.list[ind];
+                            if (obj != undefined) {
+                                var statusHoist = obj.statusHoist;
+                                var statusUpMixer = obj.statusUpMixer;
+                                var statusDownMixer = obj.statusDownMixer;
+                                var statusGrain = obj.statusGrain;
+                                var statusFrontLeftExhaust = obj.statusFrontLeftExhaust;
+                                var statusFrontRightExhaust = obj.statusFrontRightExhaust;
+                                var statusAfterLeftExhaust = obj.statusAfterLeftExhaust;
+                                var statusAfterRightExhaust = obj.statusAfterRightExhaust;
+                                //拼接二维数组
+                                var list = [];
+                                list[0] = [".statusHoist", statusHoist];
+                                list[1] = [".statusUpMixer", statusUpMixer];
+                                list[2] = [".statusDownMixer", statusDownMixer];
+                                list[3] = [".statusGrain", statusGrain];
+                                list[4] = [".statusFrontLeftExhaust", statusFrontLeftExhaust];
+                                list[5] = [".statusFrontRightExhaust", statusFrontRightExhaust];
+                                list[6] = [".statusAfterLeftExhaust", statusAfterLeftExhaust];
+                                list[7] = [".statusAfterRightExhaust", statusAfterRightExhaust];
+                                for (var j = 0; j < list.length; j++) {
+                                    var that = list[j][0];
+                                    //状态 0- on 停机 1- stop 开机 2- run 故障
+                                    if (list[j][1] == '0') {
+                                        $(that).html('停止');
+                                        $(that).css({'backgroundColor':'#62b0d5','color':'white'});
+                                    } else if (list[j][1] == '1') {
+                                        $(that).html('工作');
+                                        // $(that).addClass('stop');
+                                        $(that).css({'backgroundColor':'#90c50f','color':'white'});
+                                    } else if (list[j][1] == '2') {
+                                        $(that).html('故障');
+                                        // $(that).addClass('run');
+                                        $(that).css({'backgroundColor':'#ef4343','color':'white'});
+                                    }
+                                }
+                            } else {
+                                if (obj === undefined) {
+                                    $('.statusHoist,.statusUpMixer,.statusDownMixer,.statusGrain,.statusFrontLeftExhaust,.statusFrontRightExhaust,.statusAfterLeftExhaust,.statusAfterRightExhaust').css('backgroundColor','');
+                                    $('.statusHoist,.statusUpMixer,.statusDownMixer,.statusGrain,.statusFrontLeftExhaust,.statusFrontRightExhaust,.statusAfterLeftExhaust,.statusAfterRightExhaust').html('--');
+                                    $('.statusHoist,.statusUpMixer,.statusDownMixer,.statusGrain,.statusFrontLeftExhaust,.statusFrontRightExhaust,.statusAfterLeftExhaust,.statusAfterRightExhaust').css('color', 'black');
+                                } 
+                            }
+                        }
+                    }, {
+                        pageNum: pageNum,
+                        pageSize: pageSize,
+                        userId: userId
+                    }, 'postForm', '', '', 'html/motor.html')
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

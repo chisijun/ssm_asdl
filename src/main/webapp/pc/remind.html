@@ -1,0 +1,455 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+</head>
+
+<body style="background:#65A6EA;width:1254px;">
+    <div class="wrapper-container remind">
+        <!--table数据-->
+        <div class="table-box">
+            <div class="table-head">
+                <span>手机号码</span>
+                <span>支付提醒内容</span>
+                <span>提醒时间</span>
+                <span>次数</span>
+                <span>操作</span>
+            </div>
+            <div class="table-body">
+            </div>
+        </div>
+        <!--分页-->
+        <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+
+        <div id="modalPay" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog myDialog">
+                <div class="modal-content radius">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-c c-primary">支付提醒内容</h2>
+                        <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void (0);">×</a>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-l p1"></p>
+                        <p class="p2"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modalAdd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog myDialog">
+                <div class="modal-content radius">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-c c-primary">添&nbsp;加</h2>
+                        <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void (0);">×</a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="top">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="left">用户姓名：</span>
+                                    <span class="right name">周小红</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="left">支付阶段：</span>
+                                    <input type="number" class="stage">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="left">手机号码：</span>
+                                    <span class="right phone">1362724939</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="left">支付金额：</span>
+                                    <input type="number" class="account">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="left">提醒次数：</span>
+                                    <span class="right num">6</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="left">逾期天数：</span>
+                                    <input type="number" class="overdueDay">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="left">支付日期：</span>
+                                    <input type="date" class="date repayDate">
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="left">公司名称：</span>
+                                    <input type="text" class="msgCompany">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <p class="title">效果预览</p>
+                            <p class="text-l p1">尊敬的<span class="preview-span">用户${用户}</span>：</p>
+                            <p class="p2">您与<span class="preview-span">${公司名称}</span>签订的《谷物干燥机销售合同》第 <span class="preview-span">${第几阶段}</span>阶段支付日<span class="preview-span">${支付日期}</span>应付款<span class="preview-span">${支付金额}</span>元。您已逾期<span class="preview-span">${逾期天数}</span>天，请注意即刻支付，谢谢！点击
+                                <a class="minePay" href="javascript:void (0)">我要支付</a>即可轻松快捷支付。(<span class="preview-span">${公司名称}</span>)</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary a-save">保&nbsp;存</button>
+                        <button class="btn btn-default a-close">退&nbsp;出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog myDialog">
+                <div class="modal-content radius">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-c c-primary">编&nbsp;辑</h2>
+                        <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void (0);">×</a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="top">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="left">用户姓名：</span>
+                                    <span class="right edit-name">周小红</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="left">还款阶段：</span>
+                                    <input type="number" class="edit-stage">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="left">手机号码：</span>
+                                    <span class="right edit-phone">1362724939</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="left">还款金额：</span>
+                                    <input type="number" class="edit-account">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="left">提醒次数：</span>
+                                    <span class="right edit-num">6</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="left">逾期天数：</span>
+                                    <input type="number" class="edit-overdueDay">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="left">还款日期：</span>
+                                    <input type="date" class="date edit-repayDate">
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="left">公司名称：</span>
+                                    <input type="text" class="edit-msgCompany">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <p class="title">效果预览</p>
+                            <p class="text-l p1">尊敬的<span class="preview-span">用户${用户}</span>：</p>
+                            <p class="p2">您与<span class="preview-span">${公司名称}</span>签订的《谷物干燥机销售合同》第 <span class="preview-span">${第几阶段}</span>阶段还款日<span class="preview-span">${还款日期}</span>应还款<span class="preview-span">${还款金额}</span>元。您已逾期<span class="preview-span">${逾期天数}</span>天，请注意即刻还款，谢谢！点击
+                                <a class="minePay" href="javascript:void (0)">我要还款</a>即可轻松快捷还款。(<span class="preview-span">${公司名称}</span>)</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary a-editSure">保&nbsp;存</button>
+                        <button class="btn btn-default a-editclose">退&nbsp;出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+
+            var search = location.search;
+            var params = {};
+            if (params != '') {
+                var ps = search.slice(1).split('&');
+                for (var i = 0; i < ps.length; i++) {
+                    var arr = ps[i].split('=');
+                    params[arr[0]] = arr[1];
+                }
+            }
+            var userId = params.userId;
+            var phone = params.phone;
+            var name = decodeURI(params.name); //中文解码
+            var spannum = ''; //还款提醒次数
+            //页面渲染
+            getData(1);
+
+            function getData(pageNo) {
+                var pageNo = pageNo;
+                var pageSize = 8;
+
+                var data = {
+                    "pageNum": pageNo,
+                    "pageSize": pageSize,
+                    "userId": userId
+                };
+                WFang("Remind/showRedmin", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        //分页
+                        laypage.render({
+                            elem: 'page', //容器
+                            count: arr.data.total, //总条数
+                            theme: '#0D3D89', //主题
+                            last: '末页', //最后一页
+                            limit: '8', //每页条数限制
+                            curr: arr.data.pageNum, //当前页
+                            prev: '<em><</em>', //上一页
+                            next: '<em>></em>', //下一页
+                            layout: ['count', 'prev', 'page', 'next', 'skip'],
+                            jump: function(obj, first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                if (!first) {
+                                    getData(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                }
+                            }
+                        });
+                        var html = '',
+                            html1 = '',
+                            msgContent = '', //还款提醒内容
+                            num = '', //还款提醒次数
+                            repayDate = '', //提醒时间
+
+                            html1 = '<span>手机号码</span>' +
+                            '<span>还款提醒内容</span>' +
+                            '<span>提醒时间</span>' +
+                            '<span>次数</span>' +
+                            '<span>操作</span>';
+                        $('.table-head').html(html1);
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            spannum = 1;
+                            html += '<div class="div-box">' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span><a class="a-add" href="javascript:void(0);">添加</a></span>' +
+                                '</div>';
+                            $('.table-body').html(html);
+                        } else {
+                            //获取当前提醒次数
+                            spannum = arr.data.list.length + 1;
+                            for (var i = 0; i < arr.data.list.length; i++) {
+                                // 还款金额
+                                if (arr.data.list[i].num == '') {
+                                    num = '--';
+                                } else {
+                                    num = arr.data.list[i].num;
+                                }
+                                //还款提醒内容
+                                if (arr.data.list[i].msgContent == '') {
+                                    msgContent = '--';
+                                } else {
+                                    msgContent = arr.data.list[i].msgContent;
+                                }
+                                //提醒时间
+                                if (arr.data.list[i].repayDate == '') {
+                                    repayDate = '--';
+                                } else {
+                                    repayDate = arr.data.list[i].repayDate;
+                                }
+                                html += '<div class="div-box">' +
+                                    '<span>' + phone + '</span>' +
+                                    '<span style="display: inline-flex">' +
+                                    '<span class="content">' + msgContent + '</span>' +
+                                    '<a class="a-look" href="javascript:void(0);">查看详情</a>' +
+                                    '</span>' +
+                                    '<span>' + repayDate + '</span>' +
+                                    '<span>' + num + '</span>' +
+                                    '<span><a data-id="' + arr.data.list[i].id + '"  data-msgCompany="' + arr.data.list[i].msgCompany + '" data-overdueDay="' + arr.data.list[i].overdueDay + '" data-account="' + arr.data.list[i].account + '" data-repayDate="' + arr.data.list[i].repayDate + '" data-stage="' + arr.data.list[i].stage + '" data-num="' + arr.data.list[i].num + '" class="a-edit" href="javascript:void(0);">编辑</a></span>' +
+                                    '</div>';
+                            }
+                            html += '<div class="div-box">' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span></span>' +
+                                '<span><a class="a-add" href="javascript:void(0);">添加</a></span>' +
+                                '</div>';
+                            $('.table-body').html(html);
+                        }
+                    }
+                }, data, 'postForm')
+            }
+            /***************************点击添加********************************/
+            //点击添加
+            $('body').on('click', '.a-add', function() {
+                $('#modalAdd').modal('show');
+                //手机号码
+                $('.phone').html(phone);
+                //姓名
+                $('.name').html(name);
+                //还款提醒次数
+                $('.num').html(spannum);
+            });
+            //点击取消
+            $('body').on('click', '.a-close', function() {
+                $('#modalAdd').modal('hide');
+            });
+            //点击取消
+            $('body').on('click', '.a-editclose', function() {
+                $('#modalEdit').modal('hide');
+            });
+            //点击保存
+            $('body').on('click', '.a-save', function() {
+                var num = $('.num').html(); //还款提醒次数
+                var stage = $('.stage').val(); //还款阶段
+                var repayDate = $('.repayDate').val(); //还款日期
+                var account = $('.account').val(); //还款金额
+                var overdueDay = $('.overdueDay').val(); //逾期天数
+                var msgCompany = $('.msgCompany').val(); //公司名称
+                if (stage == '' || repayDate == '' || account == '' || overdueDay == '' || msgCompany == '') {
+                    layer.msg('请完善信息！');
+                } else {
+                    var data = {
+                        "userId": userId,
+                        "phone": phone,
+                        "num": num,
+                        "stage": stage,
+                        "repayDate": repayDate,
+                        "account": account,
+                        "overdueDay": overdueDay,
+                        "msgCompany": msgCompany
+                    };
+                    sure(data);
+                }
+            });
+
+            function sure(data) {
+                var pageNo = $('.layui-input').val();
+                WFang("Remind/addRemind", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg('添加成功！');
+                        setTimeout(function() {
+                            $('#modalAdd').modal('hide');
+                            getData(pageNo);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            }
+            //点击编辑
+            $('body').on('click', '.a-edit', function() {
+                $('.a-editSure').attr('data-id', $(this).attr('data-id'));
+                $('#modalEdit').modal('show');
+                $('.edit-name').html(name);
+                $('.edit-phone').html(phone);
+                $('.edit-num').html($(this).attr('data-num')); //还款提醒次数
+                $('.edit-stage').val($(this).attr('data-stage')); //还款阶段
+                $('.edit-repayDate').val($(this).attr('data-repayDate')); //还款日期
+                $('.edit-account').val($(this).attr('data-account')); //还款金额
+                $('.edit-overdueDay').val($(this).attr('data-overdueDay')); //逾期天数
+                $('.edit-msgCompany').val($(this).attr('data-msgCompany')); //公司名称
+            });
+            // 金额不能是小数
+            $('.edit-account').blur(function() {
+                    if (parseInt($('.edit-account').val()) != $('.edit-account').val()) {
+                        $('.edit-account').val('');
+                        layer.msg('金额只能是整数！')
+                    }
+                })
+                //编辑保存
+            $('body').on('click', '.a-editSure', function() {
+                var id = $(this).attr('data-id');
+                var num = $('.edit-num').html(); //还款提醒次数
+                var stage = $('.edit-stage').val(); //还款阶段
+                var repayDate = $('.edit-repayDate').val(); //还款日期
+                var account = $('.edit-account').val(); //还款金额
+                var overdueDay = $('.edit-overdueDay').val(); //逾期天数
+                var msgCompany = $('.edit-msgCompany').val(); //公司名称
+                if (stage == '' || repayDate == '' || account == '' || overdueDay == '' || msgCompany == '') {
+                    layer.msg('请完善信息！');
+                } else {
+                    var data = {
+                        "id": id,
+                        "userId": userId,
+                        "phone": phone,
+                        "num": num,
+                        "stage": stage,
+                        "repayDate": repayDate,
+                        "account": account,
+                        "overdueDay": overdueDay,
+                        "msgCompany": msgCompany
+                    };
+                    editSure(data);
+                }
+            });
+
+            function editSure(data) {
+                var pageNo = $('.layui-input').val();
+                WFang("Remind/updateRemind", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $('#modalEdit').modal('hide');
+                            getData(pageNo);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            }
+            /*************************点击查看还款内容***************************/
+            $('body').on('click', '.a-look', function() {
+                var content = $($(this).parent().children()[0]).html();
+                $('#modalPay').modal('show');
+                var contp1 = $('.p1');
+                var contp2 = $('.p2');
+                putCont(content, contp1, contp2);
+            });
+            //填充内容
+            function putCont(content, contp1, contp2) {
+                //截取冒号
+                var ind1 = content.indexOf('：');
+                var p1 = content.substring(0, ind1 + 1);
+                var p2 = content.substring(ind1 + 1, content.length);
+                var ind2 = p2.indexOf('点击');
+                var ind3 = p2.indexOf('即可');
+                var p3 = p2.substring(0, ind2 + 2) + '<a class="minePay" href="javascript:void(0);">我要还款</a>' + p2.substring(ind3, p2.length);
+                //我要还款路径
+                var url = p2.substring(ind2 + 2, ind3);
+                contp1.html(p1);
+                contp2.html(p3);
+                // $('.minePay').attr('href',url);
+            }
+        });
+    </script>
+</body>
+
+</html>

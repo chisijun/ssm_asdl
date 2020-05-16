@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>谷物干燥机物联智慧系统</title>
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+</head>
+<body>
+    <div class="map-search-box">
+        <input type="text" placeholder="输入项目名称" class="project" />
+        <button class="search">搜索</button>
+    </div>
+    <div id="map" style="width:100%; height:90%;"></div>
+</body>
+</html>
+
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="lib/layui/layui.js"></script>
+<script type="text/javascript" src="js/WFang.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=fgltuFHGg4S8rkZcdowYwuzM4l7VzeNZ"></script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var index = 0;
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        window.onload = function(){
+            map_init();
+        }
+
+        var map = new BMap.Map("map");
+        map.centerAndZoom(new BMap.Point(114.309844,30.47926), 11);
+        map.enableScrollWheelZoom(true);
+
+        var ctrlNav = new window.BMap.NavigationControl({
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            type: BMAP_NAVIGATION_CONTROL_LARGE
+        });
+        map.addControl(ctrlNav);
+        //第5步：
+        var ctrlOve = new window.BMap.OverviewMapControl({
+            anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+            isOpen: 1
+        });
+        map.addControl(ctrlOve);
+
+        //第6步：
+        var ctrlSca = new window.BMap.ScaleControl({
+            anchor: BMAP_ANCHOR_BOTTOM_LEFT
+        });
+        map.addControl(ctrlSca);
+
+        var myGeo = new BMap.Geocoder();
+        var adds = [
+
+        ];
+        function bdGEO(){
+            var add = adds[index];
+
+            geocodeSearch(add.address);
+
+            for (var k = 0; k < adds.length; k++) {
+                var add = adds[k];
+
+                geocodeSearch(add.address);
+            }
+        }
+        function geocodeSearch(add){
+            myGeo.getPoint(add, function(point){
+                if (point) {
+                    var address = new BMap.Point(point.lng, point.lat);
+                    for(var i = 0; i < adds.length; i++) {
+                        if (add == adds[i].address) {
+                            var maker = addMarker(address,new BMap.Label(adds[i].project+":"+add,{offset:new BMap.Size(20,-10)}));
+                            addInfoWindow1(maker, adds[i])
+                        }
+                    }
+                }
+            }, "武汉市");
+        }
+
+        // 编写自定义函数,创建标注
+        function addMarker(point,label){
+            var myIcon = new BMap.Icon("images/BMap.png",
+                new BMap.Size(50, 50), {
+                    offset: new BMap.Size(5, 25)
+                });
+            var marker = new BMap.Marker(point, { icon: myIcon });
+            map.addOverlay(marker);
+            return marker
+        }
+        // 添加信息窗口
+        function addInfoWindow1(marker, poi) {
+            //pop弹窗标题
+            var title = '<div style=""></div>';
+            //pop弹窗信息
+            var html = [], workTime = '', workLoad = '';
+            if(poi.workTime == ''){
+                workTime = '无';
+            }else{
+                workTime = poi.workTime;
+            }
+            if(poi.workLoad == ''){
+                workLoad = '无';
+            }else{
+                workLoad = poi.workLoad;
+            }
+            html.push('<div id="device_detail" style="color:#606060;font-size:12px;">'+
+                '<div>'+
+                '<p><span>项目名称：</span>'+poi.project+'</p>'+
+                '<p><span>日处理量：</span>'+poi.dealDay+'</p>'+
+                '<p><span>GPS定位：</span>'+poi.address+'</p>'+
+                '<p><span>累计作业时间：</span>'+workTime+'</p>'+
+                '<p><span>累计作业量：</span>'+workLoad+'</p>'+
+                '</div>'+
+                '</div>');
+
+            var infoWindow = new BMap.InfoWindow(html.join(""), { title: title, width: 100 });
+
+            var openInfoWinFun = function () {
+                marker.openInfoWindow(infoWindow);
+            };
+
+            marker.addEventListener("click", openInfoWinFun);
+            marker.addEventListener("touchstart", openInfoWinFun);
+            return openInfoWinFun;
+        }
+        function map_init() {
+            var data = {"name":'',"id":'',"pageNum":1,"pageSize":1000};
+            WFang ("user/deviceShow",function(arr){
+                for(var i = 0 ; i<arr.data.list.length ; i++){
+                    if(arr.data.list[i].address != '' && arr.data.list[i].address.length>0){
+                        //alert(arr.data.list[i].address);
+                        adds.push({'address':arr.data.list
+
+                                [i].address,'dealDay':arr.data.list[i].dealDay,'workTime':arr.data.list
+
+                                [i].workTime,'workLoad':arr.data.list[i].workLoad,'project':arr.data.list[i].project});
+                    }
+                }
+                bdGEO();
+            },data,'postForm')
+        }
+        //点击搜索项目
+        $('body').on('click','.search',function(){
+            var project = $('.project').val();
+            if(project==''){
+                window.location.href = 'project-look.html';
+            }else {
+                searchProject();
+            }
+        });
+        // 添加标注
+        function addMarker1(point, index) {
+            //设置标注图片，大小
+            var myIcon = new BMap.Icon("images/BMap.png",
+                new BMap.Size(50, 50), {
+                    offset: new BMap.Size(5, 25)
+                });
+            var marker = new BMap.Marker(point, { icon: myIcon });
+            map.addOverlay(marker);
+            return marker;
+        }
+
+        function searchProject(){
+            var adds = []; //地址信息数组
+            var message = []; //其余信息数组
+            var markerArr = [];
+            var project = $('.project').val();
+            var data = {"name":'',"project":project,"id":'',"pageNum":1,"pageSize":1000};
+            WFang ("user/deviceShow",function(arr){
+                //从返回的数组中提取有地址的,重新创建数组arr1
+                var arr1 = [];
+                for(var i = 0 ; i<arr.data.list.length ; i++){
+                    if(arr.data.list[i].address != '' && arr.data.list[i].address.length>0){
+                        arr1.push(arr.data.list[i]);
+                    }
+                }
+                // 判断新数组中有没有地址
+                if(arr1 == ''){
+                    // 如果没有
+                    myGeo.getPoint(adds[i], function(point){
+                        if (point) {
+                            markerArr.push({'pointX':point.lng,'pointY':point.lat});
+                        }
+                        map = new BMap.Map("map");
+                        //第2步：
+                        map.centerAndZoom(point, 12);
+                        //第3步：
+                        map.enableScrollWheelZoom(true);
+                        //第4步：
+                        var ctrlNav = new window.BMap.NavigationControl({
+                            anchor: BMAP_ANCHOR_TOP_LEFT,
+                            type: BMAP_NAVIGATION_CONTROL_LARGE
+                        });
+                        map.addControl(ctrlNav);
+                        //第5步：
+                        var ctrlOve = new window.BMap.OverviewMapControl({
+                            anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+                            isOpen: 1
+                        });
+                        map.addControl(ctrlOve);
+
+                        //第6步：
+                        var ctrlSca = new window.BMap.ScaleControl({
+                            anchor: BMAP_ANCHOR_BOTTOM_LEFT
+                        });
+                        map.addControl(ctrlSca);
+
+                        //第7步：
+                        if(markerArr.length == 0){
+
+                        }else{
+                            for (var i = 0; i < markerArr.length; i++) {
+                                var p0 = markerArr[i].pointX;
+                                var p1 = markerArr[i].pointY;
+                                var maker = addMarker1(new window.BMap.Point(p0, p1), i);
+                                addInfoWindow1(maker, message[i], i);
+                            }
+                        }
+                    }, "武汉市");
+                    layer.msg('暂无此项目！');
+                    $('.project').val('');
+                    setTimeout(function(){
+                        window.location.href = 'project-look.html';
+                    },1800)
+                }else{
+                    for(var i = 0;i < arr1.length;i++){
+                        adds.push(arr1[i].address);
+                        message.push({'address':arr1[i].address,'dealDay':arr1[i].dealDay,'workTime':arr1[i].workTime,'workLoad':arr1[i].workLoad,'project':arr1[i].project});
+                        myGeo.getPoint(adds[i], function(point){
+                            if (point) {
+                                markerArr.push({
+                                    'pointX':point.lng,
+                                    'pointY':point.lat,
+                                });
+                            }
+                            // 实例化地图对象；
+                            map = new BMap.Map("map");
+                            //第1步：
+                            // 获取标记坐标数组中第一个坐标的位置，作为地图中心；
+                            var pointX = parseFloat(markerArr[0].pointX);
+                            var pointY = parseFloat(markerArr[0].pointY);
+                            var point = new BMap.Point(pointX,pointY);
+
+                            //第2步：
+                            map.centerAndZoom(point, 12);
+                            //第3步：
+                            map.enableScrollWheelZoom(true);
+                            //第4步：
+                            var ctrlNav = new window.BMap.NavigationControl({
+                                anchor: BMAP_ANCHOR_TOP_LEFT,
+                                type: BMAP_NAVIGATION_CONTROL_LARGE
+                            });
+                            map.addControl(ctrlNav);
+                            //第5步：
+                            var ctrlOve = new window.BMap.OverviewMapControl({
+                                anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+                                isOpen: 1
+                            });
+                            map.addControl(ctrlOve);
+
+                            //第6步：
+                            var ctrlSca = new window.BMap.ScaleControl({
+                                anchor: BMAP_ANCHOR_BOTTOM_LEFT
+                            });
+                            map.addControl(ctrlSca);
+
+                            //第7步：
+                            if(markerArr.length == 0){
+
+                            }else{
+                                for(var i = 0; i < markerArr.length; i++) {
+                                    var p0 = markerArr[i].pointX;
+                                    var p1 = markerArr[i].pointY;
+                                    // 添加标注
+                                    var maker = addMarker1(new window.BMap.Point(p0, p1), i);
+                                    // 添加信息窗口
+
+                                    addInfoWindow1(maker, message[i],i)
+                                }
+                            }
+                        }, "武汉市");
+                    }
+                }
+            },data,'postForm');
+        }
+    });
+    // input失去焦点验证
+	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\]<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]") ;
+    $("input[type='text']").blur(function(){
+        if(!pattern.exec($(this).val())){
+            //不包含
+            return true;
+        }else{
+            layer.msg('请不要输入除-外的非法字符')
+            $(this).val('');
+            return false;
+        }
+    })
+</script>

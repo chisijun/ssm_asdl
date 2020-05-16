@@ -1,0 +1,124 @@
+<!--
+  Created by PC on 2018/1/5.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=break-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <title>供热管理系统</title>
+
+    <link rel="stylesheet" href="../css/Myless.css">
+</head>
+
+<body>
+    <div class="apply_list">
+        <!--头部-->
+        <div class="header">
+            <!--
+            <a id="head-back" href="javascript:void (0);" class="back"><img src="../images/back_icon.png" alt="图片">&nbsp;返回</a>
+            -->
+            停栓复热
+        </div>
+        <div class="control">
+            <div class="top">
+                <p>
+                    <span>房子地址</span>
+                    <span>类型</span>
+                    <span>时间</span>
+                </p>
+            </div>
+            <div class="content">
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a href="javascript:window.location.href='management.html';" id="management">
+                <img src="../images/zuoye_icon02.png" alt="图片">
+                <span>房子管理</span>
+            </a>
+            <a href="javascript:window.location.href='payment_list.html';" id="self">
+                <img src="../images/jizhangben_icon02.png" alt="图片">
+                <span>缴费单</span>
+            </a>
+            <a href="javascript:window.location.href='apply_list.html';" id="account">
+                <img src="../images/fuwu_icon03.png" alt="图片">
+                <span>停栓复热</span>
+            </a>
+            <a href="javascript:window.location.href='my.html';" id="serve">
+                <img src="../images/zhiwo_icon02.png" alt="图片">
+                <span class="span-color">我的</span>
+            </a>
+        </div>
+    </div>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/pub.js"></script>
+    <script src="../js/WFang.js"></script>
+    <script>
+        $(document).ready(function() {
+            layui.use('layer', function() {
+
+                var userId = window.sessionStorage.getItem("userId");
+
+                //头部返回上一页按键
+                $('body').on('click', '#head-back', function() {
+                    window.location.href = 'pay.html';
+                });
+                getData();
+                //记账本
+                function getData() {
+                    WFang("apply/queryListWithPage", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            var html = '';
+                            var applyType = '';
+                            if (arr.data.list != '') {
+                                for (var i = 0; i < arr.data.list.length; i++) {
+
+                                    switch (arr.data.list[i].applyType) {
+                                        case 0 :
+                                           applyType = "申请停热";
+                                           break;
+                                        case 1 :
+                                            applyType = "强制停热";
+                                            break;
+                                        case 2 :
+                                            applyType = "申请复热"; 
+                                            break;
+                                    }
+
+                                    html += '<p>' +
+                                        '<span>' + arr.data.list[i].roomName + '</span>' +
+                                        '<span>' + applyType + '</span>' +
+                                        '<span>' + arr.data.list[i].createdTime.substr(0, 10) + '</span>' +
+                                        '</p>';
+                                }
+                                $('.content').html(html);
+                            } else {
+                                html = '<p>' +
+                                    '<span><b>无</b></span>' +
+                                    '<span><b>无</b></span>' +
+                                    '<span><b>无</b></span>' +
+                                    '</p>';
+                                $('.content').html(html);
+                            }
+                        }
+                    }, {
+                        "pageNum":1,
+                        "pageSize":100,
+                        "userId":userId
+                    }, 
+                    'postForm', '', '', 'html/apply_list.html')
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

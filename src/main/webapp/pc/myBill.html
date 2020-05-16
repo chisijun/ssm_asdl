@@ -1,0 +1,501 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+</head>
+
+<body style="background:#65A6EA;width:1254px;">
+    <div class="wrapper-container myBill">
+        <!--个人信息-->
+        <div class="person">
+            <p>
+                <span class="span">用户姓名：</span>
+                <span class="name"></span>
+            </p>
+            <p>
+                <span class="span">身份证号码：</span>
+                <span class="idty"></span>
+            </p>
+            <p>
+                <span class="span">合同金额：</span>
+                <span class="accountNum"></span>
+            </p>
+            <p>
+                <span class="span">支付方式：</span>
+                <select class="repayWay" disabled>
+        <option value="1">阶段支付</option>
+        <option value="2">租赁</option>
+      </select>
+            </p>
+            <p>
+                <span class="span">支付期数：</span>
+                <span>
+    <a id="minus" class="btn-pay" href="javascript:void (0);">-</a>
+    <input type="text" disabled value="1" class="payNum">
+    <a id="add" class="btn-pay" href="javascript:void (0);">+</a>
+  </span>
+            </p>
+            <p>
+                <span class="span">逾期日利率：</span>
+                <input type="text" class="rate" disabled>
+            </p>
+        </div>
+        <!--table数据-->
+        <div class="table-box">
+            <div class="table-head">
+                <span>期数</span>
+                <span>还款阶段</span>
+                <span>还款日期</span>
+                <span>应还额度</span>
+                <span>已还款</span>
+                <span>状态</span>
+            </div>
+            <div class="table-body">
+                <div class="div-box">
+                </div>
+            </div>
+            <div class="table-foot">
+                <div class="div-box">
+                    <span>合&nbsp;&nbsp;计</span>
+                    <span class="foot-totalAccount">--</span>
+                    <span class="foot-repayAccount">--</span>
+                    <span>&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <!--编辑确认-->
+        <div class="edit-div">
+            <button class="edit-btn">编&nbsp;辑</button>
+        </div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="lib/layer/2.4/layer.js"></script> -->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+
+            //设置全局变量 isClick 是否可点击 0-不可点击 1-可点击
+            var isClick = '0';
+            //期数变更
+            $('body').on('click', '#minus', function() {
+                if (isClick == '0') {
+                    layer.msg('请先进入编辑模式！');
+                } else {
+                    var num = $('.payNum').val();
+                    if (num !== '0') {
+                        num--;
+                        $('.payNum').val(num);
+                        minusTr(num);
+                    }
+                }
+            });
+            $('body').on('click', '#add', function() {
+                if (isClick == '0') {
+                    layer.msg('请先进入编辑模式！');
+                } else {
+                    var num = $('.payNum').val();
+                    num++;
+                    $('.payNum').val(num);
+                    addTr(num);
+                }
+            });
+            //减去一行
+            function minusTr(num) {
+                var len = $($('.table-body').children()).length;
+                var html = $('.table-body').children()[len - 1];
+                html.remove();
+            }
+            //增加一行
+            function addTr(num) {
+                var html = '<div class="div-box">' +
+                    '<span><input class="edit-num" type="text" value="' + num + '"></span>' +
+                    '<span><input class="edit-stage" type="text"></span>' +
+                    '<span><input class="edit-repayDate" type="date"></span>' +
+                    '<span><input class="edit-account" type="number"></span>' +
+                    '<span><input class="edit-repayAccount" type="number"></span>' +
+                    '<span><input class="edit-status" type="text"></span>' +
+                    '</div>';
+                $('.table-body').append(html);
+            }
+
+            var search = location.search;
+            var params = {};
+            if (params != '') {
+                var ps = search.slice(1).split('&');
+                for (var i = 0; i < ps.length; i++) {
+                    var arr = ps[i].split('=');
+                    params[arr[0]] = arr[1];
+                }
+            }
+            var userId = params.userId;
+            //页面渲染
+            getData(1);
+
+            function getData(pageNo) {
+                var pageNo = pageNo;
+                var pageSize = 100;
+                var data = {
+                    "userId": userId
+                };
+                WFang("Stage/stageShowByUserId", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        var html = '',
+                            html1 = '',
+                            html2 = '',
+                            name = '', //姓名
+                            idty = '', //身份证
+                            accountNum = 0, //合同总金额
+                            repayWay = '', //还款阶段 1 阶段还款； 2 租赁
+                            payNum = '', //还款分期数
+                            rate = '', //还款利率
+
+                            stage = '', //还款阶段
+                            repayDate = '', //还款日期
+                            account = 0, //应还额度
+                            repayAccount = 0, //已还额度
+                            status = '', //状态
+
+                            totalAccount = 0, //总应还额度
+                            footRepayAccount = 0; //总已还额度
+                        //姓名
+                        if (arr.data.name == '') {
+                            name = '--';
+                        } else {
+                            name = arr.data.name;
+                        }
+                        //身份证
+                        if (arr.data.idty == '') {
+                            idty = '--';
+                        } else {
+                            idty = arr.data.idty;
+                        }
+                        //还款金额
+                        if (arr.data.accountNum == '') {
+                            accountNum = 0;
+                        } else {
+                            accountNum = arr.data.accountNum;
+                        }
+                        //还款方式
+                        if (arr.data.repayWay == '') {
+                            repayWay = '1';
+                        } else {
+                            repayWay = arr.data.repayWay;
+                        }
+                        //还款期数
+                        if (arr.data.stages.length == 0) {
+                            payNum = '0';
+                        } else {
+                            payNum = arr.data.stages.length;
+                        }
+                        //利率
+                        if (arr.data.rate == '') {
+                            rate = '--';
+                        } else {
+                            rate = arr.data.rate;
+                        }
+                        $('.payNum').val(payNum);
+                        $('.name').html(name);
+                        $('.idty').html(idty);
+                        $('.accountNum').html(accountNum);
+                        $('.repayWay').val(repayWay);
+                        $('.rate').val(rate);
+                        html1 = '<span>期数</span>' +
+                            '<span>支付阶段</span>' +
+                            '<span>支付日期</span>' +
+                            '<span>应付额度</span>' +
+                            '<span>已付款</span>' +
+                            '<span>状态</span>';
+                        $('.table-head').html(html1);
+                        if (arr.data.stages == '' || arr.data.stages == null) {
+                            //合同总金额
+                            $('.totalAccount').html('--');
+                            $('.foot-totalAccount').html('--');
+                            $('.foot-repayAccount').html('--');
+                        } else {
+                            for (var i = 0; i < arr.data.stages.length; i++) {
+                                //累计应还额度总金额 totalAccount
+                                totalAccount += arr.data.stages[i].account;
+                                //累计已还款金额 footRepayAccount
+                                footRepayAccount += arr.data.stages[i].repayAccount;
+                                //还款阶段
+                                if (arr.data.stages[i].stage == '') {
+                                    stage = '--';
+                                } else {
+                                    stage = arr.data.stages[i].stage;
+                                }
+                                //还款日期
+                                if (arr.data.stages[i].repayDate == '') {
+                                    repayDate = '--';
+                                } else {
+                                    repayDate = arr.data.stages[i].repayDate;
+                                }
+                                //应还额度
+                                if (arr.data.stages[i].account == '') {
+                                    account = 0;
+                                } else {
+                                    account = arr.data.stages[i].account;
+                                }
+                                //已还额度
+                                if (arr.data.stages[i].repayAccount == '') {
+                                    repayAccount = 0;
+                                } else {
+                                    repayAccount = arr.data.stages[i].repayAccount;
+                                }
+                                //状态
+                                if (arr.data.stages[i].status == '') {
+                                    status = '--';
+                                } else {
+                                    status = arr.data.stages[i].status;
+                                }
+                                html += '<div class="div-box">' +
+                                    '<span>' + (i + 1) + '</span>' +
+                                    '<span>' + stage + '</span>' +
+                                    '<span>' + repayDate + '</span>' +
+                                    '<span>' + account + '</span>' +
+                                    '<span>' + repayAccount + '</span>' +
+                                    '<span>' + status + '</span>' +
+                                    '</div>';
+                            }
+                            $('.foot-totalAccount').html(totalAccount);
+                            $('.foot-repayAccount').html(footRepayAccount);
+                        }
+                        $('.table-body').html(html);
+                    }
+
+                }, data, 'postForm')
+            }
+            /********************编辑************************/
+            //table数据编辑
+            function tableData(pageNo) {
+                var pageNo = pageNo;
+                var pageSize = 100;
+                console.log(userId);
+                var data = {
+                    "userId": userId,
+                    "pageNum": pageNo,
+                    "pageSize": pageSize
+                };
+                WFang("Stage/stageShowByUserId", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        // console.log(arr.data);
+                        var html = '',
+                            html1 = '',
+                            repayWay = '', //还款阶段 1 阶段还款； 2 租赁
+                            payNum = '', //还款分期数
+                            rate = '', //还款利率
+
+                            stage = '', //还款阶段
+                            repayDate = '', //还款日期
+                            account = '', //应还额度
+                            repayAccount = '', //已还额度
+                            status = ''; //状态
+                        //还款方式
+                        if (arr.data.repayWay == '') {
+                            repayWay = '1';
+                        } else {
+                            repayWay = arr.repayWay;
+                        }
+                        //还款期数
+                        if (arr.data.stages.length == 0) {
+                            payNum = '0';
+                        } else {
+                            payNum = arr.data.stages.length;
+                        }
+                        //利率
+                        if (arr.data.rate == '') {
+                            rate = '--';
+                        } else {
+                            rate = arr.data.rate;
+                        }
+                        $('.payNum').val(payNum);
+                        $('.repayWay').val(repayWay);
+                        $('.rate').val(rate);
+                        if (arr.data.stages == '' || arr.data.stages == null) {
+
+                        } else {
+                            for (var i = 0; i < arr.data.stages.length; i++) {
+                                //还款阶段
+                                if (arr.data.stages[i].stage == '') {
+                                    stage = '--';
+                                } else {
+                                    stage = arr.data.stages[i].stage;
+                                }
+                                //还款日期
+                                if (arr.data.stages[i].repayDate == '') {
+                                    repayDate = '--';
+                                } else {
+                                    repayDate = arr.data.stages[i].repayDate;
+                                }
+                                //应还额度
+                                if (arr.data.stages[i].account == '') {
+                                    account = 0;
+                                } else {
+                                    account = arr.data.stages[i].account;
+                                }
+                                //已还额度
+                                if (arr.data.stages[i].repayAccount == '') {
+                                    repayAccount = 0;
+                                } else {
+                                    repayAccount = arr.data.stages[i].repayAccount;
+                                }
+                                //状态
+                                if (arr.data.stages[i].status == '') {
+                                    status = '--';
+                                } else {
+                                    status = arr.data.stages[i].status;
+                                }
+                                html += '<div class="div-box">' +
+                                    '<span><input class="edit-num" type="text" value="' + (i + 1) + '"></span>' +
+                                    '<span><input class="edit-stage" type="text" value="' + stage + '"></span>' +
+                                    '<span><input class="edit-repayDate" type="date" value="' + repayDate + '"></span>' +
+                                    '<span><input class="edit-account" type="number" value="' + account + '"></span>' +
+                                    '<span><input class="edit-repayAccount" type="number" value="' + repayAccount + '"></span>' +
+                                    '<span><input class="edit-status" type="text" value="' + status + '"></span>' +
+                                    '</div>';
+                            }
+                        }
+                        $('.table-body').html(html);
+                        $('input.edit-account').blur(function() {
+                            if (parseInt($('input.edit-account').val()) != $('input.edit-account').val()) {
+                                $('input.edit-account').val('');
+                                layer.msg('金额只能是整数！')
+                            }
+                        })
+                    }
+                }, data, 'postForm')
+
+            }
+            $('body').on('click', '.edit-btn', function() {
+                //编辑模式
+                isClick = '1';
+                $('.repayWay').attr('disabled', false);
+                $('.rate').attr('disabled', false);
+                //table数据
+                tableData(1);
+                $(this).html('保&nbsp;存');
+                $(this).removeClass('edit-btn').addClass('sure-btn');
+            });
+            $('body').on('click', '.sure-btn', function() {
+                // 移除 + - 的响应事件
+                $('body').off('click', '#minus');
+                $('body').off('click', '#add');
+                //所有table记录
+                var that = $('.table-body').children();
+                //获取当前table行数
+                var len = that.length;
+                //遍历  获取table指定数据
+                var list = [], //第三级json数据
+                    num = '',
+                    stage = '',
+                    repayDate = '',
+                    account = '',
+                    repayAccount = '',
+                    status = '',
+
+                    repayWay = '',
+                    rate = '';
+
+                for (var i = 0; i < len; i++) {
+                    num = $($(that[i]).find('.edit-num')).val();
+                    stage = $($(that[i]).find('.edit-stage')).val();
+                    repayDate = $($(that[i]).find('.edit-repayDate')).val();
+                    account = parseInt($($(that[i]).find('.edit-account')).val());
+                    repayAccount = parseInt($($(that[i]).find('.edit-repayAccount')).val());
+                    status = $($(that[i]).find('.edit-status')).val();
+                    list[i] = {
+                        "userId": userId,
+                        "num": num,
+                        "stage": stage,
+                        "repayDate": repayDate,
+                        "account": account,
+                        "repayAccount": repayAccount,
+                        "status": status
+                    };
+                }
+                //第二级json数据
+                repayWay = $('.repayWay').find("option:selected").val();
+                rate = $('.rate').val();
+                //第一级 接口数据
+                var data = JSON.stringify({
+                    "id": userId,
+                    "repayWay": repayWay,
+                    "rate": rate,
+                    "stages": list
+                });
+
+                edit(data);
+            });
+
+            function edit(data) {
+                WFang("Stage/editStage", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            //退出编辑模式
+                            isClick = '0';
+                            $('.repayWay').attr('disabled', true);
+                            $('.rate').attr('disabled', true);
+                            getData(1);
+                            $('.sure-btn').html('编&nbsp;辑');
+                            $('.sure-btn').removeClass('sure-btn').addClass('edit-btn');
+
+                            $('body').on('click', '#minus', function() {
+                                if (isClick == '0') {
+                                    layer.msg('请先进入编辑模式！');
+                                } else {
+                                    var num = $('.payNum').val();
+                                    if (num !== '0') {
+                                        num--;
+                                        $('.payNum').val(num);
+                                        minusTr(num);
+                                    }
+                                }
+                            });
+                            $('body').on('click', '#add', function() {
+                                if (isClick == '0') {
+                                    layer.msg('请先进入编辑模式！');
+                                } else {
+                                    var num = $('.payNum').val();
+                                    num++;
+                                    $('.payNum').val(num);
+                                    addTr(num);
+                                }
+                            });
+
+                        }, 1800);
+                    }
+                }, data, 'post')
+            }
+        });
+    </script>
+</body>
+
+</html>

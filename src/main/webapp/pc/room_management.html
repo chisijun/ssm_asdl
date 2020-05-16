@@ -1,0 +1,521 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+    <style>
+
+    </style>
+</head>
+
+<body style="background:#65A6EA;width:1254px;" class="ifram">
+    <div class="wrapper-container roomManagement">
+        <!--搜索框-->
+        <div class="search-box">
+            
+            <input class="isPhone" type="text" placeholder="请输入用户姓名" />
+            <button class="searchBtn">搜索</button>
+            <button class="addBtn">新建</button>
+        </div>
+        <!--table数据-->
+        <div class="table-box">
+            <div class="table-head">
+            </div>
+            <div class="table-body">
+            </div>
+        </div>
+        <!--分页-->
+        <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+    </div>
+
+	<!--新增房子-->
+    <div class="add_mask" id="add_mask">
+        <div class="mask_contain">
+            <div class="mask_top">新增房间<span class="close1">&times;</span></div>
+            <div class="form" style="padding-bottom:0;">
+                <div>
+                	<span>所在楼栋：</span>
+                	<select id="add_buildingSlt" style="width:172px;">
+                		<option value="-1">请选择楼栋</option>
+                	</select>
+                </div><br>
+                <div>
+                	<span>单元号：</span>
+                	<select id="add_unitSlt" style="width:172px;">
+                		<option value="-1">请选择单元</option>
+                	</select>
+                </div><br>
+                <div>
+                	<span>楼层号：</span>
+                	<select id="add_floorSlt" style="width:172px;">
+                		<option value="-1">请选择楼层</option>
+                	</select>
+                </div><br>
+                <div>
+                	<span>房子类型：</span>
+                	<select id="add_roomTypeSlt" style="width:172px;">
+                		<option value="1">居民</option>
+	                	<option value="2">商业</option>
+	                	<option value="3">办公</option>
+	                	<option value="4">餐饮</option>
+                	</select>
+                </div><br> 
+                <div><span>房间编号：</span><input id="roomNo" type="text" placeholder="请输入房间编号"></div><br>
+                <div><span>房间名称：</span><input id="roomName" type="text" placeholder="请输入房间名称"></div><br>
+                <div><span>房间户型：</span><input id="houseType" type="text" placeholder="请输入房间户型"></div><br>
+                <div><span>房间面积：</span><input id="acreage" type="number" placeholder="请输入房间面积"></div><br>
+                
+            </div>
+            <div class="mask_btn"><button class="comfire" id="add_room">确认</button><button class="cansle">取消</button></div>
+        </div>
+    </div>
+
+    <!-- 编辑 -->
+    <div class="modify_mask">
+        <input type="hidden" id="m_roomId" value="">
+        <input type="hidden" id="m_buildingId" value="">
+        <div class="mask_contain" style="height:540px;">
+            <div class="mask_top">修改房子<span class="close5">&times;</span></div>
+            <div class="modify_box">
+                <div>
+                    <span>所在楼栋：</span>
+                    <select id="m_buildingSlt" style="width:172px;">
+                        <option value="-1">请选择楼栋</option>
+                    </select>
+                </div><br>
+                <div>
+                    <span>单元号：</span>
+                    <select id="m_unitSlt" style="width:172px;">
+                        <option value="-1">请选择单元</option>
+                    </select>
+                </div><br>
+                <div>
+                    <span>楼层号：</span>
+                    <select id="m_floorSlt" style="width:172px;">
+                        <option value="-1">请选择楼层</option>
+                    </select>
+                </div><br>
+                <div>
+                    <span>房子类型：</span>
+                    <select id="m_roomTypeSlt" style="width:172px;">
+                        <option value="1">居民</option>
+                        <option value="2">商业</option>
+                        <option value="3">办公</option>
+                        <option value="4">餐饮</option>
+                    </select>
+                </div><br> 
+                <div><span>房间编号：</span><input id="m_roomNo" type="text" placeholder="请输入房间编号"></div><br>
+                <div><span>房间名称：</span><input id="m_roomName" type="text" placeholder="请输入房间名称"></div><br>
+                <div><span>房间户型：</span><input id="m_houseType" type="text" placeholder="请输入房间户型"></div><br>
+                <div><span>房间面积：</span><input id="m_acreage" type="number" placeholder="请输入房间面积"></div><br>
+
+                <div class="delete_btn"><button class="modify_comfire" id="update_site" style="margin-top:18px;">确认</button><button class="modify_cansle">取消</button></div>
+            </div>
+         </div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+  
+            load_building();
+
+            function load_building() {
+
+                var data = {
+                    "pageNum": 1,
+                    "pageSize": 100,
+                };
+
+                WFang("building/queryListWithPage", function(arr) {
+                    var datarow = "";
+                    if (arr.status == false) {
+                        
+                    } else {
+                        datarow += '<option value="-1">请选择楼栋</option>';
+                        for (var i = 0; i < arr.data.list.length; i++) {
+                            datarow += '<option value=' + arr.data.list[i].id+'>'
+                                    + arr.data.list[i].areaName + arr.data.list[i].buildingName + '</option>';
+                        }
+                    }
+                    $('#add_buildingSlt').html(datarow);
+                    $('#m_buildingSlt').html(datarow);  
+                }, data, 'postForm');
+
+            }
+
+            $("#add_buildingSlt").change(function() {  
+                var buildingId = $('#add_buildingSlt').find("option:selected").val();
+                // 获取楼栋信息
+                WFang("building/queryById/" + buildingId, function(arr) {
+                    var datarow_unit = "";
+                    var datarow_floor = "";
+                    if (arr.status == false) {
+                        
+                    } else {
+                        datarow_unit += '<option value="-1">请选择单元</option>';
+                        for (var i = 1; i <= arr.data.unitSize; i++) {
+                            datarow_unit += '<option value=' + i +'>'
+                                    + i + '单元</option>';
+                        }
+
+                        datarow_floor += '<option value="-1">请选择楼层</option>';
+                        for (var i = 1; i <= arr.data.floorSize; i++) {
+                            datarow_floor += '<option value=' + i +'>'
+                                    + i + '层</option>';
+                        }
+                    }
+                    $('#add_unitSlt').html(datarow_unit);
+                    $('#add_floorSlt').html(datarow_floor);  
+                    
+                }, '', 'postForm');
+            }) 
+
+            //页面渲染 
+            var name = '';
+            getData(1, name);
+
+            function getData(pageNo, name) {
+                var pageNo = pageNo;
+                var pageSize = 8;
+
+                var data = {
+                    "pageNum": pageNo,
+                    "pageSize": pageSize
+                };
+                WFang("room/queryListWithPage", function(arr) {
+                    // console.log(arr);
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        //分页
+                        laypage.render({
+                            elem: 'page', //容器
+                            pages: arr.data.pages, // 总页数
+                            count: arr.data.total, //总条数
+                            theme: '#0D3D89', //主题
+                            last: '末页', //最后一页
+                            limit: '8', //每页条数限制
+                            curr: arr.data.pageNum, //当前页
+                            prev: '<em><</em>', //上一页
+                            next: '<em>></em>', //下一页
+                            layout: ['count', 'prev', 'page', 'next', 'skip'],
+                            jump: function(obj, first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                if (!first) {
+                                    addStas = 0;
+                                    getData(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                }
+                            }
+                        });
+                        var html = '',
+                            html1 = '',
+                            wStatus = '',
+                            nStatus = '',
+                            lock = '',
+                            color = ''
+                            roomType = '';
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            layer.msg('暂无数据!');
+                        } else {
+                            html1 = '<span>热站名称</span>' +
+                                '<span>小区名称</span>' +
+                                '<span>楼栋名称</span>' +
+                                '<span>房间号</span>' +
+                                '<span>户型</span>' +
+                                '<span>面积（㎡）</span>' +
+                                '<span>房间类型</span>' +
+                                '<span>操作</span>';
+                            $('.table-head').html(html1);
+                            
+                            for (var i = 0; i < arr.data.list.length; i++) {
+
+                                switch(arr.data.list[i].roomType) {
+                                    case 1 :
+                                        roomType = '居民';
+                                        break;
+                                    case 2 :
+                                        roomType = '商业';
+                                        break;
+                                    case 3 :
+                                        roomType = '办公';
+                                        break;
+                                    case 4 :
+                                        roomType = '餐饮';
+                                        break;
+                                }
+                                
+                                html += '<div class="div-box">' +
+                                    '<span>' + arr.data.list[i].siteName + '</span>' +
+                                    '<span>' + arr.data.list[i].areaName + '</span>' +
+                                    '<span>' + arr.data.list[i].buildingName + '</span>' +
+                                    '<span>' + arr.data.list[i].roomName + '</span>' +
+                                    '<span>' + arr.data.list[i].houseType + '</span>' +
+                                    '<span>' + arr.data.list[i].acreage + '</span>' +
+                                    '<span>' + roomType + '</span>' +
+                                    '<span>' +
+                                    '<a class="a-edit" data-unitSize="' 
+                                        + arr.data.list[i].unitSize + '" data-floorSize="' 
+                                        + arr.data.list[i].floorSize + '" data-roomNo="' 
+                                        + arr.data.list[i].roomNo + '" data-unitNo="' 
+                                        + arr.data.list[i].unitNo + '" data-floorNo="' 
+                                        + arr.data.list[i].floorNo + '" data-buildingId="' 
+                                        + arr.data.list[i].buildingId + '" data-roomType="' 
+                                        + arr.data.list[i].roomType + '" data-roomName="' 
+                                        + arr.data.list[i].roomName + '" data-houseType="' 
+                                        + arr.data.list[i].houseType + '" data-acreage="' 
+                                        + arr.data.list[i].acreage + '" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">编辑</a>' +
+                                    '<a class="a-delete" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">删除</a>' +
+                                    '</span>' +
+                                    '</div>';
+                            }
+                            
+                           $('.table-body').html(html);
+                        }
+                    }
+
+                }, data, 'postForm')
+            }
+            
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".cansle",function(){
+			    $(".add_mask").hide();
+			});
+            
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".close1",function(){
+			    $(".add_mask").hide();
+			});
+            
+            /***********************添加房间弹框*****************************/
+            $('body').on('click', '.addBtn', function() {
+	    		$("#add_mask").show();
+	    		//$("#realname").val("");
+	    		//$("#phone").val("");
+	    		//$("#add_password").val("");
+	    		//$("#add_repassword").val("");
+			});
+			
+            /***********************添加房间*****************************/
+            $("body").on("click","#add_room",function(){
+	    		var buildingId = $('#add_buildingSlt').find("option:selected").val();
+                var unitNo = $('#add_unitSlt').find("option:selected").val();
+                var floorNo = $('#add_floorSlt').find("option:selected").val();
+                var roomNo = $("#roomNo").val();
+                var roomName = $("#roomName").val();
+                var roomType = $('#add_roomTypeSlt').find("option:selected").val();
+                var houseType = $("#houseType").val();
+                var acreage = $("#acreage").val();
+
+		        if (buildingId == '-1') {
+		        	layer.msg("请选择楼栋");
+		            return;
+		        } 
+		        if (unitNo == '-1') {
+		            layer.msg("请选择单元");
+                    return;
+		        } 
+		        
+		        if (floorNo == '-1') {
+		            layer.msg("请选择楼层");
+                    return;
+		        } 
+	    		
+	    		var data = {
+                    "buildingId": buildingId,
+                    "unitNo": unitNo,
+                    "floorNo": floorNo,
+                    "roomName": roomName,
+                    "roomNo": roomNo,
+                    "roomType": roomType,
+                    "houseType": houseType,
+                    "acreage": acreage
+                };
+		             
+		        WFang("room/save", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".add_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+	    	});
+            
+            /***********************根据名称查询*****************************/
+            $('body').on('click', '.searchBtn', function() {
+                var name = $('.isPhone').val();
+                getData(1, name);
+            });
+
+            /***********************编辑地理位置*****************************/
+            //自定义变量状态  0-不存在添加框 1-已存在
+            var addStas = '0';
+            $('body').on('click', '.a-edit', function() {
+                
+                var roomId = $(this).attr('data-roomId');
+                var buildingId = $(this).attr('data-buildingId');
+                var roomName = $(this).attr('data-roomName');
+                var roomNo = $(this).attr('data-roomNo');
+                var remark = $(this).attr('data-remark');
+                var unitNo = $(this).attr('data-unitNo');
+                var floorNo = $(this).attr('data-floorNo');
+                var roomType = $(this).attr('data-roomType');
+                var houseType = $(this).attr('data-houseType');
+                var acreage = $(this).attr('data-acreage');
+                var unitSize = $(this).attr('data-unitSize');
+                var floorSize = $(this).attr('data-floorSize');
+
+                var datarow_unit = '',
+                    datarow_floor = '';
+                datarow_unit += '<option value="-1">请选择单元</option>';
+                for (var i = 1; i <= unitSize; i++) {
+                    datarow_unit += '<option value=' + i +'>'
+                            + i + '单元</option>';
+                }
+
+                datarow_floor += '<option value="-1">请选择楼层</option>';
+                for (var i = 1; i <= floorSize; i++) {
+                    datarow_floor += '<option value=' + i +'>'
+                            + i + '层</option>';
+                }
+
+                $('#m_unitSlt').html(datarow_unit);
+                $('#m_floorSlt').html(datarow_floor); 
+
+                $("#m_buildingSlt").val(buildingId);
+                $("#m_roomId").val(roomId);
+                $("#m_roomName").val(roomName);
+                $("#m_remark").val(remark);
+                $("#m_roomNo").val(roomNo);
+                $("#m_unitSlt").val(unitNo);
+                $("#m_floorSlt").val(floorNo);
+                $("#m_roomTypeSlt").val(roomType);
+                $("#m_houseType").val(houseType);
+                $("#m_acreage").val(acreage);
+
+                $(".modify_mask").show();
+            });
+
+            /***********************编辑-确定****************************/
+            $('body').on("click",".modify_comfire", function() {
+
+                var roomId = $("#m_roomId").val();
+                var buildingId = $('#m_buildingSlt').find("option:selected").val();
+                var unitNo = $('#m_unitSlt').find("option:selected").val();
+                var floorNo = $('#m_floorSlt').find("option:selected").val();
+                var roomNo = $("#m_roomNo").val();
+                var roomName = $("#m_roomName").val();
+                var roomType = $('#m__roomTypeSlt').find("option:selected").val();
+                var houseType = $("#m_houseType").val();
+                var acreage = $("#m_acreage").val();
+
+                if (buildingId == '-1') {
+                    layer.msg("请选择楼栋");
+                    return;
+                } 
+                if (unitNo == '-1') {
+                    layer.msg("请选择单元");
+                    return;
+                } 
+                
+                if (floorNo == '-1') {
+                    layer.msg("请选择楼层");
+                    return;
+                } 
+                
+                var data = {
+                    "id": roomId,
+                    "buildingId": buildingId,
+                    "unitNo": unitNo,
+                    "floorNo": floorNo,
+                    "roomNo": roomNo,
+                    "roomName": roomName,
+                    "roomType": roomType,
+                    "houseType": houseType,
+                    "acreage": acreage
+                };
+
+                WFang("room/save", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".modify_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+            
+
+            /***********************关闭-编辑弹框*****************************/
+            $('body').on("click",".modify_cansle",function(){
+                $(".modify_mask").hide();
+            });
+
+             /***********************关闭-编辑弹框*****************************/
+            $('body').on("click",".close5",function(){
+                $(".modify_mask").hide();
+            });
+
+            $('body').on('click', '.a-save', function() {
+                var userId = $(this).attr('data-userId');
+                var address = $('.edit-address').val().trim();
+                edit(userId, address);
+            });
+
+            function edit(userId, address) {
+                var pageNo = $('.layui-input').val();
+                var data = {
+                    "userId": userId,
+                    "address": address
+                };
+                WFang("Device/updateLocation", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                        console.log($('.a-save').html());
+                    } else {
+                        layer.msg(arr.message);
+
+                        setTimeout(function() {
+                            //改变自定义变量状态
+                            addStas = '0';
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!--
+  Created by PC on 2017/12/26.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <title>供热管理系统</title>
+
+    <link rel="stylesheet" href="css/Myless.css">
+</head>
+
+<body>
+    <div class="login">
+        <!--头部-->
+        <!--<div class="header">-->
+        <!--<a href="javascript:void (0);" class="back"><img src="images/back_icon.png" alt="图片">&nbsp;返回</a>-->
+        <!--登&nbsp;录-->
+        <!--</div>-->
+        <!--logo-->
+        <!--<div class="logo">-->
+        <!--<img src="images/loding_touxiang.png" alt="图片">-->
+        <!--</div>-->
+        <!--登录信息-->
+        <div class="login-box">
+            <div class="pos-img">
+                <input id="uname" type="text" class="user form-control" placeholder="输入账号">
+                <img class="user-img" src="images/loding_user_icon.png" alt="图片">
+                <img class="del-img clear" src="images/delete_icon.png" alt="图片">
+            </div>
+            <div class="pos-img">
+                <input id="upwd" type="password" maxlength="20" class="user form-control" placeholder="输入密码">
+                <img class="user-img" src="images/loding_open_icon.png" alt="图片">
+                <!--<a class="forget-a" href="#">忘记密码？</a>-->
+                <img class="del-img clear" src="images/delete_icon.png" alt="图片">
+            </div>
+            <!--<div class="pos-img">-->
+            <!--<div class="putCode">-->
+            <!--<input id="in-vcode" type="text" class="code form-control" maxlength="8" placeholder="输入验证码">-->
+            <!--<img class="pwd-img" src="images/loding_open_icon.png" alt="图片">-->
+            <!--</div>-->
+            <!--<div class="getCode pdleft">-->
+            <!--&lt;!&ndash;获取验证码&ndash;&gt;-->
+            <!--<input id="get-vcode" type="button" value="发送验证码">-->
+            <!--&lt;!&ndash;验证码60s倒计时遮罩层&ndash;&gt;-->
+            <!--<span></span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="pos-img">
+                <a id="login" href="#">登&nbsp;&nbsp;录</a>
+            </div>
+            <!--<div class="go-loginFast">-->
+            <!--<label>-->
+            <!--<img name="2" id="savepwd" src="images/wangjimima02.png" alt="图片">-->
+            <!--记住密码-->
+            <!--</label>-->
+            <!--<a id="loginFast" href="#">快速登录</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="lib/layui/layui.js"></script>
+    <script src="js/pub.js"></script>
+    <script src="js/WFang.js"></script>
+    <script>
+        $(document).ready(function() {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if ($.cookie("username") != null && $.cookie("username") != '') {
+                    $("#uname").val($.cookie("username"));
+                    $("#upwd").val($.cookie("password"));
+                }
+
+                //复选框选中效果
+                function checkboxChoose(that) {
+                    var tsrc = that.attr('src');
+                    var tindex = tsrc.indexOf('png');
+                    if (that.attr('name') == 1) { //通过判断name值，确定当前图片
+                        that.attr('name', '2'); //设置name值
+                        var nSrc = replaceChat(tsrc, tindex - 2, tindex - 1, '2');
+                        that.attr('src', nSrc);
+                    } else if (that.attr('name') == 2) {
+                        that.attr('name', '1');
+                        var nSrc = replaceChat(tsrc, tindex - 2, tindex - 1, '1');
+                        that.attr('src', nSrc);
+                    }
+                }
+
+                //替换指定位置字符
+                function replaceChat(str, beforePos, afterPos, newChar) { //参数1：原字符串，参数二：替换字符位置前一个下标数，参数三：替换字符位置后一个下标数，参数四：替换的字符
+                    var beforePart = str.substr(0, beforePos);
+                    var afterPart = str.substr(afterPos, str.length);
+                    var nStr = beforePart + newChar + afterPart;
+                    return nStr;
+                }
+
+                //登录
+                $('body').on('click', '#login', function() {
+                    //用户名
+                    var userName = $('#uname').val().trim();
+                    //密码
+                    var password = $('#upwd').val().trim();
+                    if (userName == '') { //用户名验证
+                        layer.tips('请填写用户名', '#uname', { //layer提示信息
+                            tips: [1, '#3595CC'],
+                            time: 2000
+                        });
+                    } else if (password == '') { //密码验证
+                        layer.tips('请填写密码', '#upwd', {
+                            tips: [1, '#3595CC'],
+                            time: 2000
+                        });
+                    } else {
+                        user_login(userName, password);
+                    }
+                });
+
+                function user_login(userName, password) {
+                    WFang("login/token", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            window.sessionStorage.setItem("token", arr.data.userId + '_' + arr.data.token);
+                            window.sessionStorage.setItem("userId", arr.data.userId);
+                            //二次验证人员  roleId为2  微信允许登录
+                            var token = arr.data.userId + '_' + arr.data.token;
+                            yanzhen(userName, password, token);
+                        }
+                    }, {
+                        name: userName,
+                        password: password
+                    }, 'postForm')
+                };
+                /**
+                 * 接口方法使用示例
+                 * 二次验证
+                 */
+                function yanzhen(userName, password, token) {
+                    WFang("user", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            //获取当前用户ID
+                            if (arr.data.list != '' && arr.data.type == 'user') {
+                                window.sessionStorage.setItem("userName", arr.data.userName);
+                                window.sessionStorage.setItem("mobileNo", arr.data.mobileNo);
+                                window.sessionStorage.setItem("email", arr.data.email);
+                                $.cookie("username", userName, {
+                                    expires: 30
+                                });
+                                $.cookie("password", password, {
+                                    expires: 30
+                                });
+                                var jumpto = "html/management.html";
+                                layer.msg('登录成功', {
+                                    icon: 1
+                                });
+                                setTimeout(function() {
+                                    var url = getUrlParameters('url');
+                                    if (typeof(url) != 'undefined' && url != '' && url != 'null' && url != 'undefined') {
+                                        jumpto = url;
+                                    }
+                                    window.location.replace(jumpto);
+                                }, 1800);
+                            } else {
+                                layer.msg('该账号不能登录微信系统');
+                            }
+                        }
+                    }, {}, 'get', '', token)
+                };
+                //清空输入框
+                $('body').on('click', '.del-img', function() {
+                    $($(this).siblings()[0]).val('');
+                });
+
+            });
+        });
+    </script>
+</body>
+
+</html>

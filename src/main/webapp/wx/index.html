@@ -1,0 +1,107 @@
+<!--
+  Created by fun on 2017/12/26.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!--<meta name="format-detection" content="telephone=no">-->
+  <title>谷物干燥机物联智慧系统</title>
+
+  <link rel="stylesheet" href="css/Myless.css">
+</head>
+<body style="background-color: #F7F7F7;">
+<div class="index">
+  <!--头部-->
+  <div class="header">
+    <a id="head-back" href="javascript:void (0);" class="back"><img src="images/back_icon.png" alt="图片">&nbsp;返回</a>
+    首页
+    <a id="home-back" href="javascript:void (0);" class="home"><img src="images/index_icon.png" alt="图片"></a>
+  </div>
+  <!--个人信息-->
+  <div class="single">
+    <div class="img">
+      <img src="images/shouye_touxiang.png" alt="图片">
+    </div>
+    <div class="name">
+      --
+    </div>
+  </div>
+  <!--功能模块-->
+  <div class="modal">
+    <div class="modal-box">
+      <img src="images/shouye_bg.png" alt="图片">
+      <div class="row-box">
+        <div class="row device">
+          <img class="row-left" src="images/shouye_shebei.png" alt="图片">
+          <span class="span ">设备管理</span>
+          <img class="row-right" src="images/shouye_jinru.png" alt="图片">
+        </div>
+        <div class="row break">
+          <img class="row-left" src="images/shouye_guzhang.png" alt="图片">
+          <span class="span ">故障管理</span>
+          <img class="row-right" src="images/shouye_jinru.png" alt="图片">
+        </div>
+        <div class="row pay">
+          <img class="row-left" src="images/shouyei_zhifu.png" alt="图片">
+          <span class="span ">支付管理</span>
+          <img class="row-right" src="images/shouye_jinru.png" alt="图片">
+        </div>
+        <div class="row charg">
+          <img class="row-left" src="images/shouye_jifei.png" alt="图片">
+          <span class="span ">计费管理</span>
+          <img class="row-right" src="images/shouye_jinru.png" alt="图片">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="lib/layui/layui.js"></script>
+<script src="js/pub.js"></script>
+<script src="js/WFang.js"></script>
+<script>
+  $(document).ready(function() {
+    layui.use('layer', function() {
+
+      //头部返回上一页按键
+      $('body').on('click','#head-back',function(){
+        window.location.href='login.html';
+      });
+      //返回index首页
+      $('body').on('click','#home-back',function(){
+        window.location.href='index.html';
+      });
+      //页面跳转
+      $('body').on('click','.device',function(){
+        window.location.href='html/device.html';
+      });
+      $('body').on('click','.break',function(){
+        window.location.href='html/break.html';
+      });
+      $('body').on('click','.pay',function(){
+        //window.location.href='html/pay.html';
+      });
+      $('body').on('click','.charg',function(){
+        //window.location.href='html/charg.html';
+      });
+      /*******************获取当前用户名字***********************/
+      getData();
+      function getData() {
+        WFang ("user",function(arr){
+          if(arr.status == false){
+            layer.msg(arr.message);
+          }else{
+            $('.name').html(arr.data.name);
+          }
+        },{},'get');
+      }
+    });
+  });
+</script>
+</body>
+</html>

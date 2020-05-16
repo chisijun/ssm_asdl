@@ -1,0 +1,159 @@
+<!--
+  Created by PC on 2017/12/27.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=motor-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <title>供热管理系统</title>
+
+    <link rel="stylesheet" href="../css/Myless.css">
+</head>
+
+<body>
+    <div class="serve">
+        <!--头部-->
+        <div class="header">
+            服务印记
+        </div>
+        <div class="search-box">
+            <!--服务记录-->
+            <!--<div class="serve-box">-->
+            <!--<div class="one">-->
+            <!--<span class="serve-name">设备保养</span>-->
+            <!--<span class="serve-time">2017-12-25/2018/01/01</span>-->
+            <!--</div>-->
+            <!--<div class="two">-->
+            <!--<span class="serve-status">谷物干燥机到货验收</span>-->
+            <!--</div>-->
+            <!--<div class="three">-->
+            <!--<span class="serve-user">——李四</span>-->
+            <!--</div>-->
+            <!--<div class="four">-->
+            <!--<img class="img-left" src="../images/fuwuyinji_tupian.png" alt="图片">-->
+            <!--</div>-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a href="javascript:window.location.href='management.html';" id="management">
+                <img src="../images/zuoye_icon02.png" alt="图片">
+                <span>作业管理</span>
+            </a>
+            <a href="javascript:window.location.href='self.html';" id="self">
+                <img src="../images/zhiwo_icon02.png" alt="图片">
+                <span>智我</span>
+            </a>
+            <a href="javascript:window.location.href='account.html';" id="account">
+                <img src="../images/jizhangben_icon02.png" alt="图片">
+                <span>记账本</span>
+            </a>
+            <a href="javascript:window.location.href='serve.html';" id="serve">
+                <img src="../images/fuwu_icon03.png" alt="图片">
+                <span class="span-color">服务印记</span>
+            </a>
+        </div>
+        <!--查看大图图片-->
+        <div class="card-img">
+            <img class="cardImg" src="" alt="图片">
+            <img class="closeImg" src="../images/xx_icon.png" alt="图片">
+        </div>
+    </div>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/pub.js"></script>
+    <script src="../js/WFang.js"></script>
+    <script>
+        $(document).ready(function() {
+            layui.use('layer', function() {
+                //点击查看大图
+                $('body').on('click', '.look', function() {
+                    var src = $(this).attr('src');
+                    $('.cardImg').attr('src', src);
+                    $('.card-img').attr('style', 'display:block;')
+                });
+                //点击退出查看大图
+                $('body').on('click', '.closeImg', function() {
+                    $('.card-img').attr('style', 'display:none;')
+                });
+                getData();
+                //服务印记
+                function getData() {
+                    WFang("Device/serviceMarkShowById", function(arr) {
+                        if (arr.status == false) {
+                            layer.msg(arr.message);
+                        } else {
+                            var html = '',
+                                serviceName = '',
+                                msg = '暂无服务记录～';
+                            if (arr.data != '' || arr.data != null) {
+
+                                for (var i = 0; i < arr.data.length; i++) {
+                                    if (arr.data[i].url == '') {
+                                        arr.data[i].url = '../images/fuwuyinji_tupian.png'
+                                    } else {
+                                        arr.data[i].url = arr.data[i].url
+                                    }
+                                    //获取时间戳转换时间
+                                    var startTime = formatDate(arr.data[i].startTime);
+                                    var endTime = formatDate(arr.data[i].endTime);
+
+                                    var serviceType = arr.data[i].serviceType;
+                                    //服务类别 0-通常 1-帮扶用户 2-设备保养 3-故障排除
+                                    if (serviceType == 0) {
+                                        serviceName = '通常';
+                                    } else if (serviceType == 1) {
+                                        serviceName = '帮扶用户';
+                                    } else if (serviceType == 2) {
+                                        serviceName = '设备保养';
+                                    } else if (serviceType == 3) {
+                                        serviceName = '故障排除';
+                                    }
+                                    html += '<div class="serve-box">' +
+                                        '<div class="one">' +
+                                        '<span class="serve-name">' + serviceName + '</span>' +
+                                        '<span class="serve-time">' + startTime + '/' + endTime + '</span>' +
+                                        '</div>' +
+                                        '<div class="two">' +
+                                        '<span class="serve-status">' + arr.data[i].content + '</span>' +
+                                        '</div>' +
+                                        '<div class="three">' +
+                                        '<span class="serve-user">——' + arr.data[i].servePeople + '</span>' +
+                                        '</div>' +
+                                        '<div class="four">' +
+                                        '<img class="img-left look" src="' + arr.data[i].url + '" alt="图片">' +
+                                        '</div>' +
+                                        '</div>';
+                                }
+                                if (html == '') {
+                                    $('.search-box').css({
+                                        'fontSize': '16px',
+                                        'textAlign': 'center'
+                                    });
+                                    $('.search-box').html(msg);
+                                } else {
+                                    $('.search-box').html(html);
+                                }
+                            }
+                        }
+                    }, {}, 'postForm', '', '', 'html/serve.html')
+                }
+                //时间戳改为日期
+                function formatDate(now) {
+                    var d = new Date(now);
+                    var year = d.getFullYear();
+                    var month = d.getMonth() + 1;
+                    var date = d.getDate();
+                    return year + "-" + month + "-" + date;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -419,16 +419,22 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder -->
-    <dependency>
-      <groupId>net.logstash.logback</groupId>
-      <artifactId>logstash-logback-encoder</artifactId>
-      <version>4.11</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>net.logstash.logback</groupId>-->
+      <!--<artifactId>logstash-logback-encoder</artifactId>-->
+      <!--<version>4.11</version>-->
+    <!--</dependency>-->
+
+    <!--<dependency>-->
+      <!--<groupId>ch.qos.logback</groupId>-->
+      <!--<artifactId>logback-classic</artifactId>-->
+      <!--<version>1.2.3</version>-->
+    <!--</dependency>-->
 
     <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
+      <groupId>com.tencentcloudapi</groupId>
+      <artifactId>tencentcloud-sdk-java</artifactId>
+      <version>3.1.48</version><!-- 注：这里只是示例版本号，请到 https://mvnrepository.com/artifact/com.tencentcloudapi/tencentcloud-sdk-java 获取最新版本号 -->
     </dependency>
 
   </dependencies>

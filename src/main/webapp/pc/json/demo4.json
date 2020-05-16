@@ -1,0 +1,46 @@
+{    
+    "data":{
+      "totalCount":"30",
+      "curPage":"2",
+      "dataList":
+      [
+          {
+              "username":"斗转星移",
+              "name":"沈星移",
+              "temperature":"36.3",
+              "type":"系统管理员",
+              "area":"全国",
+              "company":"小牛动力",
+              "sex":"0",
+              "tel":"1897543289",
+              "email":"1413138876@qq.com",
+              "id":"1"
+          },
+          {
+              "username":"海棠依旧",
+              "name":"李雪梅",
+              "temperature":"36.3",
+              "type":"系统管理员",
+              "area":"全国",
+              "company":"小牛动力",
+              "sex":"1",
+              "tel":"1897543289",
+              "email":"1413138876@qq.com",
+              "id":"2"
+          },
+          {
+              "username":"海棠依旧",
+              "name":"李雪梅",
+              "temperature":"36.3",
+              "type":"系统管理员",
+              "area":"全国",
+              "company":"小牛动力",
+              "sex":"1",
+              "tel":"1897543289",
+              "email":"1413138876@qq.com",
+              "id":"3"
+          }
+      ],
+    }
+     
+}

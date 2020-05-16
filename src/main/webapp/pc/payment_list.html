@@ -1,0 +1,619 @@
+<!--
+  Created by fun on 2018/1/23.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" href="css/myCss.css">
+    <link rel="stylesheet" href="css/pcCss.css">
+    <style>
+
+    </style>
+</head>
+
+<body style="background:#65A6EA;width:1254px;" class="ifram">
+    <div class="wrapper-container payment_list">
+        <!--搜索框-->
+        <div class="search-box">
+            
+            <input class="isPhone" type="text" placeholder="请输入用户名称" />
+            <button class="searchBtn">搜索</button>
+            <button class="addBtn">新建</button>
+        </div>
+        <!--table数据-->
+        <div class="table-box">
+            <div class="table-head">
+            </div>
+            <div class="table-body">
+            </div>
+        </div>
+        <!--分页-->
+        <div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
+    </div>
+
+    <!--新增-->
+    <div class="add_mask" id="add_mask">
+        <div class="mask_contain" style="height: 360px;">
+            <div class="mask_top">新增缴费单<span class="close1">&times;</span></div>
+            <div class="form" style="padding-bottom:0;">
+                <div>
+                    <span>缴费用户：</span>
+                    <select id="add_userSlt" style="width:172px;">
+                        <option value="-1">请选择待缴费用户</option>
+                    </select>
+                </div><br>
+                <div>
+                    <span>缴费年度：</span>
+                    <select id="add_yearSlt" style="width:172px;">
+                        <option value="-1">请选择待缴费年度</option>
+                        <option value="2019">2019年</option>
+                        <option value="2020">2020年</option>
+                        <option value="2021">2021年</option>
+                        <option value="2022">2022年</option>
+                    </select>
+                </div><br>
+                <div><span>房间数量：</span><input id="roomNumber" type="text" readonly="readonly" value="暂无"></div><br>
+                <div><span>供热面积：</span><input id="acreage" type="text" readonly="readonly" value="暂无"></div><br>
+            </div>
+            <div class="mask_btn"><button class="comfire" id="add_site">确认</button><button class="cansle">取消</button></div>
+        </div>
+    </div>
+
+    <!-- 编辑 -->
+    <div class="modify_mask" id="modify_mask">
+        <input type="hidden" id="m_userId" value="">
+        <div class="mask_contain" style="height:360px;">
+            <div class="mask_top">修改用户<span class="close5">&times;</span></div>
+            <div class="modify_box">
+                <div><span>登录名：</span><input id="m_loginName" type="text" placeholder="请输入登录名"></div><br>
+                <div><span>姓名：</span><input id="m_userName" type="text" placeholder="请输入姓名"></div><br>
+                <div><span>手机号：</span><input id="m_mobileNo" type="text" placeholder="请输入手机号"></div><br>
+                <div><span>邮箱：</span><input id="m_email" type="text" placeholder="请输入邮箱"></div><br>
+                <div class="delete_btn"><button class="modify_comfire" id="modify_comfire" style="margin-top:18px;">确认</button><button class="modify_cansle" id="modify_cansle">取消</button></div>
+            </div>
+         </div>
+    </div>
+
+    <!-- 重置密码 -->
+    <div class="modify_mask" id="modify_pwd_mask">
+        <input type="hidden" id="paymentNo" value="">
+        <input type="hidden" id="purchaser" value="">
+        <div class="mask_contain" style="height:580px;">
+            <div class="mask_top">票据入库<span class="close6">&times;</span></div>
+            <div class="modify_box">
+                <div><span>发票代码：</span><input id="ticketCode" type="text" value="121001953031"></div><br>
+                <div><span>发票号码：</span><input id="ticketNo" type="text"></div><br>
+                <div><span>发票日期：</span><input id="ticketDate" type="text"></div><br>
+                <div><span>发票金额：</span><input id="fee" type="text" readonly="readonly"></div><br>
+                <div>
+                    <span>发票税率：</span>
+                    <select id="add_rateSlt" style="width:172px;">
+                        <option value="16">16%</option>
+                        <option value="13" selected="selected">13%</option>
+                        <option value="6">6%</option>
+                        <option value="3">3%</option>
+                    </select>
+                </div><br>
+                <div><span>销售方：</span><input id="seller" type="text" value="辽宁铁岭供暖公司"></div><br>
+                <div><span>识别号：</span><input id="sTaxpayerCode" type="text" value="9133011058027447X2"></div><br>
+                <div><span>地址&电话：</span><input id="sAddressPhone" type="text" value="杭州市余杭区文一西路969号5幢1楼110室 0571-85022088"></div><br>
+                <div><span>银行&账户：</span><input id="sBankAccount" type="text" value="招商杭州高新支行 571906814810700"></div><br>
+                <div class="delete_btn"><button class="modify_comfire" id="modify_pwd_comfire" style="margin-top:18px;">确认</button><button class="modify_cansle" id="modify_pwd_cansle">取消</button></div>
+            </div>
+         </div>
+    </div>
+
+    <!--确认删除-->
+    <div class="delete_mask">
+        <input type="hidden" id="d_userId" value="">
+        <div class="mask_contain">
+            <div class="mask_top">删除用户<span class="close3">&times;</span></div>
+            <div class="delete_title">是否删除选中用户？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="del_user">确认</button><button class="delete_cansle">取消</button></div>
+        </div>
+    </div>
+
+    <script src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <!----<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>-------->
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="js/WFang.js"></script>
+    <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script>
+        layui.use(['layer', 'laypage'], function() {
+            var layer = layui.layer;
+            var laypage = layui.laypage;
+            // 房屋详情
+            $('body').on('click', '.a-room', function() {
+                var userId = $(this).attr('data-userId');
+                window.location.href = 'user_room.html?userId=' + userId;
+            });
+            //服务印记跳转
+            $('body').on('click', '.a-mark', function() {
+                var userId = $(this).attr('data-userId');
+                window.location.href = 'serviceMark.html?userId=' + userId;
+            });
+
+
+            load_user();
+
+            function load_user() {
+
+                var data = {
+                    "pageNum": 1,
+                    "pageSize": 100,
+                };
+
+                WFang("user/queryListWithPage", function(arr) {
+                    var datarow = "";
+
+                    if (arr.status == false) {
+                        
+                    } else {
+                        datarow += '<option value="-1">请选择待缴费用户</option>'; 
+                        for (var i = 0; i < arr.data.list.length; i++) {
+                            //roomLocation = arr.data[i].areaName + arr.data[i].buildingName + arr.data[i].unitNo + '单元' + arr.data[i].roomName
+                            datarow += '<option value=' + arr.data.list[i].id +'>'
+                                    + arr.data.list[i].userName + '</option>';
+                        }
+                    }
+                    $('#add_userSlt').html(datarow);
+                    //$('#m_buildingSlt').html(datarow);  
+                }, data, 'postForm');
+            }
+
+            function accAdd(arg1,arg2){  
+                var r1,r2,m;  
+                try { 
+                    r1=arg1.toString().split(".")[1].length
+                } catch (e) {
+                    r1=0
+                }  
+                try {
+                    r2=arg2.toString().split(".")[1].length
+                } catch (e) {
+                    r2=0
+                }  
+                m=Math.pow(10,Math.max(r1,r2))  
+                return (arg1*m+arg2*m)/m  
+            }  
+            //给Number类型增加一个add方法，调用起来更加方便。  
+            Number.prototype.add = function (arg) {  
+                return accAdd(arg,this);  
+            } 
+
+            $("#add_userSlt").change(function() {  
+                var userId = $('#add_userSlt').find("option:selected").val();
+                // 获取楼栋信息
+                WFang("user/queryRoomListByUserId/" + userId, function(arr) {
+                    var acreage = 0;
+                    var roomNumber = arr.data.length;
+                    for (var j = 0; j < arr.data.length; j++) {
+                        if (arr.data[j].heatType == '1') {
+
+                        }acreage = accAdd(acreage, arr.data[j].acreage);
+                    }
+                    $('#acreage').val(acreage);  
+                    $('#roomNumber').val(roomNumber);  
+                }, '', 'postForm');
+            })
+
+            //页面渲染 
+            var name = '';
+            getData(1, name);
+
+            function accAdd(arg1,arg2){  
+                var r1,r2,m;  
+                try { 
+                    r1=arg1.toString().split(".")[1].length
+                } catch (e) {
+                    r1=0
+                }  
+                try {
+                    r2=arg2.toString().split(".")[1].length
+                } catch (e) {
+                    r2=0
+                }  
+                m=Math.pow(10,Math.max(r1,r2))  
+                return (arg1*m+arg2*m)/m  
+            }  
+            //给Number类型增加一个add方法，调用起来更加方便。  
+            Number.prototype.add = function (arg) {  
+                return accAdd(arg,this);  
+            }  
+
+            function getData(pageNo, name) {
+                var pageNo = pageNo;
+                var pageSize = 8;
+
+                var data = {
+                    "pageNum": pageNo,
+                    "pageSize": pageSize,
+                    "userName": name
+                };
+                WFang("payment/queryListWithPage", function(arr) {
+                    // console.log(arr);
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        //分页
+                        laypage.render({
+                            elem: 'page', //容器
+                            pages: arr.data.pages, // 总页数
+                            count: arr.data.total, //总条数
+                            theme: '#0D3D89', //主题
+                            last: '末页', //最后一页
+                            limit: '8', //每页条数限制
+                            curr: arr.data.pageNum, //当前页
+                            prev: '<em><</em>', //上一页
+                            next: '<em>></em>', //下一页
+                            layout: ['count', 'prev', 'page', 'next', 'skip'],
+                            jump: function(obj, first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                if (!first) {
+                                    addStas = 0;
+                                    getData(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                }
+                            }
+                        });
+                        var html = '',
+                            html1 = '',
+                            wStatus = '',
+                            nStatus = '',
+                            lock = '',
+                            color = '',
+                            roomType = '',
+                            isPay = ''
+                            payType = '',
+                            fee = '';
+                        if (arr.data.list == '' || arr.data.list == null) {
+                            layer.msg('暂无数据!');
+                        } else {
+                            html1 = 
+                                '<span>姓名</span>' +
+                                '<span>账单号</span>' +
+                                '<span>年度</span>' +
+                                '<span>总额(￥)</span>' +
+                                '<span>支付方式</span>' +
+                                '<span>支付金额</span>' +
+                                '<span>是否支付</span>' +
+                                '<span>操作</span>';
+                            $('.table-head').html(html1);
+                            
+                            for (var i = 0; i < arr.data.list.length; i++) {
+
+                                switch(arr.data.list[i].payType) {
+                                    case 0 :
+                                        payType = '现金';
+                                        break;
+                                    case 1 :
+                                        payType = '支付宝';
+                                        break;
+                                    case 2 :
+                                        payType = '微信';
+                                        break;
+                                    case 3 :
+                                        payType = '银联';
+                                        break;
+                                }
+
+                                fee = arr.data.list[i].fee;
+                                if (arr.data.list[i].isPay == '0') {
+                                    payType = '--';
+                                    fee = '--';
+                                }
+
+                                switch(arr.data.list[i].isPay) {
+                                    case 0 :
+                                        isPay = '待支付';
+                                        break;
+                                    case 1 :
+                                        isPay = '已支付';
+                                        break;
+                                }
+
+                                html += 
+                                    '<div class="div-box">' +
+                                    '<span>' + arr.data.list[i].userName + '</span>' +
+                                    '<span>' + arr.data.list[i].paymentNo + '</span>' +
+                                    '<span>' + arr.data.list[i].paymentYear + '</span>' +
+                                    '<span>' + arr.data.list[i].actfee + '</span>' +
+                                    '<span>' + payType + '</span>' +
+                                    '<span>' + fee + '</span>' +
+                                    '<span>' + isPay + '</span>' +
+                                    '<span>' +
+                                    '<a class="a-edit" data-paymentNo="' + arr.data.list[i].paymentNo + '" href="javascript:void (0);">详情</a>' +
+                                    '<a class="a-modifyPwd" data-fee = "' + fee + '" data-paymentNo = "' 
+                                        + arr.data.list[i].paymentNo + '" data-userName="' 
+                                        + arr.data.list[i].userName + '" data-isPay="' 
+                                        + arr.data.list[i].isPay +  '" data-fee="' + fee +  '" href="javascript:void (0);">票据入库</a>' +
+                                    '</span>' +
+                                    '</div>';
+                            }
+                            
+                           $('.table-body').html(html);
+                        }
+                    }
+
+                }, data, 'postForm')
+            }
+            
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".cansle",function(){
+                $(".add_mask").hide();
+            });
+            
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".close1",function(){
+                $(".add_mask").hide();
+            });
+            
+            
+            /***********************根据名称查询*****************************/
+            $('body').on('click', '.searchBtn', function() {
+                var name = $('.isPhone').val();
+                getData(1, name);
+            });
+
+            /***********************编辑弹框*****************************/
+            $('body').on('click', '.a-edit', function() {
+                // var userId = $(this).attr('data-userId');
+                // var loginName = $(this).attr('data-loginName');
+                // var userName = $(this).attr('data-userName');
+                // var mobileNo = $(this).attr('data-mobileNo');
+                // var email = $(this).attr('data-email');
+                // $("#m_userId").val(userId);
+                // $("#m_loginName").val(loginName);
+                // $("#m_userName").val(userName);
+                // $("#m_mobileNo").val(mobileNo);
+                // $("#m_email").val(email);
+
+                // $("#modify_mask").show();
+                // 
+                // 缴费单详情
+                var paymentNo = $(this).attr('data-paymentNo');
+                window.location.href = 'payment_detail_list.html?paymentNo=' + paymentNo;
+            });
+
+            /***********************编辑-确定****************************/
+            $('body').on("click","#modify_comfire", function(){
+                var userId = $('#m_userId').val();
+                var loginName = $("#m_loginName").val();
+                var userName = $("#m_userName").val();
+                var mobileNo = $("#m_mobileNo").val();
+                var email = $("#m_email").val();
+                var data = {
+                    "id": userId,
+                    "loginName": loginName,
+                    "userName": userName,
+                    "mobileNo": mobileNo,
+                    "email": email
+                };
+                WFang("user/save", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $("#modify_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+            
+
+            /***********************修改密码弹框*****************************/
+            $('body').on("click",".a-modifyPwd", function() {
+                var isPay = $(this).attr('data-isPay');
+                
+                if (isPay == 0) {
+                    layer.msg("该缴费单尚未支付, 无法入库");
+                    return ;
+                }   
+
+                var paymentNo = $(this).attr('data-paymentNo');
+                var fee = $(this).attr('data-fee');
+                var userName = $(this).attr('data-userName');
+
+                $("#paymentNo").val(paymentNo);
+                $("#fee").val(fee);
+                $("#purchaser").val(userName);
+                var ticketDate = getNowFormatDate();
+                $("#ticketDate").val(ticketDate);
+                var ticketNo = "021000001";
+                WFang("ticket/getTicketNo", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        
+                    } else {
+                        ticketNo = arr.data;
+                        $("#ticketNo").val(ticketNo);
+                    }
+                }, '', 'postForm')
+                
+                $("#modify_pwd_mask").show();
+            });
+
+
+            /***********************关闭-编辑弹框*****************************/
+            $('body').on("click","#modify_pwd_cansle",function(){
+                $("#modify_pwd_mask").hide();
+            });
+
+            /***********************关闭-修改密码弹框*****************************/
+            $('body').on("click",".close6",function(){
+                $("#modify_pwd_mask").hide();
+            });
+
+            /***********************修改密码实现*****************************/
+            $("body").on("click","#modify_pwd_comfire",function() {
+                
+                var paymentNo = $("#paymentNo").val();
+                var fee = $("#fee").val();
+                var purchaser = $("#purchaser").val();
+                var ticketNo = $("#ticketNo").val();
+                var ticketDate = $("#ticketDate").val();
+                var ticketCode = $("#ticketCode").val();
+                var taxRate = $('#add_rateSlt').find("option:selected").val();
+                var seller = $("#seller").val(); 
+                var sTaxpayerCode = $("#sTaxpayerCode").val();
+                var sAddressPhone = $("#sAddressPhone").val();
+                var sBankAccount = $("#sBankAccount").val();
+                var data = {
+                    "paymentNo": paymentNo,
+                    "fee": fee,
+                    "purchaser": purchaser,
+                    "ticketNo": ticketNo,
+                    "ticketDate": ticketDate,
+                    "ticketCode": ticketCode,
+                    "taxRate": taxRate,
+                    "seller": seller,
+                    "sTaxpayerCode": sTaxpayerCode,
+                    "sAddressPhone": sAddressPhone,
+                    "sBankAccount": sBankAccount
+                };
+                WFang("ticket/save", function(arr) {
+
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $("#modify_pwd_mask").hide();
+                            
+                            //getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+            /***********************关闭-编辑弹框*****************************/
+            $('body').on("click","#modify_cansle",function(){
+                $("#modify_mask").hide();
+            });
+
+             /***********************关闭-编辑弹框*****************************/
+            $('body').on("click",".close5",function(){
+                $("#modify_mask").hide();
+            });
+
+
+            /***********************添加房间弹框*****************************/
+            $('body').on('click', '.addBtn', function() {
+                $("#add_siteSlt").val("-1");
+                $("#areaName").val("");
+                $("#remark").val("");
+
+                $("#add_mask").show();
+            });
+
+            /***********************添加实现*****************************/
+            $("body").on("click","#add_site",function() {
+                var userId = $('#add_userSlt').find("option:selected").val();
+                var paymentYear = $('#add_yearSlt').find("option:selected").val();
+                var acreage = $('#acreage').val();
+
+                if (userId == '-1') {
+                    layer.msg('请选择待缴费用户');
+                    return ;
+                }
+
+                if (paymentYear == '-1') {
+                    layer.msg('请选择待缴费年度');
+                    return ;
+                }
+
+                if (acreage == '0') {
+                    layer.msg('该用户无需缴费');
+                    return ;
+                }
+
+                var data = {
+                    "paymentYear": paymentYear,
+                    "userId": userId,
+                    "acreage": acreage
+                };
+                WFang("payment/save", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".add_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+            /***********************删除弹框*****************************/
+            $('body').on('click', '.a-delete', function() {
+                var userId = $(this).attr('data-userId');
+                $("#d_userId").val(userId);
+                $(".delete_mask").show();
+            });
+
+            /***********************关闭删除弹框*****************************/
+            $('body').on('click', '.delete_cansle', function() {
+                $(".delete_mask").hide();
+            });
+
+            /***********************关闭删除弹框*****************************/
+            $('body').on("click",".close3",function(){
+                $(".delete_mask").hide();
+            });
+
+            /***********************删除实现*****************************/
+            $('#del_user').click(function() {
+                var userId = $("#d_userId").val();
+                var pageNo = $('.layui-input').val();
+                WFang("user/deleteById/" + userId, function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".delete_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, '', 'postForm')
+            });
+
+            //获取当前时间，格式YYYY-MM-DD
+            function getNowFormatDate() {
+                var date = new Date();
+                var seperator1 = "-";
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = year + seperator1 + month + seperator1 + strDate;
+                return currentdate;
+            }            
+        });
+    </script>
+</body>
+
+</html>
