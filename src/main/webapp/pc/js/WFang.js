@@ -11,7 +11,7 @@ var ApiConf = {
     // server: "http://www.51cs8.com/Dryer/", //公司外网
     //server: "http://www.sangtech.cn/Dryer/", //小禾
 	//server: "http://192.168.1.111:8080/heat/", //小禾
-   server: "http://localhost:8080/heat/", 
+   server: "http://localhost:8080/asdl/", 
     token: window.sessionStorage.getItem('token'),
 };
 

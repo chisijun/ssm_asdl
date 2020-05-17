@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=motor-width,initial-scale=1,user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <!--<meta name="format-detection" content="telephone=no">-->
-    <title>供热管理系统</title>
+    <title>公寓智能门锁管理系统</title>
 
     <link rel="stylesheet" href="../css/Myless.css">
 </head>
@@ -18,11 +18,11 @@
     <div class="management">
         <!--头部-->
         <div class="header" style="background:#6fab31;font-size: 0.46rem">
-            房子管理
+            房间管理
         </div>
         <div class="search-box">
             <div class="device-sn" style="font-size: 0.28rem">
-                <span>房子地址:</span>
+                <span>房间地址:</span>
             </div>
             <div class="device-name">
                 <span class="sn" style="font-size: 0.33rem"></span>
@@ -39,35 +39,30 @@
             <div class="line-box" style="font-size: 0.38rem">
                 <div class="line-div line-bottom">
                     <img src="../images/gongzuomoshi_icon.png" alt="图片">
-                    <span>房子类型</span>
+                    <span>房间编号</span>
                     <span class="span-right workMode" id="roomType">--</span>
                 </div>
                 <div class="line-div line-bottom">
                     <img src="../images/zuoyeshichang_icon.png" alt="图片">
-                    <span>房子户型</span>
+                    <span>房间类型</span>
                     <span class="span-right workMode" id="houseType">--</span>
                 </div>
                 <div class="line-div line-bottom">
                     <img src="../images/zuoyeshichang_icon.png" alt="图片">
-                    <span>房子面积</span>
+                    <span>可住人数</span>
                     <span class="span-right workTime" id="acreage">--</span>
                 </div>
                 <div class="line-div">
                     <img src="../images/jidianzhuangtai_icon.png" alt="图片">
-                    <span>供热状态</span>
+                    <span>单价</span>
                     <span class="span-right workTime" id="heatType">--</span>
                 </div>
             </div>
 
-            <!--我要还款-->
             <div>
-                <a style="display: none;" id="stop" href="javascript:void (0);">申请停热</a>
+                <a id="stop" href="javascript:void (0);">一键开锁</a>
             </div>
 
-            <!--我要还款-->
-            <div>
-                <a style="display: none;" id="start" href="javascript:void (0);">申请复热</a>
-            </div>
 
             <!--监控数据-->
             <!--
@@ -123,15 +118,15 @@
         <div class="footer">
             <a href="javascript:window.location.href='management.html';" id="management">
                 <img src="../images/zuoye_icon03.png" alt="图片">
-                <span class="span-color">房子管理</span>
+                <span class="span-color">房间管理</span>
             </a>
-            <a href="javascript:window.location.href='payment_list.html';" id="self">
+            <a href="javascript:window.location.href='order_list.html';" id="self">
                 <img src="../images/jizhangben_icon02.png" alt="图片">
-                <span>缴费单</span>
+                <span>订单管理</span>
             </a>
-            <a href="javascript:window.location.href='apply_list.html';" id="account">
+            <a href="javascript:window.location.href='log_list.html';" id="account">
                 <img src="../images/fuwu_icon02.png" alt="图片">
-                <span>停栓复热</span>
+                <span>开锁日志</span>
             </a>
             <a href="javascript:window.location.href='my.html';" id="serve">
                 <img src="../images/zhiwo_icon02.png" alt="图片">
@@ -316,7 +311,7 @@
                                 }
                                 houseType = obj.houseType;
                                 acreage = obj.acreage + " ㎡";
-
+								/*
                                 switch (obj.heatType) {
                                     case 0 :
                                         heatType = '不供热';
@@ -343,7 +338,7 @@
                                         $("#stop").show();
                                         $("#start").hide();
                                         break;
-                                }
+                                } */
 
                                 roomLocation = obj.areaName + obj.buildingName + obj.unitNo + '单元' + obj.roomName
                                 $('.sn').html(roomLocation);

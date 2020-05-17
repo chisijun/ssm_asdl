@@ -52,7 +52,7 @@
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
-        <table tableName="t_lock_room" domainObjectName="l=LockRoom">
+        <table tableName="t_lock_room" domainObjectName="LockRoom">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
