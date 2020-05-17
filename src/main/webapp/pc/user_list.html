@@ -190,18 +190,10 @@
                                 '<span>用户姓名</span>' +
                                 '<span>手机号</span>' +
                                 '<span>邮箱</span>' +
-                                '<span>房子数量</span>' +
-                                '<span>房子面积(㎡)</span>' +
                                 '<span>操作</span>';
                             $('.table-head').html(html1);
                             
                             for (var i = 0; i < arr.data.list.length; i++) {
-
-                                var acreage = 0;
-                                var roomNumber = arr.data.list[i].roomList.length;
-                                for (var j = 0; j < arr.data.list[i].roomList.length; j++) {
-                                    acreage = accAdd(acreage, arr.data.list[i].roomList[j].acreage);
-                                }
 
                                 html += 
                                     '<div class="div-box">' +
@@ -209,8 +201,6 @@
                                     '<span>' + arr.data.list[i].userName + '</span>' +
                                     '<span>' + arr.data.list[i].mobileNo + '</span>' +
                                     '<span>' + arr.data.list[i].email + '</span>' +
-                                    '<span>' + roomNumber + '</span>' +
-                                    '<span>' + acreage + '</span>' +
                                     '<span>' +
                                     '<a class="a-edit" data-email = "' 
                                         + arr.data.list[i].email + '" data-mobileNo = "' 
@@ -220,7 +210,7 @@
                                         + arr.data.list[i].id + '" href="javascript:void (0);">编辑</a>' +
                                     '<a class="a-modifyPwd" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">修改密码</a>' +
                                     '<a class="a-room" data-userName="' + arr.data.list[i].userName
-                                        + '" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">房屋详情</a>' +
+                                        + '" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">入住详情</a>' +
                                     '<a class="a-delete" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">删除</a>' +
                                     '</span>' +
                                     '</div>';

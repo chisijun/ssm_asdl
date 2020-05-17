@@ -470,47 +470,35 @@
 
 .user_list .table-box .div-box span:nth-child(1),
 .user_list .table-box .table-head span:nth-child(1) {
-    width: 140px;
+    width: 180px;
 }
 
 .user_list .table-box .div-box span:nth-child(2),
 .user_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 180px;
 }
 
 .user_list .table-box .div-box span:nth-child(3),
 .user_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 170px;
+    width: 180px;
 }
 
 .user_list .table-box .div-box span:nth-child(4),
 .user_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 170px;
+    width: 180px;
 }
 
 .user_list .table-box .div-box span:nth-child(5),
 .user_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
-}
-
-.user_list .table-box .div-box span:nth-child(6),
-.user_list .table-box .table-head span:nth-child(6) {
-    border-left: 1px solid #c1c3c0;
-    width: 130px;
-}
-
-.user_list .table-box .div-box span:nth-child(7),
-.user_list .table-box .table-head span:nth-child(7) {
-    border-left: 1px solid #c1c3c0;
     width: 210px;
 }
 
-.user_list .table-box .div-box span:nth-child(7) input,
-.user_list .table-box .table-head span:nth-child(7) input {
+.user_list .table-box .div-box span:nth-child(5) input,
+.user_list .table-box .table-head span:nth-child(5) input {
     display: inline-block;
     width: 100%;
     border: none;
@@ -523,6 +511,54 @@
 }
 
 .user_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+/********************apartment_list.html*************************/
+
+.apartment_list .table-box .div-box span:nth-child(1),
+.apartment_list .table-box .table-head span:nth-child(1) {
+    width: 180px;
+}
+
+.apartment_list .table-box .div-box span:nth-child(2),
+.apartment_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.apartment_list .table-box .div-box span:nth-child(3),
+.apartment_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.apartment_list .table-box .div-box span:nth-child(4),
+.apartment_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.apartment_list .table-box .div-box span:nth-child(5),
+.apartment_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 210px;
+}
+
+.apartment_list .table-box .div-box span:nth-child(5) input,
+.apartment_list .table-box .table-head span:nth-child(5) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.apartment_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.apartment_list .table-body div:nth-child(2n) input {
     background-color: #eaeaea;
 }
 

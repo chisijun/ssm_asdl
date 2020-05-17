@@ -71,4 +71,17 @@
     ORDER BY
     u.created_time DESC
   </select>
+
+  <select id="selectByUserId" resultType="org.study.asdl.model.domain.User">
+    SELECT
+      u.*,
+      ur.role_id,
+      r.role_code,
+      r.role_name
+    FROM
+      t_user u
+    LEFT JOIN t_role_user ur ON u.id = ur.user_id
+    LEFT JOIN t_role r ON ur.role_id = r.id
+    WHERE u.id =  #{userId}
+  </select>
 </mapper>

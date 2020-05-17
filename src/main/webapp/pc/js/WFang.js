@@ -11,7 +11,7 @@ var ApiConf = {
     // server: "http://www.51cs8.com/Dryer/", //公司外网
     //server: "http://www.sangtech.cn/Dryer/", //小禾
 	//server: "http://192.168.1.111:8080/heat/", //小禾
-   server: "http://localhost:8080/heat/", 
+   server: "http://localhost:8080/asdl/", 
     token: window.sessionStorage.getItem('token'),
 };
 
@@ -107,7 +107,7 @@ function yanzhen(userName, password, token) {
             layer.msg(arr.message);
         } else {
             //获取当前用户ID
-            if (arr.data.list != '' && arr.data.userCode == 'admin') {
+            if (arr.data.list != '' && arr.data.roleCode == 'admin') {
                 if ($("#remid").is(':checked') == true) {
                     var username = $('#uname').val().trim();
                     var password = $('#upwd').val().trim();

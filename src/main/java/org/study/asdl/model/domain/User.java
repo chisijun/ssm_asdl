@@ -3,8 +3,10 @@ package org.study.asdl.model.domain;
 import lombok.Data;
 import org.study.asdl.base.BaseEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
-import javax.persistence.*;
 
 @Data
 @Table(name = "t_user")
@@ -105,16 +107,19 @@ public class User extends BaseEntity {
     /**
      * 角色ID
      */
+    @Transient
     private Long roleId;
 
     /**
      * 角色名称
      */
+    @Transient
     private String roleName;
 
     /**
      * 角色编码
      */
+    @Transient
     private String roleCode;
 
 }
