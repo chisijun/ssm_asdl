@@ -1,8 +1,8 @@
 package org.study.asdl.model.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "t_room")
 public class Room {

@@ -7,7 +7,7 @@ var ApiConf = {
   userId:window.sessionStorage.getItem('userId'),
   	//webSocketServer:"ws://www.sangtech.cn/Dryer/websocket",
   	//webSocketServer:"ws://192.168.1.111:8080/Dryer/websocket",
-  	server:"http://localhost:8080/heat/",//外网接口
+  	server:"http://localhost:8080/asdl/",//外网接口
   	//server:"http://www.sangtech.cn/Dryer/",//外网接口
 	//server:"http://192.168.1.91:8080/",//微信支付测试接口
 	//server:"http://192.168.1.100:8080/Dryer-0.0.1-SNAPSHOT/",//公司测试环境

@@ -7,7 +7,7 @@
     -->
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="version" property="version" jdbcType="INTEGER" />
-    <result column="apartment_name" property="apartmentName" jdbcType="BIGINT" />
+    <result column="apartment_name" property="apartmentName" jdbcType="VARCHAR" />
     <result column="apartment_no" property="apartmentNo" jdbcType="VARCHAR" />
     <result column="area" property="area" jdbcType="VARCHAR" />
     <result column="floor_number" property="floorNumber" jdbcType="INTEGER" />
@@ -20,4 +20,13 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <select id="queryListWithPage" resultType="org.study.asdl.model.domain.Apartment">
+    select * from t_apartment
+    where 1 = 1
+    <if test="apartmentName != null and apartmentName != ''">
+      AND apartment_name LIKE concat('%', apartmentName, '%')
+    </if>
+    order by created_time
+  </select>
 </mapper>

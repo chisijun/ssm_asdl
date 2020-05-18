@@ -19,6 +19,7 @@ import org.study.asdl.model.domain.User;
 import org.study.asdl.model.dto.CheckLoginNameDto;
 import org.study.asdl.model.dto.ModifyPwdDto;
 import org.study.asdl.model.dto.UserQueryDto;
+import org.study.asdl.service.ApartmentService;
 import org.study.asdl.service.UserService;
 
 import javax.annotation.Resource;
@@ -35,6 +36,8 @@ public class UserController {
 
 	@Resource
 	private UserService userService;
+	@Resource
+	private ApartmentService apartmentService;
 	
 	/**
 	 * 查看个人信息
@@ -46,7 +49,7 @@ public class UserController {
 		
 		return new JsonResult(true, "个人信息查询成功", login);
 	}
-	
+
 	/**
 	 * 保存用户
 	 */

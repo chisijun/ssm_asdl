@@ -30,4 +30,13 @@ public interface UserMapper extends Mapper<User> {
      * @date 2019年6月10日
      */
     List<UserVo> queryUserListWithPage(UserQueryDto userQueryDto);
+
+    /**
+     * select by user id
+     *
+     * @param userId    the user id
+     *
+     * @return  the user.
+     */
+    User selectByUserId(Long userId);
 }

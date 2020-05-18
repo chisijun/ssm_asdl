@@ -107,7 +107,7 @@ function yanzhen(userName, password, token) {
             layer.msg(arr.message);
         } else {
             //获取当前用户ID
-            if (arr.data.list != '' && arr.data.userCode == 'admin') {
+            if (arr.data.list != '' && arr.data.roleCode == 'admin') {
                 if ($("#remid").is(':checked') == true) {
                     var username = $('#uname').val().trim();
                     var password = $('#upwd').val().trim();

@@ -28,5 +28,10 @@ public class UserQueryDto extends BaseQuery {
 	 * 用户类型
 	 */
 	private String type;
-	
+
+
+	/**
+	 * 角色Id
+	 */
+	private Long roleId;
 }

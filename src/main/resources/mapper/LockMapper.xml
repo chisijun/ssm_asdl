@@ -25,4 +25,13 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <select id="queryListWithPage" resultType="org.study.asdl.model.domain.Lock">
+    select * from t_lock
+    where 1 = 1
+    <if test="lockNo != null and lockNo != ''">
+      AND lock_no LIKE concat('%', lockNo, '%')
+    </if>
+    order by created_time
+  </select>
 </mapper>

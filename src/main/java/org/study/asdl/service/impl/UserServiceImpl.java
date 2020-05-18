@@ -12,7 +12,9 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.study.asdl.base.BaseService;
+import org.study.asdl.dao.RoleUserMapper;
 import org.study.asdl.dao.UserMapper;
+import org.study.asdl.model.domain.RoleUser;
 import org.study.asdl.model.domain.User;
 import org.study.asdl.model.dto.CheckLoginNameDto;
 import org.study.asdl.model.dto.ModifyPwdDto;
@@ -23,7 +25,6 @@ import org.study.asdl.service.UserService;
 import org.study.asdl.utils.MD5;
 import org.study.asdl.utils.PublicUtil;
 import tk.mybatis.mapper.entity.Example;
-
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -40,6 +41,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	@Resource
 	private UserMapper userMapper;
 
+	@Resource
+	private RoleUserMapper roleUserMapper;
+
 	
 	/* (non-Javadoc)
 	 * @see org.study.heat.service.UserService#selectUserById(java.lang.Integer)
@@ -47,8 +51,11 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	@Override
 	public User selectUserById(Long userId) {
 		// TODO Auto-generated method stub
-		
-		return userMapper.selectByPrimaryKey(userId);
+
+		// return userMapper.selectByPrimaryKey(userId);
+
+		// 查询用户角色信息
+		return userMapper.selectByUserId(userId);
 	}
 
 	/* (non-Javadoc)
@@ -104,8 +111,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 			String password = MD5.getMd5().getMD5ofStr("123456");
 			user.setType(UserTypeEnum.USER.getType());
 			user.setLoginPwd(password);
-			
-			return userMapper.insertSelective(user);
+
+			int result = userMapper.insertSelective(user);
+
+			// 保存角色
+			RoleUser roleUser = new RoleUser();
+			roleUser.setUserId(user.getId());
+			roleUser.setRoleId(2l);
+			roleUserMapper.insert(roleUser);
+
+			return result;
 		} else {
 			
 			return userMapper.updateByPrimaryKeySelective(user);
@@ -132,6 +147,11 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	@Override
 	public Integer deleteUserById(Long id) {
 		// TODO Auto-generated method stub
+
+		// 删除用户角色
+		RoleUser roleUser = new RoleUser();
+		roleUser.setUserId(id);
+		roleUserMapper.delete(roleUser);
 
 		return userMapper.deleteByPrimaryKey(id);
 	}
