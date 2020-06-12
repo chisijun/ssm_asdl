@@ -65,4 +65,24 @@ public class RoomController  {
         return new JsonResult(true, "操作成功", pageInfo);
     }
 
+    @Authorization
+    @RequestMapping(value = "/queryCheckListWithPage", method = RequestMethod.POST)
+    public JsonResult queryCheckListWithPage(RoomQueryDto roomQueryDto) {
+
+        PageInfo pageInfo = roomService.queryCheckListWithPage(roomQueryDto);
+
+        return new JsonResult(true, "操作成功", pageInfo);
+    }
+
+    @Authorization
+    @RequestMapping(value = "/openDoor", method = RequestMethod.POST)
+    public JsonResult openDoor(@CurrentUser User login, Long roomId) {
+
+        Integer result = roomService.openDoor(login, roomId);
+        if (result < 1) {
+            return new JsonResult(false, "操作失败", result);
+        }
+        return new JsonResult(true, "操作成功", result);
+    }
+
 }

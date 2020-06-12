@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=break-width,initial-scale=1,user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <!--<meta name="format-detection" content="telephone=no">-->
-    <title>供热管理系统</title>
+    <title>公寓智能门锁管理系统</title>
 
     <link rel="stylesheet" href="../css/Myless.css">
 </head>
@@ -21,14 +21,14 @@
             <!--
             <a id="head-back" href="javascript:void (0);" class="back"><img src="../images/back_icon.png" alt="图片">&nbsp;返回</a>
             -->
-            缴费单
+            订单记录
         </div>
         <div class="control">
             <div class="top">
                 <p>
-                    <span>单号</span>
-                    <span>总额(￥)</span>
-                    <span>支付状态</span>
+                    <span>订单日期</span>
+                    <span>金额(￥)</span>
+                    <span>房间号</span>
                 </p>
             </div>
             <div class="content">
@@ -43,11 +43,11 @@
             </a>
             <a href="javascript:window.location.href='payment_list.html';" id="self">
                 <img src="../images/jizhangben_icon03.png" alt="图片">
-                <span class="span-color">缴费单</span>
+                <span class="span-color">订单管理</span>
             </a>
             <a href="javascript:window.location.href='apply_list.html';" id="account">
                 <img src="../images/fuwu_icon02.png" alt="图片">
-                <span>停栓复热</span>
+                <span>开锁日志</span>
             </a>
             <a href="javascript:window.location.href='my.html';" id="serve">
                 <img src="../images/zhiwo_icon02.png" alt="图片">
@@ -73,7 +73,10 @@
                 getData();
                 //记账本
                 function getData() {
-                    WFang("payment/queryListWithPage", function(arr) {
+
+                    var mobileNo = window.sessionStorage.getItem("mobileNo");
+
+                    WFang("order/queryListWithPage", function(arr) {
                         if (arr.status == false) {
                             layer.msg(arr.message);
                         } else {
@@ -90,9 +93,9 @@
                                             break;
                                     }
                                     html += '<p class="a-payment-detail" data-paymentNo = "' + arr.data.list[i].paymentNo + '">' +
-                                        '<span>' + arr.data.list[i].paymentNo + '</span>' +
-                                        '<span>' + arr.data.list[i].actfee + '</span>' +
-                                        '<span>' + isPay + '</span>' +
+                                        '<span>' + arr.data.list[i].createdTime + '</span>' +
+                                        '<span>' + arr.data.list[i].price + '</span>' +
+                                        '<span>' + arr.data.list[i].roomNo + '</span>' +
                                         '</p>';
                                 }
                                 $('.content').html(html);
@@ -108,7 +111,7 @@
                     }, {
                         "pageNum":1,
                         "pageSize":100,
-                        "userId":userId                        
+                        "mobileNo":mobileNo
                     }, 'postForm', '', '', 'html/payment_list.html')
                 }
 

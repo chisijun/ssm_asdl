@@ -49,7 +49,7 @@
                 </div>
                 <div class="line-div line-bottom">
                     <img src="../images/zuoyeshichang_icon.png" alt="图片">
-                    <span>可住人数</span>
+                    <span>门锁编号</span>
                     <span class="span-right workTime" id="acreage">--</span>
                 </div>
                 <div class="line-div">
@@ -120,7 +120,7 @@
                 <img src="../images/zuoye_icon03.png" alt="图片">
                 <span class="span-color">房间管理</span>
             </a>
-            <a href="javascript:window.location.href='order_list.html';" id="self">
+            <a href="javascript:window.location.href='payment_list.html';" id="self">
                 <img src="../images/jizhangben_icon02.png" alt="图片">
                 <span>订单管理</span>
             </a>
@@ -244,7 +244,7 @@
 
                // 申请停热
                $('body').on('click', '#stop', function() {
-                   WFang("apply/stop", function(arr) {
+                   WFang("room/openDoor", function(arr) {
                        var roomType = "";
                        var houseType = "";
                        var acreage = "";
@@ -257,8 +257,7 @@
 
                    }, {
                        userId: userId,
-                       roomId: g_roomId,
-                       roomName: g_roomName
+                       roomId: g_roomId
                    }, 'postForm');
                 });
 
@@ -281,7 +280,10 @@
                 load_room();
 
                 function load_room() {
-                    WFang("room/queryListWithPage", function(arr) {
+
+                    mobileNo = window.sessionStorage.getItem("mobileNo");
+
+                    WFang("room/queryCheckListWithPage", function(arr) {
                         if (arr.status == false) {
                             layer.msg(arr.message);
                         } else {
@@ -295,22 +297,39 @@
                                     roomLocation = '',
                                     html1 = '';
 
-                                switch(obj.roomType) {
+                                switch(obj.peopleNumber) {
                                     case 1 :
-                                        roomType = '居民';
+                                        houseType = '单人间';
                                         break;
                                     case 2 :
-                                        roomType = '商业';
+                                        houseType = '双人间';
                                         break;
                                     case 3 :
-                                        roomType = '办公';
+                                        houseType = '总套间';
                                         break;
                                     case 4 :
-                                        roomType = '餐饮';
+                                        houseType = '商务间';
                                         break;
                                 }
-                                houseType = obj.houseType;
-                                acreage = obj.acreage + " ㎡";
+
+                                // switch(obj.roomType) {
+                               //     case 1 :
+                                //         roomType = '居民';
+                                //         break;
+                                //     case 2 :
+                                //         roomType = '商业';
+                                //         break;
+                                //     case 3 :
+                                //         roomType = '办公';
+                                //         break;
+                                //     case 4 :
+                                //         roomType = '餐饮';
+                                //         break;
+                                // }
+                                roomType = obj.apartmentName + obj.roomNo;
+                                // houseType = obj.houseType;
+                                acreage = obj.lockNo;
+                                heatType = "￥ " + obj.price;
 								/*
                                 switch (obj.heatType) {
                                     case 0 :
@@ -340,7 +359,7 @@
                                         break;
                                 } */
 
-                                roomLocation = obj.areaName + obj.buildingName + obj.unitNo + '单元' + obj.roomName
+                                roomLocation = obj.apartmentName + obj.roomName
                                 $('.sn').html(roomLocation);
                                 $('#heatType').html(heatType);
                                 $('#acreage').html(acreage);
@@ -366,7 +385,7 @@
                     }, {
                         pageNum: pageNum,
                         pageSize: pageSize,
-                        userId: userId
+                        mobileNo: mobileNo
                     }, 'postForm', '', '', 'html/management.html')
 
                 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.study.asdl.dao.CmdMapper" >
-  <resultMap id="BaseResultMap" type="org.study.asdl.model.domain.Cmd" >
+<mapper namespace="org.study.asdl.dao.LogMapper" >
+  <resultMap id="BaseResultMap" type="org.study.asdl.model.domain.Log" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -9,10 +9,8 @@
     <result column="version" property="version" jdbcType="INTEGER" />
     <result column="lock_id" property="lockId" jdbcType="BIGINT" />
     <result column="lock_no" property="lockNo" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="send_date" property="sendDate" jdbcType="VARCHAR" />
-    <result column="call_back_date" property="callBackDate" jdbcType="VARCHAR" />
-    <result column="is_send" property="isSend" jdbcType="INTEGER" />
+    <result column="room_id" property="roomId" jdbcType="BIGINT" />
+    <result column="room_no" property="roomNo" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -23,11 +21,14 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
-  <select id="queryListWithPage" resultType="org.study.asdl.model.domain.Cmd">
-    select  * from t_cmd
+  <select id="queryListWithPage" resultType="org.study.asdl.model.domain.Log">
+    select  * from t_log
     where 1 = 1
     <if test="lockNo != null and lockNo != ''">
       AND lock_no = #{lockNo}
+    </if>
+    <if test="userId != null">
+      AND creator_id = #{userId}
     </if>
   </select>
 </mapper>

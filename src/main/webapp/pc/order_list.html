@@ -24,13 +24,13 @@
 </head>
 
 <body style="background:#65A6EA;width:1254px;" class="ifram">
-<div class="wrapper-container roomManagement">
+<div class="wrapper-container order_list">
     <!--搜索框-->
     <div class="search-box">
 
         <input class="isPhone" type="text" placeholder="请输入用户姓名" />
         <button class="searchBtn">搜索</button>
-        <button class="addBtn">新建</button>
+<!--        <button class="addBtn">新建</button>-->
     </div>
     <!--table数据-->
     <div class="table-box">
@@ -205,7 +205,7 @@
                 "pageNum": pageNo,
                 "pageSize": pageSize
             };
-            WFang("room/queryListWithPage", function(arr) {
+            WFang("order/queryListWithPage", function(arr) {
                 // console.log(arr);
                 if (arr.status == false) {
                     layer.msg(arr.message);
@@ -236,62 +236,45 @@
                         nStatus = '',
                         lock = '',
                         color = ''
+                    guestType = ''
                     roomType = '';
                     if (arr.data.list == '' || arr.data.list == null) {
                         layer.msg('暂无数据!');
                     } else {
-                        html1 = '<span>公寓名称</span>' +
-                            '<span>房间名称</span>' +
-                            '<span>房间编号</span>' +
-                            '<span>房间类型</span>' +
+                        html1 = '<span>房间编号</span>' +
+                            '<span>顾客类型</span>' +
+                            '<span>顾客姓名</span>' +
+                            '<span>手机号码</span>' +
+                            '<span>身份证号码</span>' +
                             '<span>价格(￥)</span>' +
-                            '<span>门锁编号</span>' +
-                            '<span>操作</span>';
+                            '<span>入住时间</span>' +
+                            '<span>离开时间</span>';
                         $('.table-head').html(html1);
 
                         for (var i = 0; i < arr.data.list.length; i++) {
 
-                            switch(arr.data.list[i].peopleNumber) {
+                            switch (arr.data.list[i].guestType) {
+                                case 0 :
+                                    guestType = '散客';
+                                    break;
                                 case 1 :
-                                    roomType = '单人间';
+                                    guestType = '渠道';
                                     break;
                                 case 2 :
-                                    roomType = '双人间';
+                                    guestType = '会员';
                                     break;
-                                case 3 :
-                                    roomType = '总套间';
-                                    break;
-                                case 4 :
-                                    roomType = '商务间';
-                                    break;
-                            }
-
-                            var lockNo = arr.data.list[i].lockNo;
-                            if (lockNo == '') {
-                                lockNo = '--';
                             }
 
                             html += '<div class="div-box">' +
-                                '<span>' + arr.data.list[i].apartmentName + '</span>' +
-                                '<span>' + arr.data.list[i].roomName + '</span>' +
                                 '<span>' + arr.data.list[i].roomNo + '</span>' +
-                                '<span>' + roomType + '</span>' +
+                                '<span>' + guestType + '</span>' +
+                                '<span>' + arr.data.list[i].guestName + '</span>' +
+                                '<span>' + arr.data.list[i].guestMobile + '</span>' +
+                                '<span>' + arr.data.list[i].idCard + '</span>' +
                                 '<span>' + arr.data.list[i].price + '</span>' +
-                                '<span>' + lockNo + '</span>' +
+                                '<span>' + arr.data.list[i].checkIn + '</span>' +
+                                '<span>' + arr.data.list[i].checkOut + '</span>' +
                                 '<span>' +
-                                '<a class="a-edit" data-unitSize="'
-                                + arr.data.list[i].unitSize + '" data-floorSize="'
-                                + arr.data.list[i].floorSize + '" data-roomNo="'
-                                + arr.data.list[i].roomNo + '" data-unitNo="'
-                                + arr.data.list[i].unitNo + '" data-floorNo="'
-                                + arr.data.list[i].floorNo + '" data-buildingId="'
-                                + arr.data.list[i].buildingId + '" data-roomType="'
-                                + arr.data.list[i].roomType + '" data-roomName="'
-                                + arr.data.list[i].roomName + '" data-houseType="'
-                                + arr.data.list[i].houseType + '" data-acreage="'
-                                + arr.data.list[i].acreage + '" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">编辑</a>' +
-                                '<a class="a-delete" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">删除</a>' +
-                                '</span>' +
                                 '</div>';
                         }
 

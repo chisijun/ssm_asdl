@@ -11,4 +11,6 @@ public class LockQueryDto extends BaseQuery {
      */
     private String lockNo;
 
+    private Long userId;
+
 }

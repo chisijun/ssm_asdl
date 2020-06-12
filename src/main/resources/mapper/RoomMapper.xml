@@ -23,11 +23,47 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
-  <select id="queryListWithPage" resultType="org.study.asdl.model.domain.Room">
-    select * from t_room
+  <select id="queryListWithPage" resultType="org.study.asdl.model.vo.RoomVo">
+    select
+     r.*, a.apartment_name, l.lock_no, lr.lock_id
+    from t_room r
+    left join t_lock_room lr on r.id = lr.room_id
+    left join t_lock l on l.id = lr.lock_id
+    left join t_apartment a on a.id = r.apartment_id
     where 1 = 1
+    <if test="roomNo != null and roomNo != ''">
+      AND room_no LIKE concat('%', #{roomNo}, '%')
+    </if>
     <if test="lockNo != null and lockNo != ''">
-      AND lock_no LIKE concat('%', lockNo, '%')
+      AND lock_no LIKE concat('%', #{lockNo}, '%')
+    </if>
+    order by created_time
+  </select>
+
+  <select id="queryCheckListWithPage" resultType="org.study.asdl.model.vo.RoomVo">
+    SELECT
+        r.*, a.apartment_name,
+        l.lock_no,
+        lr.lock_id,
+        o.check_in,
+        o.check_out,
+        o.guest_name
+    FROM
+        t_room r
+    LEFT JOIN t_lock_room lr ON r.id = lr.room_id
+    LEFT JOIN t_lock l ON l.id = lr.lock_id
+    LEFT JOIN t_apartment a ON a.id = r.apartment_id
+    LEFT JOIN t_order o ON r.id = o.room_id
+    WHERE
+        1 = 1
+    <if test="mobileNo != null and mobileNo != ''">
+      AND o.guest_mobile = #{mobileNo}
+    </if>
+    <if test="roomNo != null and roomNo != ''">
+      AND room_no LIKE concat('%', #{roomNo}, '%')
+    </if>
+    <if test="lockNo != null and lockNo != ''">
+      AND lock_no LIKE concat('%', #{lockNo}, '%')
     </if>
     order by created_time
   </select>

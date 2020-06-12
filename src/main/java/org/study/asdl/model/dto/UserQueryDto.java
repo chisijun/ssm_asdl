@@ -34,4 +34,6 @@ public class UserQueryDto extends BaseQuery {
 	 * 角色Id
 	 */
 	private Long roleId;
+
+	private String mobileNo;
 }

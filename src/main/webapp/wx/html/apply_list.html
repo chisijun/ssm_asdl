@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=break-width,initial-scale=1,user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <!--<meta name="format-detection" content="telephone=no">-->
-    <title>供热管理系统</title>
+    <title>公寓智能门锁管理系统</title>
 
     <link rel="stylesheet" href="../css/Myless.css">
 </head>
@@ -21,14 +21,14 @@
             <!--
             <a id="head-back" href="javascript:void (0);" class="back"><img src="../images/back_icon.png" alt="图片">&nbsp;返回</a>
             -->
-            停栓复热
+            开锁日志
         </div>
         <div class="control">
             <div class="top">
                 <p>
-                    <span>房子地址</span>
-                    <span>类型</span>
-                    <span>时间</span>
+                    <span>门锁编号</span>
+                    <span>房子编号</span>
+                    <span>开锁时间</span>
                 </p>
             </div>
             <div class="content">
@@ -42,11 +42,11 @@
             </a>
             <a href="javascript:window.location.href='payment_list.html';" id="self">
                 <img src="../images/jizhangben_icon02.png" alt="图片">
-                <span>缴费单</span>
+                <span>订单管理</span>
             </a>
             <a href="javascript:window.location.href='apply_list.html';" id="account">
                 <img src="../images/fuwu_icon03.png" alt="图片">
-                <span>停栓复热</span>
+                <span>开锁日志</span>
             </a>
             <a href="javascript:window.location.href='my.html';" id="serve">
                 <img src="../images/zhiwo_icon02.png" alt="图片">
@@ -72,7 +72,7 @@
                 getData();
                 //记账本
                 function getData() {
-                    WFang("apply/queryListWithPage", function(arr) {
+                    WFang("log/queryListWithPage", function(arr) {
                         if (arr.status == false) {
                             layer.msg(arr.message);
                         } else {
@@ -94,9 +94,9 @@
                                     }
 
                                     html += '<p>' +
-                                        '<span>' + arr.data.list[i].roomName + '</span>' +
-                                        '<span>' + applyType + '</span>' +
-                                        '<span>' + arr.data.list[i].createdTime.substr(0, 10) + '</span>' +
+                                        '<span>' + arr.data.list[i].lockNo + '</span>' +
+                                        '<span>' + arr.data.list[i].roomNo + '</span>' +
+                                        '<span>' + arr.data.list[i].createdTime + '</span>' +
                                         '</p>';
                                 }
                                 $('.content').html(html);

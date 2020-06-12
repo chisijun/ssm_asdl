@@ -35,4 +35,8 @@ public interface RoomService extends IService<Room> {
      * @return
      */
     PageInfo queryListWithPage(RoomQueryDto roomQueryDto);
+
+    PageInfo queryCheckListWithPage(RoomQueryDto roomQueryDto);
+
+    Integer openDoor(User login, Long roomId);
 }

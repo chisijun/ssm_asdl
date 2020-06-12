@@ -7,7 +7,8 @@
     -->
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="version" property="version" jdbcType="INTEGER" />
-    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="room_no" property="roomNo" jdbcType="VARCHAR" />
     <result column="guest_type" property="guestType" jdbcType="INTEGER" />
     <result column="guest_name" property="guestName" jdbcType="VARCHAR" />
     <result column="guest_mobile" property="guestMobile" jdbcType="VARCHAR" />
@@ -24,4 +25,12 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <select id="queryListWithPage" resultType="org.study.asdl.model.domain.Order">
+    select * from t_order
+    where 1 = 1
+    <if test="mobileNo != null and mobileNo != ''">
+      AND guest_mobile = #{mobileNo}
+    </if>
+  </select>
 </mapper>

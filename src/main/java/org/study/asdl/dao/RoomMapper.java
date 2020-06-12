@@ -2,6 +2,7 @@ package org.study.asdl.dao;
 
 import org.study.asdl.model.domain.Room;
 import org.study.asdl.model.dto.RoomQueryDto;
+import org.study.asdl.model.vo.RoomVo;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface RoomMapper extends Mapper<Room> {
      *
      * @return  the list.
      */
-    List<Room> queryListWithPage(RoomQueryDto roomQueryDto);
+    List<RoomVo> queryListWithPage(RoomQueryDto roomQueryDto);
+
+    List<RoomVo> queryCheckListWithPage(RoomQueryDto roomQueryDto);
 }

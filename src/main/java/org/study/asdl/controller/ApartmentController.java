@@ -67,4 +67,13 @@ public class ApartmentController {
         return new JsonResult(true, "操作成功", pageInfo);
     }
 
+    @Authorization
+    @RequestMapping(value = "/queryById/{id}", method = RequestMethod.POST)
+    public JsonResult queryById(@PathVariable Long id) {
+
+        Apartment apartment = apartmentService.selectByKey(id);
+
+        return new JsonResult(true, "操作成功", apartment);
+    }
+
 }

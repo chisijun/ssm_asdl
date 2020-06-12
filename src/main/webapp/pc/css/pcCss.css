@@ -158,25 +158,25 @@
 
 .roomManagement .table-box .div-box span:nth-child(1),
 .roomManagement .table-box .table-head span:nth-child(1) {
-    width: 120px;
+    width: 150px;
 }
 
 .roomManagement .table-box .div-box span:nth-child(2),
 .roomManagement .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 120px;
+    width: 150px;
 }
 
 .roomManagement .table-box .div-box span:nth-child(3),
 .roomManagement .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 120px;
+    width: 130px;
 }
 
 .roomManagement .table-box .div-box span:nth-child(4),
 .roomManagement .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 120px;
+    width: 130px;
 }
 
 .roomManagement .table-box .div-box span:nth-child(5),
@@ -188,13 +188,13 @@
 .roomManagement .table-box .div-box span:nth-child(6),
 .roomManagement .table-box .table-head span:nth-child(6) {
     border-left: 1px solid #c1c3c0;
-    width: 120px;
+    width: 170px;
 }
 
 .roomManagement .table-box .div-box span:nth-child(7),
 .roomManagement .table-box .table-head span:nth-child(7) {
     border-left: 1px solid #c1c3c0;
-    width: 120px;
+    width: 200px;
 }
 
 .roomManagement .table-box .div-box span:nth-child(7) input,
@@ -482,19 +482,19 @@
 .user_list .table-box .div-box span:nth-child(3),
 .user_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 180px;
+    width: 200px;
 }
 
 .user_list .table-box .div-box span:nth-child(4),
 .user_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 180px;
+    width: 240px;
 }
 
 .user_list .table-box .div-box span:nth-child(5),
 .user_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 210px;
+    width: 240px;
 }
 
 .user_list .table-box .div-box span:nth-child(5) input,
@@ -567,31 +567,31 @@
 
 .lock_list .table-box .div-box span:nth-child(1),
 .lock_list .table-box .table-head span:nth-child(1) {
-    width: 140px;
+    width: 180px;
 }
 
 .lock_list .table-box .div-box span:nth-child(2),
 .lock_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 180px;
 }
 
 .lock_list .table-box .div-box span:nth-child(3),
 .lock_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 180px;
 }
 
 .lock_list .table-box .div-box span:nth-child(4),
 .lock_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 180px;
 }
 
 .lock_list .table-box .div-box span:nth-child(5),
 .lock_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 180px;
 }
 
 .lock_list .table-box .div-box span:nth-child(6),
@@ -617,6 +617,176 @@
     background-color: #eaeaea;
 }
 
+/********************log_list.html*************************/
+
+.log_list .table-box .div-box span:nth-child(1),
+.log_list .table-box .table-head span:nth-child(1) {
+    width: 210px;
+}
+
+.log_list .table-box .div-box span:nth-child(2),
+.log_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.log_list .table-box .div-box span:nth-child(3),
+.log_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.log_list .table-box .div-box span:nth-child(4),
+.log_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 220px;
+}
+
+.log_list .table-box .div-box span:nth-child(5),
+.log_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+/********************cmd_list.html*************************/
+
+.cmd_list .table-box .div-box span:nth-child(1),
+.cmd_list .table-box .table-head span:nth-child(1) {
+    width: 150px;
+}
+
+.cmd_list .table-box .div-box span:nth-child(2),
+.cmd_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.cmd_list .table-box .div-box span:nth-child(3),
+.cmd_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 400px;
+}
+
+.cmd_list .table-box .div-box span:nth-child(4),
+.cmd_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.cmd_list .table-box .div-box span:nth-child(5),
+.cmd_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+/********************order_list.html*************************/
+
+.order_list .table-box .div-box span:nth-child(1),
+.order_list .table-box .table-head span:nth-child(1) {
+    width: 110px;
+}
+
+.order_list .table-box .div-box span:nth-child(2),
+.order_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 100px;
+}
+
+.order_list .table-box .div-box span:nth-child(3),
+.order_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.order_list .table-box .div-box span:nth-child(4),
+.order_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.order_list .table-box .div-box span:nth-child(5),
+.order_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.order_list .table-box .div-box span:nth-child(6),
+.order_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 100px;
+}
+
+.order_list .table-box .div-box span:nth-child(7),
+.order_list .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.order_list .table-box .div-box span:nth-child(8),
+.order_list .table-box .table-head span:nth-child(8) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+/********************check_list.html*************************/
+
+.check_list .table-box .div-box span:nth-child(1),
+.check_list .table-box .table-head span:nth-child(1) {
+    width: 130px;
+}
+
+.check_list .table-box .div-box span:nth-child(2),
+.check_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.check_list .table-box .div-box span:nth-child(3),
+.check_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 150px;
+}
+
+.check_list .table-box .div-box span:nth-child(4),
+.check_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 150px;
+}
+
+.check_list .table-box .div-box span:nth-child(5),
+.check_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.check_list .table-box .div-box span:nth-child(6),
+.check_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.check_list .table-box .div-box span:nth-child(7),
+.check_list .table-box .table-head span:nth-child(7) {
+    border-left: 1px solid #c1c3c0;
+    width: 180px;
+}
+
+.check_list .table-box .div-box span:nth-child(7) input,
+.check_list .table-box .table-head span:nth-child(7) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.check_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.check_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
 
 /********************user_room.html*************************/
 

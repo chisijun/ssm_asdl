@@ -40,27 +40,31 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="t_room" domainObjectName="Room">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+<!--        <table tableName="t_room" domainObjectName="Room">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
 
-        <table tableName="t_order" domainObjectName="Order">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+<!--        <table tableName="t_order" domainObjectName="Order">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
 
-        <table tableName="t_lock" domainObjectName="Lock">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+<!--        <table tableName="t_lock" domainObjectName="Lock">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
 
-        <table tableName="t_lock_room" domainObjectName="LockRoom">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+<!--        <table tableName="t_lock_room" domainObjectName="LockRoom">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
 
-        <table tableName="t_apartment" domainObjectName="Apartment">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+<!--        <table tableName="t_apartment" domainObjectName="Apartment">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
 
-        <table tableName="t_cmd" domainObjectName="Cmd">
+<!--        <table tableName="t_cmd" domainObjectName="Cmd">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
+
+        <table tableName="t_log" domainObjectName="Log">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

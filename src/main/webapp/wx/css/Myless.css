@@ -1703,7 +1703,7 @@ body {
 }
 
 .apply_list .control p span:nth-child(1) {
-    width: 45%;
+    width: 25%;
 }
 
 .apply_list .control p span:nth-child(2) {
@@ -1711,7 +1711,7 @@ body {
 }
 
 .apply_list .control p span:nth-child(3) {
-    width: 25%;
+    width: 45%;
 }
 
 .apply_list .control .content {
@@ -1735,15 +1735,15 @@ body {
 }
 
 .apply_list .control .content p span:nth-child(1) {
-    width: 45%;
+    width: 30%;
 }
 
 .apply_list .control .content p span:nth-child(2) {
-    width: 25%;
+    width: 20%;
 }
 
 .apply_list .control .content p span:nth-child(3) {
-    width: 25%;
+    width: 45%;
 }
 
 .apply_list .control .content p:nth-child(2n-1) {
