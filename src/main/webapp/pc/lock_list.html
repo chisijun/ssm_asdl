@@ -28,7 +28,7 @@
         <!--搜索框-->
         <div class="search-box">
             
-            <input class="isPhone" type="text" placeholder="请输入公寓名称" />
+            <input class="isPhone" type="text" placeholder="请输入门锁名称" />
             <button class="searchBtn">搜索</button>
             <button class="addBtn">新建</button>
         </div>
@@ -127,9 +127,9 @@
                 var data = {
                     "pageNum": pageNo,
                     "pageSize": pageSize,
-                    "locakNo": name
+                    "lockNo": name
                 };
-                WFang("apartment/queryListWithPage", function(arr) {
+                WFang("lock/queryListWithPage", function(arr) {
                     // console.log(arr);
                     if (arr.status == false) {
                         layer.msg(arr.message);

@@ -563,6 +563,61 @@
 }
 
 
+/********************lock_list.html*************************/
+
+.lock_list .table-box .div-box span:nth-child(1),
+.lock_list .table-box .table-head span:nth-child(1) {
+    width: 140px;
+}
+
+.lock_list .table-box .div-box span:nth-child(2),
+.lock_list .table-box .table-head span:nth-child(2) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.lock_list .table-box .div-box span:nth-child(3),
+.lock_list .table-box .table-head span:nth-child(3) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.lock_list .table-box .div-box span:nth-child(4),
+.lock_list .table-box .table-head span:nth-child(4) {
+    border-left: 1px solid #c1c3c0;
+    width: 140px;
+}
+
+.lock_list .table-box .div-box span:nth-child(5),
+.lock_list .table-box .table-head span:nth-child(5) {
+    border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.lock_list .table-box .div-box span:nth-child(6),
+.lock_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
+    width: 200px;
+}
+
+.lock_list .table-box .div-box span:nth-child(6) input,
+.lock_list .table-box .table-head span:nth-child(6) input {
+    display: inline-block;
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: center;
+}
+
+.lock_list .table-box .a-save {
+    color: #ef4343;
+}
+
+.lock_list .table-body div:nth-child(2n) input {
+    background-color: #eaeaea;
+}
+
+
 /********************user_room.html*************************/
 
 .user_room .table-box .div-box span:nth-child(1),
